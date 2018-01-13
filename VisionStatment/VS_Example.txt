@@ -1,0 +1,4 @@
+
+For vision statements please format the filenames to be VS_<YOUR FIRST NAME>.<ANY FILETYPE>
+
+Feel free to use whatever file type you prefer. (txt, doc, docx, pdf, etc)
