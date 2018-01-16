@@ -1,6 +1,6 @@
-#Vision Statement - Mike 
+# Vision Statement - Mike 
 
-##Podcast App
+## Podcast App
 
 **THE PODCAST APP** is for the on-the-go listener who struggles with spotty internet connections in their daily commute, at work, or even while running errands. Unlike alternatives that always requires internet, **THE PODCAST APP** is a podcast client that doesn’t require internet access after downloading. 
 
