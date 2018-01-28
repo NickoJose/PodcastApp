@@ -14,6 +14,10 @@ public class Channel
     private Episode lastPlayed;
     private int numEps;
 
+    //TODO add required information
+
+    private Date lastUpdate;
+
     public Channel(String title , String desc, String url)
     {
         this.title = title;
@@ -21,6 +25,7 @@ public class Channel
         this.url = url;
         numEps = 0;
         lastPlayed = null;
+        lastUpdate = new Date();
     }
     //================================ GETTERS ==========================================//
     public String getTitle(){return title;}
@@ -55,4 +60,12 @@ public class Channel
         numEps++;
     }//incNumEps
 
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public EpisodeList getEpisodes() {
+        //TODO implement an episode list
+        return null;
+    }
 }//channel

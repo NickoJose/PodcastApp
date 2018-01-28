@@ -1,0 +1,30 @@
+//For Channels
+<title>
+<link> //Link to owners website
+<description>
+<pubDate>
+<category>
+<itunes:subtitle>
+<itunes:summary>
+<itunes:author>
+<itunes:category text="category">
+<itunes:owner>
+    <itunes:name>
+    <itunes:email>
+
+<itunes:new-feed-url> //Where the RSS feed will be hosted
+<itunes:image href="Location"/>
+
+//For episodes
+<item>
+<title>
+<link>
+<comments>
+<pubDate>
+<category>
+<description>
+<itunes:subtitle>
+<itunes:summary>
+<itunes:author>
+<itunes:episode>
+<itunes:image href="Location"/>

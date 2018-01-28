@@ -14,7 +14,10 @@ public class Episode
     private double length;
     private Channel ch; //channel this episode belongs to
     private double timeStamp; //if previously played, episode will resume from this point
+    private Date publishDate;
     ///something for the thumbnail...
+
+    //TODO add required information
 
     public Episode(String title, String url, String desc, double length, Channel ch)
     {
@@ -24,6 +27,10 @@ public class Episode
         this.length = length;
         this.ch = ch;
         timeStamp = 0.0;
+
+        publishDate = new Date();
+
+
     }//constructor
 
 //================================ GETTERS ==========================================//
@@ -70,20 +77,20 @@ public double getTimeStamp(){return timeStamp;}
         return ("Episode name: "+title);
     }
 
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         boolean result = false;
         Episode ep;
 
-        if(obj instanceof Episode)
-        {
-            ep = (Episode)obj;
-            if(ep.getTitle() == title && ep.getUrl() == url)
-            {
+        if (obj instanceof Episode) {
+            ep = (Episode) obj;
+            if (ep.getTitle() == title && ep.getUrl() == url) {
                 result = true;
             }
         }
         return result;
     }//equals
 
+    public Date getPublishDate() {
+        return publishDate;
+    }
 }//episode
