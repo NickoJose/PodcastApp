@@ -19,13 +19,14 @@ public class Episode
 
     //TODO add required information
 
-    public Episode(String title, String url, String desc, double length, Channel ch)
+    public Episode(String title, String url, String desc, double length, Channel ch,Date publishDate)
     {
         this.title = title;
         this.url = url;
         this.desc = desc;
         this.length = length;
         this.ch = ch;
+        this.publishDate = publishDate;
         timeStamp = 0.0;
 
         publishDate = new Date();
@@ -39,6 +40,7 @@ public String getUrl(){return url;}
 public String getDesc(){return desc;}
 public double getLength(){return length;}
 public Channel getChannel(){return ch;} //for reference to actual channel
+public Date getPublishDate(){return publishDate;}
 public String getChannelTitle(){return ch.getTitle();} //for displaying just the name of the channel
 public double getTimeStamp(){return timeStamp;}
 
