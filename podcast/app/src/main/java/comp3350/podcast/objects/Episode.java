@@ -8,23 +8,35 @@ package comp3350.podcast.objects;
 public class Episode {
     //Vars
     private String title;
+    private String subtitle;
     private String desc; //description
     private String url;
     private double length;
     private Channel ch; //channel this episode belongs to
     private double timeStamp; //if previously played, episode will resume from this point
     private Date publishDate;
+    private String author;
+    private String category; // /genre
+    private int epNum; //episode number
+
+
     ///something for the thumbnail...
 
     //TODO addEpisodes required information
 
-    public Episode(String title, String url, String desc, double length, Channel ch, Date publishDate) {
+    public Episode(String title, String url, String desc,
+                   double length, Channel ch,Date publishDate,
+                   String author, String category,int epNum)
+    {
         this.title = title;
         this.url = url;
         this.desc = desc;
         this.length = length;
         this.ch = ch;
         this.publishDate = publishDate;
+        this.author = author;
+        this.category = category;
+        this.epNum = epNum;
         timeStamp = 0.0;
 
         publishDate = new Date();
@@ -32,38 +44,18 @@ public class Episode {
 
     }//constructor
 
-    //================================ GETTERS ==========================================//
-    public String getTitle() {
-        return title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public double getLength() {
-        return length;
-    }
-
-    public Channel getChannel() {
-        return ch;
-    } //for reference to actual channel
-
-    public Date getPublishDate() {
-        return publishDate;
-    }
-
-    public String getChannelTitle() {
-        return ch.getTitle();
-    } //for displaying just the name of the channel
-
-    public double getTimeStamp() {
-        return timeStamp;
-    }
+//================================ GETTERS ==========================================//
+public String getTitle(){return title;}
+public String getUrl(){return url;}
+public String getDesc(){return desc;}
+public double getLength(){return length;}
+public Channel getChannel(){return ch;} //for reference to actual channel
+public Date getPublishDate(){return publishDate;}
+public String getChannelTitle(){return ch.getTitle();} //for displaying just the name of the channel
+public String getAuthor(){return author;}
+public String getCategory(){return category;}
+public int getEpNum(){return epNum;}
+public double getTimeStamp(){return timeStamp;}
 
 
 //================================ SETTERS ==========================================//
