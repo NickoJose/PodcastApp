@@ -2,18 +2,18 @@ package comp3350.podcast.objects;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * Created by Russell on 2018-01-27.
  */
 
 public class ChannelList implements Iterable<Channel> {
-    private LinkedList<Channel> channels;
+    private ArrayList<Channel> channels;
 
     public ChannelList() {
-        channels = new LinkedList<>();
+        channels = new ArrayList<>();
     }
 
     /**
@@ -27,6 +27,22 @@ public class ChannelList implements Iterable<Channel> {
             return false;
         } else {
             return channels.add(ch);
+        }
+    }
+
+    /**
+     * Adds a channel to the list at the specified index if the list does not contain the channel
+     *
+     * @param index - The index to overwrite
+     * @param ch - The channel to add
+     * @return - True if added, false if not added.
+     */
+    public boolean addChannel(int index, Channel ch) {
+        if (channels.contains(ch)) {
+            return false;
+        } else {
+            channels.add(index, ch);
+            return true;
         }
     }
 
@@ -82,7 +98,7 @@ public class ChannelList implements Iterable<Channel> {
     public ChannelList clone() {
         ChannelList clone = new ChannelList();
 
-        clone.channels = (LinkedList<Channel>) this.channels.clone();
+        clone.channels = (ArrayList<Channel>) this.channels.clone();
 
         return clone;
     }
@@ -125,5 +141,7 @@ public class ChannelList implements Iterable<Channel> {
     public Channel get(int index) throws IndexOutOfBoundsException{
         return channels.get(index);
     }
+
+    
 
 }

@@ -26,5 +26,5 @@
 <itunes:subtitle>
 <itunes:summary>
 <itunes:author>
-<itunes:episode>
+<itunes:episode> // Episode number
 <itunes:image href="Location"/>
