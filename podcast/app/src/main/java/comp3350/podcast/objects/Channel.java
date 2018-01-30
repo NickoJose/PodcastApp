@@ -72,9 +72,4 @@ public class Channel{
     public void incNumEps() {
         numEps++;
     }//incNumEps
-
-    public EpisodeList getEpisodes() {
-        //TODO implement an episode list
-        return null;
-    }
 }//channel

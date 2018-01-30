@@ -22,8 +22,6 @@ public class Episode {
 
     ///something for the thumbnail...
 
-    //TODO addEpisodes required information
-
     public Episode(String title, String url, String desc,
                    double length, Channel ch,Date publishDate,
                    String author, String category,int epNum)
