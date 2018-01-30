@@ -1,9 +1,11 @@
 package comp3350.podcast.objects;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Russell on 2018-01-27.
  */
-public class Date {
+public class Date implements Comparable {
 
     public int year = -1, month = -1, day = -1, hour = -1, minute = -1, second = -1;
 
@@ -29,17 +31,18 @@ public class Date {
         return false;
     }
 
-
     /**
      * Compares this date to the target date
      * if this date comes before the target return -1
      * if this date is the same as the target return 0
      * if this date comes after the target return 1
      *
-     * @param other - The date to compare against
+     * @param obj - The date to compare against
      * @return -1, 0, or 1
      */
-    public int compare(Date other) {
+    @Override
+    public int compareTo(@NonNull Object obj) {
+        Date other = (Date) obj;
         int ret;
 
         //Check all the stages on the date
@@ -51,6 +54,7 @@ public class Date {
                             ret = compareTimes(this.second, other.second);
 
         return ret;
+
     }
 
     /**
@@ -58,7 +62,7 @@ public class Date {
      * Returns 0 if thisTime is equal to otherTime
      * Returns 1 if thisTime is greater than otherTime
      *
-     * @param thisTime - The time for this object
+     * @param thisTime  - The time for this object
      * @param otherTime - The time for the other object
      * @return see description
      */

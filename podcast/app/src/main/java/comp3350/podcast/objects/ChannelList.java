@@ -17,9 +17,9 @@ public class ChannelList implements Iterable<Channel> {
     }
 
     /**
-     * Adds a channel to the list if the list does not contain the channel
+     * Appends a channel to the list if the list does not contain the channel
      *
-     * @param ch - The channel to add
+     * @param ch - The channel to addEpisodes
      * @return - True if added, false if not added.
      */
     public boolean addChannel(Channel ch) {
@@ -34,7 +34,7 @@ public class ChannelList implements Iterable<Channel> {
      * Adds a channel to the list at the specified index if the list does not contain the channel
      *
      * @param index - The index to overwrite
-     * @param ch - The channel to add
+     * @param ch    - The channel to addEpisodes
      * @return - True if added, false if not added.
      */
     public boolean addChannel(int index, Channel ch) {
@@ -126,22 +126,27 @@ public class ChannelList implements Iterable<Channel> {
 
     /**
      * Returns the index of the given channel or -1 if not contained
-     * @param ch
-     * @return
      */
-    public int indexOf(Channel ch){
+    public int indexOf(Channel ch) {
         return channels.indexOf(ch);
     }
 
     /**
      * returns the channel at the given index
+     *
      * @param index - Index of the channel
      * @return - The channel at the index
      */
-    public Channel get(int index) throws IndexOutOfBoundsException{
+    public Channel get(int index) throws IndexOutOfBoundsException {
         return channels.get(index);
     }
 
-    
-
+    /**
+     * Is this list empty
+     *
+     * @return empty?
+     */
+    public boolean isEmpty() {
+        return channels.isEmpty();
+    }
 }

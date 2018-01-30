@@ -5,8 +5,7 @@ Software Engineering group K
 package comp3350.podcast.objects;
 
 
-public class Episode
-{
+public class Episode {
     //Vars
     private String title;
     private String desc; //description
@@ -17,10 +16,9 @@ public class Episode
     private Date publishDate;
     ///something for the thumbnail...
 
-    //TODO add required information
+    //TODO addEpisodes required information
 
-    public Episode(String title, String url, String desc, double length, Channel ch,Date publishDate)
-    {
+    public Episode(String title, String url, String desc, double length, Channel ch, Date publishDate) {
         this.title = title;
         this.url = url;
         this.desc = desc;
@@ -34,15 +32,38 @@ public class Episode
 
     }//constructor
 
-//================================ GETTERS ==========================================//
-public String getTitle(){return title;}
-public String getUrl(){return url;}
-public String getDesc(){return desc;}
-public double getLength(){return length;}
-public Channel getChannel(){return ch;} //for reference to actual channel
-public Date getPublishDate(){return publishDate;}
-public String getChannelTitle(){return ch.getTitle();} //for displaying just the name of the channel
-public double getTimeStamp(){return timeStamp;}
+    //================================ GETTERS ==========================================//
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public Channel getChannel() {
+        return ch;
+    } //for reference to actual channel
+
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public String getChannelTitle() {
+        return ch.getTitle();
+    } //for displaying just the name of the channel
+
+    public double getTimeStamp() {
+        return timeStamp;
+    }
 
 
 //================================ SETTERS ==========================================//
@@ -50,11 +71,9 @@ public double getTimeStamp(){return timeStamp;}
 
     //if it didn't have one associated in the first place for some reason
     //returns false if channel doesn't exist
-    public boolean setChannel(Channel ch)
-    {  
+    public boolean setChannel(Channel ch) {
         boolean result = false;
-        if(ch != null)
-        {
+        if (ch != null) {
             this.ch = ch;
             result = true;
         }
@@ -62,21 +81,17 @@ public double getTimeStamp(){return timeStamp;}
     }//setChannel
 
     //set the Episodes timestamp given where it paused last
-    public void setTimeStamp(double t)
-    {
-        if(t <= length) //just in case
+    public void setTimeStamp(double t) {
+        if (t <= length) //just in case
         {
             timeStamp = t;
-        } 
-        else
-        {
+        } else {
             timeStamp = 0.0;
         }
     }//setTimeStamp
 
-    public String toString()
-    {
-        return ("Episode name: "+title);
+    public String toString() {
+        return ("Episode name: " + title);
     }
 
     public boolean equals(Object obj) {
@@ -91,8 +106,4 @@ public double getTimeStamp(){return timeStamp;}
         }
         return result;
     }//equals
-
-    public Date getPublishDate() {
-        return publishDate;
-    }
 }//episode
