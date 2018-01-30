@@ -207,11 +207,11 @@ public class Playlist {
             // If our channel has been updated since the last time this playlist updated addEpisodes the new
             // episodes to the episode list
             if (ch.getLastUpdate().compareTo(lastChannelUpdates.get(counter)) < 0) {
-                EpisodeList eps = ch.getEpisodes();
+                //TODO add episodes from persistence to this playlist
 
-                Iterator newEps = eps.getEpisodesAfter(lastChannelUpdates.get(counter));
+                //Iterator newEps = eps.getEpisodesAfter(lastChannelUpdates.get(counter));
 
-                episodes.addEpisodes(newEps);
+                //episodes.addEpisodes(newEps);
             }
 
             counter++;
