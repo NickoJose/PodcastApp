@@ -20,6 +20,29 @@ public class Playlist {
         channels = new ChannelList();
         lastChannelUpdates = new ArrayList<>();
     }
+    
+    /**
+     * Return the list of episodes
+     *
+     * @return -
+     */
+
+    public ArrayList<Episode> getEpisodesList() {
+        return null;
+    }
+
+    /**
+     * Return the list of channels
+     *
+     * @return -
+     */
+
+    public ArrayList<Channel> getChannelList() {
+        return null;
+    }
+    
+    
+    
 
     /**
      * Adds a Episode to the list if the list does not contain the Episode
