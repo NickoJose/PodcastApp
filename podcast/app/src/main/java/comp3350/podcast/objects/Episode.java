@@ -96,4 +96,22 @@ public double getTimeStamp(){return timeStamp;}
         }
         return result;
     }//equals
+    
+    /**
+     * Compare this episode's title/published date/category/length to the target
+     *
+     * Returns -1 if episode is less than obj
+     * Returns 0 if episode is equal than obj
+     * Returns 1 if episode is greater than obj
+     *
+     * @param obj  - episode to compare with
+     * @param var  - var to compare
+     * @return see description
+     */
+    public int compareTo(@NonNull Object obj, @NonNull Object var) { // THIS IS NOT FINAL
+        int ret = 0;
+
+
+        return ret;
+    }
 }//episode
