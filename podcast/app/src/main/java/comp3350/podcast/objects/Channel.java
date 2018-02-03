@@ -49,6 +49,24 @@ public class Channel{
     public int getNumEps(){return numEps;}
     public Date getLastUpdate(){return lastUpdate;}
 
+    /**
+     * Compare this channel's title/published date/category to the target
+     *
+     * Returns -1 if channel is less than obj
+     * Returns 0 if channel is equal than obj
+     * Returns 1 if channel is greater than obj
+     *
+     * @param obj  - channel to compare with
+     * @param var  - var to compare
+     * @return see description
+     */
+    public int compareTo(@NonNull Object obj, @NonNull Object var) { // THIS IS NOT FINAL
+        int ret = 0;
+
+
+        return ret;
+    }
+    
     public boolean equals(Object obj)
     {
         boolean result = false;
