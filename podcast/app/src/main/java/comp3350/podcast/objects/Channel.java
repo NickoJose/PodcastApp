@@ -4,6 +4,8 @@ Software Engineering group K
 */
 package comp3350.podcast.objects;
 
+import android.support.annotation.NonNull;
+
 public class Channel{
 
     //vars
@@ -49,24 +51,6 @@ public class Channel{
     public int getNumEps(){return numEps;}
     public Date getLastUpdate(){return lastUpdate;}
 
-    /**
-     * Compare this channel's title/published date/category to the target
-     *
-     * Returns -1 if channel is less than obj
-     * Returns 0 if channel is equal than obj
-     * Returns 1 if channel is greater than obj
-     *
-     * @param obj  - channel to compare with
-     * @param var  - var to compare
-     * @return see description
-     */
-    public int compareTo(@NonNull Object obj, @NonNull Object var) { // THIS IS NOT FINAL
-        int ret = 0;
-
-
-        return ret;
-    }
-    
     public boolean equals(Object obj)
     {
         boolean result = false;
@@ -82,6 +66,56 @@ public class Channel{
         }
         return result;
     }//equals
+
+    /**
+     * Compare this channel's title/published date/category to the target
+     *
+     * Returns -1 if channel var is less than var
+     * Returns 0 if channel var is equal than var
+     * Returns 1 if channel var is greater than var
+     *
+     * @param var  - var to compare
+     * @return see description
+     */
+    public int compareTo(@NonNull Object var) {
+        int ret = 0;
+
+        if (var instanceof String) // compare title
+        {
+            String otherVar = (String)var;
+            if ((ret = compareTitle(this.title, otherVar)) != 0)
+            {
+                return ret;
+            }
+        }
+
+        else if (var instanceof Date)  // compare date published
+        {
+            Date otherVar = (Date)var;
+            if ((ret = this.publishDate.compareTo(otherVar)) != 0)
+            {
+                return ret;
+            }
+        }
+
+        return ret;
+    }
+
+    private int compareTitle(String thisTitle, String otherTitle) {
+        int ret = 0;
+
+        if (thisTitle.compareTo(otherTitle) < 0)
+        {
+            ret = -1;
+        }
+
+        else if (thisTitle.compareTo(otherTitle) > 0)
+        {
+            ret = 1;
+        }
+
+        return ret;
+    }
 
     public String toString() {
         return ("Channel name: " + title);
