@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="cardWidth">275dp</dimen>
-    <dimen name="cardHeight">100dp</dimen>
+    <dimen name="cardWidth">300dp</dimen>
+    <dimen name="cardHeight">150dp</dimen>
     <dimen name="cardImgWidth">90dp</dimen>
     <dimen name="cardImgHeight">90dp</dimen>
 </resources>

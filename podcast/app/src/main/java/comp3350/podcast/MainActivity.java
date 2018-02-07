@@ -15,6 +15,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import comp3350.podcast.business.MainActivityHelper;
+import comp3350.podcast.objects.Channel;
+import comp3350.podcast.objects.Date;
+import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.EpisodeList;
 import comp3350.podcast.representation.CardViewPC;
 
@@ -24,11 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private String[] recTitles = {"Title 1", "Title 2", "Title 3", "Title 4", "Title 5"};
     private String[] recDescriptions = {"This one is about politics", "This ones about DND", "I\nLike trains", "long sentence how does the interface handle it, who knows?", "description 5"};
     private EpisodeList recList; // recommended podcasts list
+    private MainActivityHelper helper;
 
     public MainActivity()
     {
         // todo: business get recommended titles/descriptions/thumbnail url arrays
+        helper = new MainActivityHelper();
         recList = new EpisodeList();
+        recList = helper.getRecList();
     }
 
     @Override
@@ -93,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private void populateRecList(String[] titles, String[] descriptions)
     {
         int index = 0;
+        Episode temp;
         TextView title = null;
         TextView description = null;
         View view;
@@ -111,16 +119,11 @@ public class MainActivity extends AppCompatActivity {
         if (titles != null && descriptions != null) {
             if (titles.length == descriptions.length && titles.length > 0) {
 
-                for (index = 0; index < descriptions.length; index++) {
+                for (index = 0; index < recList.size(); index++) {
                     // get layouts
                     LinearLayout ll = findViewById(R.id.recLayout);
                     view = LayoutInflater.from(this).inflate(R.layout.card, ll, false);
                     recIds.add(view.getId());
-                    if (view instanceof CardViewPC)
-                    {
-                        CardViewPC a = (CardViewPC) view;
-                        a.setWhoDis(titles[index]);
-                    }
 
                     // todo: use this to load thumbnails or get rid of it
                     //Add thumbnail
@@ -137,13 +140,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                     */
 
-                    // set this cards title
-                    title = view.findViewById(R.id.recTitle);
-                    title.setText(titles[index]);
+                    temp = recList.get(index);
 
-                    // set this cards description
+                    // find this cards title
+                    title = view.findViewById(R.id.recTitle);
+
+                    // find this cards description
                     description = view.findViewById(R.id.recDsc);
-                    description.setText(descriptions[index]);
+
+                    // set this cards properties
+                    if (temp != null)
+                    {
+                        description.setText(temp.getDesc());
+                        title.setText(temp.getTitle());
+
+                        if (view instanceof CardViewPC)
+                        {
+                            CardViewPC a = (CardViewPC) view;
+                            a.setWhoDis(temp.getTitle());
+                        }
+                    }
 
                     // set listener
                     view.setOnClickListener(handler1);
