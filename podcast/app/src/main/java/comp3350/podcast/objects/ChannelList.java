@@ -15,6 +15,10 @@ public class ChannelList implements Iterable<Channel> {
     public ChannelList() {
         channels = new ArrayList<>();
     }
+    
+    public ArrayList<Channel> getChannelList() {
+        return channels;
+    }
 
     /**
      * Appends a channel to the list if the list does not contain the channel
