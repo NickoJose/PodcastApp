@@ -16,6 +16,10 @@ public class EpisodeList implements Iterable<Episode> {
     public EpisodeList() {
         episodes = new ArrayList<>();
     }
+    
+    public ArrayList<Episode> getEpisodeList() {
+        return episodes;
+    }
 
     /**
      * Adds a Episode to the list if the list does not contain the Episode
