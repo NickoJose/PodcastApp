@@ -28,7 +28,7 @@ public class Playlist {
      */
 
     public ArrayList<Episode> getEpisodesList() {
-        return null;
+        return episodes.getEpisodeList();
     }
 
     /**
@@ -38,12 +38,9 @@ public class Playlist {
      */
 
     public ArrayList<Channel> getChannelList() {
-        return null;
+        return channels.getChannelList();
     }
     
-    
-    
-
     /**
      * Adds a Episode to the list if the list does not contain the Episode
      *
