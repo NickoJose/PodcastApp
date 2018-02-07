@@ -7,6 +7,7 @@ package comp3350.podcast.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.podcast.application.Main;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
@@ -23,14 +24,14 @@ public class StubData {
         this.dbName = dbName;
     }
 
-    //public DataAccessStub() {this(Main.dbName);}    Needs main?
+    public StubData() {this(Main.dbName);}    
 
     public void open(String dbName) {
         Channel channel;
         Episode episode;
 
-        channels = new ArrayList<Channel>();
-        episodes = new ArrayList<Episode>();
+        channels = new ArrayList<>();
+        episodes = new ArrayList<>();
         playlist = new Playlist();
 
         channel = new Channel("The Joe Rogan Experience", "The Joe Rogan Experience podcast is a long form conversation hosted by comedian, " +
@@ -60,7 +61,7 @@ public class StubData {
         channels.get(0).incNumEps();
         episodes.add(episode);
         episode = new Episode("#890 - Fight Breakdown", "http://traffic.libsyn.com/joeroganexp/p890.mp3?dest-id=19997",
-                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 229.39, channels.get(0) , createDate(2016, 12,
+                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 3.49, channels.get(0) , createDate(2016, 12,
                 27, 0, 0, 0), "Joe Rogan", "Sports", 890);
         channels.get(0).incNumEps();
         episodes.add(episode);
@@ -151,26 +152,28 @@ public class StubData {
         return playlist;
     }
 
-    // get all channels
     public String getChannelSequential(List<Channel> channelResult) {
         channelResult.addAll(channels);
         return null;
     }
 
-    // add a channel
     public String insertChannel(Channel currentChannel)
-    {
-        // don't bother checking for duplicates
-        channels.add(currentChannel);
-        return null;
-    }
-
-    // delete a channel
-    public String deleteChannel(Channel currentStudent)
     {
         int index;
 
-        index = channels.indexOf(currentStudent);
+        index = channels.indexOf(currentChannel);
+        if (index < 0) // check duplicates
+        {
+            channels.add(currentChannel);
+        }
+        return null;
+    }
+
+    public String deleteChannel(Channel currentChannel)
+    {
+        int index;
+
+        index = channels.indexOf(currentChannel);
         if (index >= 0)
         {
             channels.remove(index);
@@ -178,34 +181,63 @@ public class StubData {
         return null;
     }
 
-    // get all episodes of a channel
-    public void getChannelEpisodeSequential(List<Episode> episodeResult, Channel currentChannel)
+    public String updateChannel(Channel currentChannel)
     {
-        Channel result =  null;
-        boolean found = false;
-        for (int i = 0; i < channels.size() && !found; i++) {
-            if (channels.get(i).equals(currentChannel)) {
-                result = channels.get(i);
-                found = true;
+        int index;
+
+        index = channels.indexOf(currentChannel);
+        if (index >= 0)
+        {
+            channels.set(index, currentChannel);
+        }
+        return null;
+    }
+
+    public ArrayList<Episode> getChannelEpisodeList(Channel currentChannel)
+    {
+        ArrayList<Episode> channelEpisodeList = new ArrayList<>();
+        int index;
+
+        index = channels.indexOf(currentChannel);
+        if (index >= 0)
+        {
+            for (int i = 0; i < episodes.size(); i++) {
+                if (episodes.get(i).getChannel().equals(currentChannel)) {
+                    channelEpisodeList.add(episodes.get(i));
+                }
             }
         }
 
-        for (int i = 0; i < episodes.size(); i++) {
-            if (episodes.get(i).getChannel().equals(result)) {
-                episodeResult.add(episodes.get(i));
+        return channelEpisodeList;
+    }
+
+    // get all episodes of a channel
+    public String getChannelEpisodeSequential(List<Episode> episodeResult, Channel currentChannel)
+    {
+        int index;
+
+        index = channels.indexOf(currentChannel);
+        if (index >= 0)
+        {
+            for (int i = 0; i < episodes.size(); i++) {
+                if (episodes.get(i).getChannel().equals(currentChannel)) {
+                    episodeResult.add(episodes.get(i));
+                }
             }
         }
+        return null;
     }
 
     // add an episode
-    public void insertEpisode(Episode currentEpisode)
+    public String insertEpisode(Episode currentEpisode)
     {
         // don't bother checking for duplicates
         episodes.add(currentEpisode);
+        return null;
     }
 
     // delete an episode
-    public void deleteEpisode(Episode currentEpisode)
+    public String deleteEpisode(Episode currentEpisode)
     {
         int index;
 
@@ -214,8 +246,38 @@ public class StubData {
         {
             episodes.remove(index);
         }
+        return null;
+    }
+
+    public String updateEpisode(Episode currentEpisode)
+    {
+        int index;
+
+        index = episodes.indexOf(currentEpisode);
+        if (index >= 0)
+        {
+            episodes.set(index, currentEpisode);
+        }
+        return null;
+    }
+
+    public boolean insertPlaylistChannel(Channel currentChannel)
+    {
+        return playlist.addChannel(currentChannel);
+    }
+
+    public boolean insertPlaylistEpisode(Episode currentEpisode)
+    {
+        return playlist.addEpisode(currentEpisode);
+    }
+
+    public boolean deletePlaylistChannel(Channel currentChannel)
+    {
+        return playlist.removeChannel(currentChannel);
+    }
+
+    public boolean deletePlaylistEpisode(Episode currentEpisode)
+    {
+        return playlist.removeEpisode(currentEpisode);
     }
 }
-
-
-
