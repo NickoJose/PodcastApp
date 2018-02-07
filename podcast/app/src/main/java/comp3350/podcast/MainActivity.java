@@ -24,9 +24,6 @@ import comp3350.podcast.representation.CardViewPC;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> recIds = new ArrayList<Integer>();
-    private String[] recThumbNails = {""};
-    private String[] recTitles = {"Title 1", "Title 2", "Title 3", "Title 4", "Title 5"};
-    private String[] recDescriptions = {"This one is about politics", "This ones about DND", "I\nLike trains", "long sentence how does the interface handle it, who knows?", "description 5"};
     private EpisodeList recList; // recommended podcasts list
     private MainActivityHelper helper;
 
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        populateRecList(recTitles, recDescriptions);
+        populateRecList();
 
         Button btn = findViewById(R.id.newPlaylist);
         btn.setOnClickListener(playlistHandler);
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Populates recommended video list.
-    private void populateRecList(String[] titles, String[] descriptions)
+    private void populateRecList()
     {
         int index = 0;
         Episode temp;
@@ -116,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         // update titles
-        if (titles != null && descriptions != null) {
-            if (titles.length == descriptions.length && titles.length > 0) {
 
                 for (index = 0; index < recList.size(); index++) {
                     // get layouts
@@ -165,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
                     view.setOnClickListener(handler1);
                     ll.addView(view);
                 }
-            }
-        }
     }
 
 
