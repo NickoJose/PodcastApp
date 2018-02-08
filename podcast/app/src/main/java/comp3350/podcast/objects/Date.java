@@ -9,6 +9,47 @@ public class Date implements Comparable {
 
     public int year = -1, month = -1, day = -1, hour = -1, minute = -1, second = -1;
 
+    public Date() {
+    }
+
+    public Date(int year) {
+        this.year = year;
+    }
+
+    public Date(int year, int month) {
+        this.year = year;
+        this.month = month;
+    }
+
+    public Date(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public Date(int year, int month, int day, int hour) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+    }
+
+    public Date(int year, int month, int day, int hour, int minute) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+    }
+
+    public Date(int year, int month, int day, int hour, int minute, int second) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+    }
 
     /**
      * returns true if all parts of this date are equal to target object (year, month, day, etc).
