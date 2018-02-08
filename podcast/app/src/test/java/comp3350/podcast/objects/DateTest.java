@@ -45,6 +45,7 @@ public class DateTest {
         assertEquals( blank.compareTo(blank), 0);
         assertEquals( date.compareTo(date), 0);
         assertEquals( date.compareTo(dateCopy), 0);
+        assertEquals(date.compareTo(plusYear), -1);
         assertEquals( date.compareTo(plusSecond), -1);
         assertEquals( plusYear.compareTo(date), 1);
     }

@@ -87,11 +87,11 @@ public class Date implements Comparable {
         int ret;
 
         //Check all the stages on the date
-        if ((ret = compareTimes(this.year, other.year)) != 0)
-            if ((ret = compareTimes(this.month, other.month)) != 0)
-                if ((ret = compareTimes(this.day, other.day)) != 0)
-                    if ((ret = compareTimes(this.hour, other.hour)) != 0)
-                        if ((ret = compareTimes(this.minute, other.minute)) != 0)
+        if ((ret = compareTimes(this.year, other.year)) == 0)
+            if ((ret = compareTimes(this.month, other.month)) == 0)
+                if ((ret = compareTimes(this.day, other.day)) == 0)
+                    if ((ret = compareTimes(this.hour, other.hour)) == 0)
+                        if ((ret = compareTimes(this.minute, other.minute)) == 0)
                             ret = compareTimes(this.second, other.second);
 
         return ret;
