@@ -119,7 +119,25 @@ public class SortTest {
         }
 
         try {
+            Sort.channel(null, "date");
+            fail("NPE expected");
+        } catch (NullPointerException npe) {
+        }
+
+        try {
             Sort.episode(null,"title");
+            fail("NPE expected");
+        } catch (NullPointerException npe) {
+        }
+
+        try {
+            Sort.episode(null,"date");
+            fail("NPE expected");
+        } catch (NullPointerException npe) {
+        }
+
+        try {
+            Sort.episode(null,"length");
             fail("NPE expected");
         } catch (NullPointerException npe) {
         }
@@ -167,6 +185,34 @@ public class SortTest {
         assertTrue(compareEpisodeLists(epCopy, episodeList));
 
         System.out.println("Finished SortTest: invalid type");
+    }
+
+    @Test
+    public void testEmptyList()
+    {
+        System.out.println("\nStarting SortTest: empty list");
+        chCopy = new ArrayList<>();
+        epCopy = new ArrayList<>();
+
+        ArrayList<Channel> chTemp = new ArrayList<>();
+        ArrayList<Episode> epTemp = new ArrayList<>();
+
+        Sort.channel(chCopy, "title");
+        assertTrue(compareChannelLists(chTemp, chCopy));
+
+        Sort.channel(chCopy, "date");
+        assertTrue(compareChannelLists(chTemp, chCopy));
+
+        Sort.episode(epCopy, "title");
+        assertTrue(compareEpisodeLists(epTemp, epCopy));
+
+        Sort.episode(epCopy, "date");
+        assertTrue(compareEpisodeLists(epTemp, epCopy));
+
+        Sort.episode(epCopy, "length");
+        assertTrue(compareEpisodeLists(epTemp, epCopy));
+
+        System.out.println("Finished SortTest: empty list");
     }
 
     @Test
