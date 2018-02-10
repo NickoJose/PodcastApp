@@ -1,20 +1,15 @@
 package comp3350.podcast.objects;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 /**
  * Created by Russell on 2018-01-27.
+ *
+ * Same as an array list except doesn't accept doubles.
  */
-
-public class ChannelList implements Iterable<Channel> {
-    private ArrayList<Channel> channels;
-
-    public ChannelList() {
-        channels = new ArrayList<>();
-    }
+public class ChannelList extends ArrayList<Channel>{
 
     /**
      * Appends a channel to the list if the list does not contain the channel
@@ -22,11 +17,15 @@ public class ChannelList implements Iterable<Channel> {
      * @param ch - The channel to addEpisodes
      * @return - True if added, false if not added.
      */
-    public boolean addChannel(Channel ch) {
-        if (channels.contains(ch)) {
+    @Override
+    public boolean add(Channel ch) {
+        if(ch == null){
+            throw new NullPointerException("Channel must not be Null");
+        }
+        if (contains(ch)) {
             return false;
         } else {
-            return channels.add(ch);
+            return super.add(ch);
         }
     }
 
@@ -37,70 +36,14 @@ public class ChannelList implements Iterable<Channel> {
      * @param ch    - The channel to addEpisodes
      * @return - True if added, false if not added.
      */
-    public boolean addChannel(int index, Channel ch) {
-        if (channels.contains(ch)) {
-            return false;
-        } else {
-            channels.add(index, ch);
-            return true;
-        }
-    }
-
-    /**
-     * Removes a channel from the list
-     *
-     * @param ch - The channel to remove
-     * @return - True if removed, false if not removed
-     */
-    public boolean removeChannel(Channel ch) {
-        if (channels.contains(ch)) {
-            return channels.remove(ch);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Does this sublist contain the given channel
-     *
-     * @param ch - The channel
-     * @return - If the list contains the channel
-     */
-    public boolean contains(Channel ch) {
-        return channels.contains(ch);
-    }
-
-    /**
-     * @return - The amount of elements in the list
-     */
-    public int size() {
-        return channels.size();
-    }
-
-    /**
-     * Returns an iterator with the channels
-     *
-     * @return - Iterator with channels
-     */
-    @NonNull
     @Override
-    public Iterator<Channel> iterator() {
-        return channels.iterator();
-    }
-
-
-    /**
-     * Returns a clone of this Channel List
-     *
-     * @return - Channel List that is a clone
-     */
-    @Override
-    public ChannelList clone() {
-        ChannelList clone = new ChannelList();
-
-        clone.channels = (ArrayList<Channel>) this.channels.clone();
-
-        return clone;
+    public void add(int index, Channel ch) {
+        if(ch == null){
+            throw new NullPointerException("Channel must not be Null");
+        }
+        if (!contains(ch)) {
+            super.add(index, ch);
+        }
     }
 
     @Override
@@ -122,31 +65,5 @@ public class ChannelList implements Iterable<Channel> {
             return false;
 
         return true;
-    }
-
-    /**
-     * Returns the index of the given channel or -1 if not contained
-     */
-    public int indexOf(Channel ch) {
-        return channels.indexOf(ch);
-    }
-
-    /**
-     * returns the channel at the given index
-     *
-     * @param index - Index of the channel
-     * @return - The channel at the index
-     */
-    public Channel get(int index) throws IndexOutOfBoundsException {
-        return channels.get(index);
-    }
-
-    /**
-     * Is this list empty
-     *
-     * @return empty?
-     */
-    public boolean isEmpty() {
-        return channels.isEmpty();
     }
 }

@@ -1,34 +1,41 @@
 package comp3350.podcast.objects;
 
 
+import android.support.v4.os.IResultReceiver;
+
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedList;
+
+import comp3350.podcast.persistence.StubData;
 
 /**
  * Created by Russell on 2018-01-27.
+ *
+ * TODO: Nothing to test because it wraps a bunch of already tested methods, and update is not required yet
  */
 public class Playlist {
 
     private EpisodeList episodes;
     private ChannelList channels;
 
-    private ArrayList<Date> lastChannelUpdates;
+    private Hashtable<Channel, Date> lastChannelUpdates;
 
     public Playlist() {
         super();
         episodes = new EpisodeList();
         channels = new ChannelList();
-        lastChannelUpdates = new ArrayList<>();
+        lastChannelUpdates = new Hashtable<>();
     }
 
     /**
      * Adds a Episode to the list if the list does not contain the Episode
      *
      * @param ep - The Episode to add
-     * @return - True if added, false if not added.
      */
-    public boolean addEpisode(int index, Episode ep) {
-        return episodes.addEpisode(index, ep);
+    public void addEpisode(int index, Episode ep) {
+        episodes.add(index, ep);
     }
 
     /**
@@ -38,7 +45,7 @@ public class Playlist {
      * @return - True if removed, false if not removed
      */
     public boolean removeEpisode(Episode ep) {
-        return episodes.removeEpisode(ep);
+        return episodes.remove(ep);
     }
 
     /**
@@ -84,24 +91,17 @@ public class Playlist {
         return episodes.get(index);
     }
 
-    public Iterator<Episode> getEpisodesAfter(Date date) {
+    public EpisodeList getEpisodesAfter(Date date) {
         return episodes.getEpisodesAfter(date);
     }
 
     /**
      * Adds multiple episodes
-     */
-    public void addEpisodes(EpisodeList newEps) {
-        episodes.addEpisodes(newEps);
-    }
-
-    /**
-     * Adds multiple episodes to the list
      *
-     * @param newEps - The episodes to list
+     * @param newEpisodes - An iterable object containing the new episodes (dupes won't be added)
      */
-    public void addEpisodes(Iterator<Episode> newEps) {
-        episodes.addEpisodes(newEps);
+    public void addEpisodes(Iterable<Episode> newEpisodes) {
+        episodes.add(newEpisodes);
     }
 
     /**
@@ -111,8 +111,8 @@ public class Playlist {
      * @return - True if added, false if not added.
      */
     public boolean addChannel(Channel ch) {
-        lastChannelUpdates.add(new Date());
-        return channels.addChannel(ch);
+        lastChannelUpdates.put(ch, new Date());
+        return channels.add(ch);
     }
 
     /**
@@ -122,9 +122,9 @@ public class Playlist {
      * @param ch    - The channel to addEpisodes
      * @return - True if added, false if not added.
      */
-    public boolean addChannel(int index, Channel ch) {
-        lastChannelUpdates.add(index, new Date());
-        return channels.addChannel(index, ch);
+    public void addChannel(int index, Channel ch) {
+        lastChannelUpdates.put(ch, new Date());
+        channels.add(index, ch);
     }
 
     /**
@@ -136,8 +136,8 @@ public class Playlist {
     public boolean removeChannel(Channel ch) {
 
         if (channels.contains(ch)) {
-            lastChannelUpdates.remove(channels.indexOf(ch));
-            return channels.removeChannel(ch);
+            lastChannelUpdates.remove(ch);
+            return channels.remove(ch);
         }
 
         return false;
@@ -192,32 +192,56 @@ public class Playlist {
      * @return - True if added, false if not added.
      */
     public boolean addEpisode(Episode ep) {
-        return episodes.addEpisode(ep);
+        return episodes.add(ep);
     }
 
     public boolean update() {
+        // TODO update update, this is a temporary method, Do not test until it is required to be implmented
         boolean updated = false;
 
         Iterator channelIter = channels.iterator();
         int counter = 0;
 
+        StubData data = new StubData("LIES");
+        Channel ch;
+        EpisodeList eps;
+        Iterator iter;
+
         while (channelIter.hasNext()) {
-            Channel ch = (Channel) channelIter.next();
+            ch = (Channel) channelIter.next();
 
-            // If our channel has been updated since the last time this playlist updated addEpisodes the new
-            // episodes to the episode list
-            if (ch.getLastUpdate().compareTo(lastChannelUpdates.get(counter)) < 0) {
-                //TODO add episodes from persistence to this playlist
+            // If our channel has been updated since the last time this playlist updated addEpisodes
+            // the new episodes to the episode list
+            if (ch.getLastUpdate().compareTo(lastChannelUpdates.get(ch)) < 0) {
+                updated = true;
 
-                //Iterator newEps = eps.getEpisodesAfter(lastChannelUpdates.get(counter));
+                //TODO Temporary way of getting episodes from persistence, will be optimized in later iteration
+                eps = new EpisodeList();
+                data.getChannelEpisodeSequential(eps, ch);
 
-                //episodes.addEpisodes(newEps);
+                episodes.add(eps.getEpisodesAfter(lastChannelUpdates.get(ch)));
             }
 
             counter++;
         }
 
         return updated;
+    }
+
+    /**
+     * Get this playlists channel list
+     * @return
+     */
+    public ChannelList getChannels(){
+        return channels;
+    }
+
+    /**
+     * This playlists episode list
+     * @return
+     */
+    public EpisodeList getEpisodes(){
+        return episodes;
     }
 
 
