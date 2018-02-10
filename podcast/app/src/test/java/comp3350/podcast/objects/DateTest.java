@@ -10,13 +10,13 @@ import static org.junit.Assert.*;
  */
 public class DateTest {
 
-    Date blank = new Date();
+    private Date blank = new Date();
 
-    Date date = null;
-    Date dateCopy = null;
-    Date plusSecond = null;
-    Date plusYear = null;
-    Date nullDate = null;
+    private Date date = null;
+    private Date dateCopy = null;
+    private Date plusSecond = null;
+    private Date plusYear = null;
+    private Date nullDate = null;
 
     @Before
     public void setUp() throws Exception {
