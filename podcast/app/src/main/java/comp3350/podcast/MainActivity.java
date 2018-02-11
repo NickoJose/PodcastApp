@@ -2,6 +2,7 @@ package comp3350.podcast;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -15,35 +16,43 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import comp3350.podcast.business.MainActivityHelper;
-import comp3350.podcast.objects.Channel;
-import comp3350.podcast.objects.Date;
+import comp3350.podcast.application.Main;
+import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.objects.Episode;
-import comp3350.podcast.objects.EpisodeList;
 import comp3350.podcast.representation.CardViewPC;
+import comp3350.podcast.representation.viewEpisode;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Integer> recIds = new ArrayList<Integer>();
-    private EpisodeList recList; // recommended podcasts list
-    private MainActivityHelper helper;
-
-    public MainActivity()
-    {
-        // todo: business get recommended titles/descriptions/thumbnail url arrays
-        helper = new MainActivityHelper();
-        recList = new EpisodeList();
-        recList = helper.getRecList();
-    }
+    private ArrayList<Integer> recIds;
+    private ArrayList<Episode> recList;
+    private AccessEpisodes accessEpisodes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Main.startUp();
         setContentView(R.layout.activity_main);
 
-        populateRecList();
+        recIds = new ArrayList<>();
+        recList = new ArrayList<>();
+        accessEpisodes = new AccessEpisodes();
+        String result = accessEpisodes.getEpisodes(recList);
+
+        if (result == null)
+        {
+            populateRecList();
+        }
+
 
         Button btn = findViewById(R.id.newPlaylist);
         btn.setOnClickListener(playlistHandler);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Main.shutDown();
     }
 
     View.OnClickListener playlistHandler = new View.OnClickListener()
@@ -108,6 +117,21 @@ public class MainActivity extends AppCompatActivity {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
                     Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+
+                    Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
+                    Bundle b = new Bundle();
+                    b.putString("title", a.getEp().getTitle());
+                    b.putString("author", a.getEp().getAuthor());
+                    b.putString("url", a.getEp().getUrl());
+                    b.putString("desc", a.getEp().getDesc());
+                    b.putString("category", a.getEp().getCategory());
+                    b.putDouble("length", a.getEp().getLength());
+                    b.putInt("epnum", a.getEp().getEpNum());
+                    String date = a.getEp().getPublishDate().year + "/" + a.getEp().getPublishDate().month
+                            + "/" + a.getEp().getPublishDate().day;
+                    b.putString("date", date);
+                    episodeIntent.putExtras(b);
+                    startActivity(episodeIntent);
                 }
             }
         };
@@ -153,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             CardViewPC a = (CardViewPC) view;
                             a.setWhoDis(temp.getTitle());
+                            a.setEp(temp);
                         }
                     }
 
