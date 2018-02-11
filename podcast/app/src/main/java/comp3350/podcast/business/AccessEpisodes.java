@@ -28,12 +28,18 @@ public class AccessEpisodes
         currentEpisode = 0;
     }
 
-    public String getEpisodes(List<Episode> episodes, Channel currentChannel)
+    public String getEpisodes(List<Episode> episodes)
+    {
+        episodes.clear();
+        return accessData.getEpisodesSequential(episodes);
+    }
+
+    public String getChannelEpisodes(List<Episode> episodes, Channel currentChannel)
     {
         episodes.clear();
         return accessData.getChannelEpisodeSequential(episodes, currentChannel);
     }
-
+    
     public Episode getSequential(Channel currentChannel)
     {
         String result = null;
