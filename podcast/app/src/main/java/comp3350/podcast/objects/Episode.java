@@ -7,7 +7,9 @@ package comp3350.podcast.objects;
 
 import android.support.annotation.NonNull;
 
-public class Episode {
+import java.io.Serializable;
+
+public class Episode implements Serializable {
     //Vars
     private String title;
     private String subtitle;
@@ -92,7 +94,7 @@ public double getTimeStamp(){return timeStamp;}
 
         if (obj instanceof Episode) {
             ep = (Episode) obj;
-            if (ep.getTitle() == title && ep.getUrl() == url) {
+            if (ep.getTitle().equals(title) && ep.getUrl().equals(url)) {
                 result = true;
             }
         }

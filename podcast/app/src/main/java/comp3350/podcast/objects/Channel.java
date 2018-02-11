@@ -6,7 +6,9 @@ package comp3350.podcast.objects;
 
 import android.support.annotation.NonNull;
 
-public class Channel{
+import java.io.Serializable;
+
+public class Channel implements Serializable{
 
     //vars
     private String title;
@@ -59,7 +61,7 @@ public class Channel{
         if(obj instanceof Channel)
         {
             ch = (Channel)obj;
-            if(ch.getTitle() == title && ch.getUrl() == url)
+            if(ch.getTitle().equals(title) && ch.getUrl().equals(url))
             {
                 result = true;
             }

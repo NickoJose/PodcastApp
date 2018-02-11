@@ -2,10 +2,12 @@ package comp3350.podcast.objects;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Created by Russell on 2018-01-27.
  */
-public class Date implements Comparable {
+public class Date implements Comparable, Serializable {
 
     public int year = -1, month = -1, day = -1, hour = -1, minute = -1, second = -1;
 

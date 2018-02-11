@@ -15,7 +15,7 @@ import comp3350.podcast.objects.*;
 
 import comp3350.podcast.R;
 import comp3350.podcast.objects.Episode;
-
+import java.io.Serializable;
 
 
 public class viewEpisode extends AppCompatActivity {
@@ -28,14 +28,19 @@ public class viewEpisode extends AppCompatActivity {
     private String date;
     private Double length;
     private int epnum;
+    private String chName;
+    private Channel ch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_episode);
 
-        Bundle b = getIntent().getExtras();
-        title = b.getString("title");
+
+
+
+
+       /* title = b.getString("title");
         author = b.getString("author");
         url = b.getString("url");
         desc = b.getString("desc");
@@ -43,6 +48,19 @@ public class viewEpisode extends AppCompatActivity {
         date = b.getString("date");
         length = b.getDouble("length");
         epnum = b.getInt("epnum");
+*/
+        Episode ep = (Episode)getIntent().getSerializableExtra("episode");
+        title = ep.getTitle();
+        author = ep.getAuthor();
+        url = ep.getUrl();
+        desc = ep.getDesc();
+        category = ep.getCategory();
+        date = ep.getPublishDate().toString();
+        length = ep.getLength();
+        epnum = ep.getEpNum();
+        chName = ep.getChannelTitle();
+        ch = ep.getChannel();
+
 
         Button channelButton = findViewById(R.id.back_to_channel);
         channelButton.setOnClickListener(backToChannel);
@@ -57,7 +75,11 @@ public class viewEpisode extends AppCompatActivity {
     View.OnClickListener backToChannel = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(viewEpisode.this,viewChannel.class));
+            Intent channelIntent = new Intent(viewEpisode.this,viewChannel.class);
+            Bundle b = new Bundle();
+            b.putSerializable("channel",ch);
+            channelIntent.putExtras(b);
+            startActivity(channelIntent);
         }
     };
 
@@ -73,7 +95,8 @@ public class viewEpisode extends AppCompatActivity {
         newText.setText("Category:\t"+category+"\n"
                 +"Publish Date:\t"+date+"\n"
                 +"Length:\t"+length+"\n"
-                +"Episode #:\t"+epnum);
+                +"Episode #:\t"+epnum+"\n"
+                +"Channel:\t"+chName);
 
 
         newText = (TextView) findViewById(R.id.description);

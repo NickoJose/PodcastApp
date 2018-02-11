@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import java.io.Serializable;
+
 import comp3350.podcast.application.Main;
 import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.objects.Episode;
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();
-                    b.putString("title", a.getEp().getTitle());
+                    /*b.putString("title", a.getEp().getTitle());
                     b.putString("author", a.getEp().getAuthor());
                     b.putString("url", a.getEp().getUrl());
                     b.putString("desc", a.getEp().getDesc());
@@ -130,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
                     String date = a.getEp().getPublishDate().year + "/" + a.getEp().getPublishDate().month
                             + "/" + a.getEp().getPublishDate().day;
                     b.putString("date", date);
+                    */
+                    b.putSerializable("episode", a.getEp());
                     episodeIntent.putExtras(b);
                     startActivity(episodeIntent);
                 }
