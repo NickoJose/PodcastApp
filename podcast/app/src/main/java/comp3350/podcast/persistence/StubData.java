@@ -108,12 +108,12 @@ public class StubData {
 
         playlist.addChannel(channels.get(0));
         playlist.addChannel(channels.get(2));
-        playlist.addChannel(channels.get(1));
 
-        playlist.addEpisode(episodes.get(4));
+        playlist.addEpisode(episodes.get(0));
         playlist.addEpisode(episodes.get(2));
+        playlist.addEpisode(episodes.get(6));
         playlist.addEpisode(episodes.get(7));
-        playlist.addEpisode(episodes.get(1));
+        playlist.addEpisode(episodes.get(8));
 
 
         System.out.println("Opened " +dbType +" database " +dbName);
@@ -135,21 +135,6 @@ public class StubData {
         date.second = objSecond;
 
         return date;
-    }
-    // getters
-    public ArrayList<Channel> getChannelList()
-    {
-        return channels;
-    }
-
-    public ArrayList<Episode> getEpisodeList()
-    {
-        return episodes;
-    }
-
-    public Playlist getPlaylist()
-    {
-        return playlist;
     }
 
     public String getChannelSequential(List<Channel> channelResult) {
@@ -193,22 +178,10 @@ public class StubData {
         return null;
     }
 
-    public ArrayList<Episode> getChannelEpisodeList(Channel currentChannel)
+    public String getEpisodesSequential(List<Episode> episodeResult)
     {
-        ArrayList<Episode> channelEpisodeList = new ArrayList<>();
-        int index;
-
-        index = channels.indexOf(currentChannel);
-        if (index >= 0)
-        {
-            for (int i = 0; i < episodes.size(); i++) {
-                if (episodes.get(i).getChannel().equals(currentChannel)) {
-                    channelEpisodeList.add(episodes.get(i));
-                }
-            }
-        }
-
-        return channelEpisodeList;
+        episodeResult.addAll(episodes);
+        return null;
     }
 
     // get all episodes of a channel
@@ -227,7 +200,7 @@ public class StubData {
         }
         return null;
     }
-
+    
     // add an episode
     public String insertEpisode(Episode currentEpisode)
     {
@@ -260,6 +233,18 @@ public class StubData {
         }
         return null;
     }
+    
+    public String getPlaylistChannelSequential(List<Channel> channelResult)
+    {
+        channelResult.addAll(playlist.getChannels());
+        return null;
+    }
+
+    public String getPlayListEpisodeSequential(List<Episode> episodeResult)
+    {
+        episodeResult.addAll(playlist.getEpisodes());
+        return null;
+    }
 
     public boolean insertPlaylistChannel(Channel currentChannel)
     {
@@ -280,4 +265,6 @@ public class StubData {
     {
         return playlist.removeEpisode(currentEpisode);
     }
+
+
 }
