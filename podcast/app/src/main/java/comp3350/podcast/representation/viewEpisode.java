@@ -51,7 +51,6 @@ public class viewEpisode extends AppCompatActivity {
         playButton.setOnClickListener(play);
 
         //Toast.makeText(getApplicationContext(),"Test Toast",Toast.LENGTH_LONG).show();
-
         updateText();
 
     }
