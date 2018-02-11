@@ -28,16 +28,16 @@ public class AccessPlaylists
         currentEpisode = 0;
     }
 
-    public boolean getPlaylistChannels(List<Channel> channels)
+    public String getPlaylistChannels(List<Channel> channels)
     {
-        return false;
-        //TODO  return all channels from PLaylist
+        channels.clear();
+        return accessData.getPlaylistChannelSequential(channels);
     }
 
-    public boolean getPlaylistEpisodes(List<Episode> episodes)
+    public String getPlaylistEpisodes(List<Episode> episodes)
     {
-        return false;
-        //TODO  return all episodes from PLaylist
+        episodes.clear();
+        return accessData.getPlayListEpisodeSequential(episodes);
     }
 
     public boolean insertPlaylistChannel(Channel currentChannel)
