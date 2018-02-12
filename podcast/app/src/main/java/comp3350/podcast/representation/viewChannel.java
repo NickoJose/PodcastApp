@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -42,7 +43,6 @@ public class viewChannel extends AppCompatActivity {
         populateList();
     }
 
-    // TODO make list entries go to relevant episode on click
     public void populateList()
     {
 
@@ -51,6 +51,17 @@ public class viewChannel extends AppCompatActivity {
         ArrayAdapter<Episode> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,eps);
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(viewChannel.this,viewEpisode.class);
+                Bundle b = new Bundle();
+                b.putSerializable("episode",eps.get(position));
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
 
 
     }
