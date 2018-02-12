@@ -4,3 +4,6 @@
 **/build/*
 **/app/build/*
 **/gradle/*
+
+# don't ignore
+!*/build.gradle

@@ -5,7 +5,11 @@ Software Engineering group K
 package comp3350.podcast.objects;
 
 
-public class Episode {
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class Episode implements Serializable {
     //Vars
     private String title;
     private String subtitle;
@@ -81,7 +85,7 @@ public double getTimeStamp(){return timeStamp;}
     }//setTimeStamp
 
     public String toString() {
-        return ("Episode name: " + title);
+        return ("Episode #"+epNum+"\t\"" + title+"\"");
     }
 
     public boolean equals(Object obj) {
@@ -90,10 +94,85 @@ public double getTimeStamp(){return timeStamp;}
 
         if (obj instanceof Episode) {
             ep = (Episode) obj;
-            if (ep.getTitle() == title && ep.getUrl() == url) {
+            if (ep.getTitle().equals(title) && ep.getUrl().equals(url)) {
                 result = true;
             }
         }
         return result;
     }//equals
+
+    /**
+     * Compare this episode's title/published date/category/length to the target
+     *
+     * Returns -1 if episode var is less than var
+     * Returns 0 if episode var is equal than var
+     * Returns 1 if episode var is greater than var
+     *
+     * @param var  - var to compare
+     * @return see description
+     */
+    public int compareTo(@NonNull Object var) {
+        int ret = 0;
+
+        if (var instanceof String) // compare title
+        {
+            String otherVar = (String)var;
+            if ((ret = compareTitle(this.title, otherVar)) != 0)
+            {
+                return ret;
+            }
+        }
+
+        else if (var instanceof Date)  // compare date published
+        {
+            Date otherVar = (Date)var;
+            if ((ret = this.publishDate.compareTo(otherVar)) != 0)
+            {
+                return ret;
+            }
+        }
+
+        else if (var instanceof Double) // compare length
+        {
+            double otherVar = (double)var;
+            if ((ret = compareLength(this.length, otherVar)) != 0)
+            {
+                return ret;
+            }
+        }
+
+        return ret;
+    }
+
+    private int compareTitle(String thisTitle, String otherTitle) {
+        int ret = 0;
+
+        if (thisTitle.compareTo(otherTitle) < 0)
+        {
+            ret = -1;
+        }
+
+        else if (thisTitle.compareTo(otherTitle) > 0)
+        {
+            ret = 1;
+        }
+
+        return ret;
+    }
+
+    private int compareLength(double thisLength, double otherLength) {
+        int ret = 0;
+
+        if (thisLength < otherLength)
+        {
+            ret = -1;
+        }
+
+        else if (thisLength > otherLength)
+        {
+            ret = 1;
+        }
+
+        return ret;
+    }
 }//episode

@@ -4,7 +4,11 @@ Software Engineering group K
 */
 package comp3350.podcast.objects;
 
-public class Channel{
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class Channel implements Serializable{
 
     //vars
     private String title;
@@ -57,13 +61,63 @@ public class Channel{
         if(obj instanceof Channel)
         {
             ch = (Channel)obj;
-            if(ch.getTitle() == title && ch.getUrl() == url)
+            if(ch.getTitle().equals(title) && ch.getUrl().equals(url))
             {
                 result = true;
             }
         }
         return result;
     }//equals
+
+    /**
+     * Compare this channel's title/published date/category to the target
+     *
+     * Returns -1 if channel var is less than var
+     * Returns 0 if channel var is equal than var
+     * Returns 1 if channel var is greater than var
+     *
+     * @param var  - var to compare
+     * @return see description
+     */
+    public int compareTo(@NonNull Object var) {
+        int ret = 0;
+
+        if (var instanceof String) // compare title
+        {
+            String otherVar = (String)var;
+            if ((ret = compareTitle(this.title, otherVar)) != 0)
+            {
+                return ret;
+            }
+        }
+
+        else if (var instanceof Date)  // compare date published
+        {
+            Date otherVar = (Date)var;
+            if ((ret = this.publishDate.compareTo(otherVar)) != 0)
+            {
+                return ret;
+            }
+        }
+
+        return ret;
+    }
+
+    private int compareTitle(String thisTitle, String otherTitle) {
+        int ret = 0;
+
+        if (thisTitle.compareTo(otherTitle) < 0)
+        {
+            ret = -1;
+        }
+
+        else if (thisTitle.compareTo(otherTitle) > 0)
+        {
+            ret = 1;
+        }
+
+        return ret;
+    }
 
     public String toString() {
         return ("Channel name: " + title);
