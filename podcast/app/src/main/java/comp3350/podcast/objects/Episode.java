@@ -85,7 +85,7 @@ public double getTimeStamp(){return timeStamp;}
     }//setTimeStamp
 
     public String toString() {
-        return ("Episode name: " + title);
+        return ("Episode #"+epNum+"\t\"" + title+"\"");
     }
 
     public boolean equals(Object obj) {
