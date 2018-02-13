@@ -124,6 +124,6 @@ public class Date implements Comparable, Serializable {
 
     public String toString()
     {
-        return (year+"-"+month+"-"+day);
+        return (year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second);
     }
 }

@@ -11,6 +11,7 @@
     <string name="cardHeight">100dp</string>
 
     <!-- Stackoverflow says these need to exist so the interface works -->
-    <item name="visible" type="id"/>
-    <item name="masked" type="id"/>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
+    <string name="title_activity_play_content">playContent</string>
 </resources>

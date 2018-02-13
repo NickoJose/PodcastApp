@@ -16,12 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".representation.viewEpisode"></activity>
+        <activity android:name=".representation.viewChannel"></activity>
         <activity
-            android:name=".representation.viewEpisode">
-        </activity>
-        <activity
-            android:name=".representation.viewChannel">
-        </activity>
+            android:name=".representation.playContent"
+            android:label="@string/title_activity_play_content"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

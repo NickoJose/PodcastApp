@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import comp3350.podcast.MainActivity;
 import comp3350.podcast.objects.*;
 
 import comp3350.podcast.R;
@@ -20,6 +22,7 @@ import java.io.Serializable;
 
 public class viewEpisode extends AppCompatActivity {
 
+    private Episode ep; //Needed for playContent call
     private String title;
     private String author;
     private String url;
@@ -49,7 +52,7 @@ public class viewEpisode extends AppCompatActivity {
         length = b.getDouble("length");
         epnum = b.getInt("epnum");
 */
-        Episode ep = (Episode)getIntent().getSerializableExtra("episode");
+        ep = (Episode)getIntent().getSerializableExtra("episode");
         title = ep.getTitle();
         author = ep.getAuthor();
         url = ep.getUrl();
@@ -67,6 +70,20 @@ public class viewEpisode extends AppCompatActivity {
 
         Button playButton = findViewById(R.id.play);
         playButton.setOnClickListener(play);
+
+        ImageView thumbnail = findViewById(R.id.thumbnail);
+        thumbnail.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //Toast.makeText(getApplicationContext(),"You clicked the "+ep.getTitle(),Toast.LENGTH_LONG).show();
+                Intent episodeIntent = new Intent(viewEpisode.this, playContent.class);
+                Bundle b = new Bundle();
+
+                b.putSerializable("episode", ep);
+                episodeIntent.putExtras(b);
+                startActivity(episodeIntent);
+            }
+        });
 
         //Toast.makeText(getApplicationContext(),"Test Toast",Toast.LENGTH_LONG).show();
         updateText();
@@ -108,7 +125,8 @@ public class viewEpisode extends AppCompatActivity {
     View.OnClickListener play = new View.OnClickListener() {
         ///@Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(),"You clicked the Play button",Toast.LENGTH_LONG).show();
+            //Changed from placeholder. When merging, do we need this?
+            //Toast.makeText(getApplicationContext(),"You clicked the Play button",Toast.LENGTH_LONG).show();
             ///
         }
     };
