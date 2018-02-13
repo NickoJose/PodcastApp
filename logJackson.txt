@@ -1,0 +1,9 @@
+Log Entry - Jackson Barker
+
+January 27th, 2018	- Created and uploaded Android Studio project with Episode and Channel DSOs to repository. - 2 hours.
+January 29th, 2018	- Added more parameters to episode and channel constructors and relevant getters. - 1 hour.
+February 5th, 2018	- Started work on a GUI for viewing an individual episode. - 3 hours.
+February 9th, 2018	- Made Episode fields passable to viewEpisode from mainActivity. Made very basic viewChannel GUI. - 3 hours.
+February 11th, 2018	- Made Episodes, Channels, and Dates implement serializable to make the whole object passable between activities. Added basic display to ViewChannel. - 3 hours.
+February 13th, 2018	- Made viewChannel actually display its list of Episodes. Made episodes link to their viewEpisode pages when clicked. - 2 hours.
+
