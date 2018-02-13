@@ -4,8 +4,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import comp3350.podcast.tests.business.SortTest;
+import comp3350.podcast.tests.objects.ChannelListTest;
 import comp3350.podcast.tests.objects.ChannelTest;
 import comp3350.podcast.tests.objects.DateTest;
+import comp3350.podcast.tests.objects.EpisodeListTest;
 import comp3350.podcast.tests.objects.EpisodeTest;
 
 /**
@@ -17,7 +19,9 @@ import comp3350.podcast.tests.objects.EpisodeTest;
         SortTest.class,
         ChannelTest.class,
         EpisodeTest.class,
-        DateTest.class
+        DateTest.class,
+        ChannelListTest.class,
+        EpisodeListTest.class
 })
 
 public class AllTests {
