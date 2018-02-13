@@ -1,0 +1,9 @@
+Log Entry – Nicko
+January 29, 2018 – Created and added the stub database with static content. Worked for about 2-3 hours. 
+January 30, 2018 – Created and added an incomplete sort. Needed to be tested to see if it was working properly. Worked for about 1-2 hours.
+February 3, 2018 – Created and added main and services classes to initialize the database. Worked for about 1-2 hours.
+February 6, 2018 – Created and added access classes for channels, episodes and playlist and temporary tests in main to test database and sort. Worked for about 3 hours.
+February 10, 2018 – Created and added unit tests for sort, channel and episode. Removed the temporary tests from main. Work for about 2 hours.
+February 11, 2018 – Created and added AllTest to run all tests. Replaced methods in the activities class with the methods from access classes.
+February 12, 2018 – Merged the branch that has all of the changed I made to the master.
+
