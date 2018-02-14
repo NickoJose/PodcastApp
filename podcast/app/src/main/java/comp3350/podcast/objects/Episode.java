@@ -1,30 +1,20 @@
-/*
-Jackson Barker
-Software Engineering group K
-*/
 package comp3350.podcast.objects;
-
-
 import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 
 public class Episode implements Serializable {
-    //Vars
+
     private String title;
     private String subtitle;
-    private String desc; //description
+    private String desc;
     private String url;
     private double length;
     private Channel ch; //channel this episode belongs to
-    private double timeStamp; //if previously played, episode will resume from this point
+    private double timeStamp; //if previously played, episode will resume from this point. This is a percentage.
     private Date publishDate;
     private String author;
-    private String category; // /genre
+    private String category; // AKA genre
     private int epNum; //episode number
-
-
-    ///something for the thumbnail...
 
     public Episode(String title, String url, String desc,
                    double length, Channel ch,Date publishDate,
@@ -42,9 +32,7 @@ public class Episode implements Serializable {
         timeStamp = 0.0;
 
         publishDate = new Date();
-
-
-    }//constructor
+    }
 
 //================================ GETTERS ==========================================//
 public String getTitle(){return title;}
@@ -61,10 +49,13 @@ public double getTimeStamp(){return timeStamp;}
 
 
 //================================ SETTERS ==========================================//
-//these probably have to go in a separate business class?
-
-    //if it didn't have one associated in the first place for some reason
-    //returns false if channel doesn't exist
+    
+    /**
+     * Manually set a reference to the channel this episode was posted under
+     * 
+     * @param ch  - Channel reference being paired to episode
+     * @return Returns true on success.
+     */
     public boolean setChannel(Channel ch) {
         boolean result = false;
         if (ch != null) {
@@ -72,9 +63,14 @@ public double getTimeStamp(){return timeStamp;}
             result = true;
         }
         return result;
-    }//setChannel
-
-    //set the Episodes timestamp given where it paused last
+    }
+    
+    /**
+     * Sets the time stamp as a percentage of completion
+     * 
+     * @param t - Percent complete that episode is
+     * @return void
+     */
     public void setTimeStamp(double t) {
         if (t <= length) //just in case
         {
@@ -82,12 +78,23 @@ public double getTimeStamp(){return timeStamp;}
         } else {
             timeStamp = 0.0;
         }
-    }//setTimeStamp
+    }
 
+    /**
+     * To String
+     * 
+     * @return Returns string representing episode. Formatted for convenient GUI use.
+     */ 
     public String toString() {
         return ("Episode #"+epNum+"\t\"" + title+"\"");
     }
 
+    /**
+     * Checks if a given object represents the same episode. Checks title and source URL.
+     * 
+     * @param obj  - obj to compare
+     * @return Returns true on success.
+     */
     public boolean equals(Object obj) {
         boolean result = false;
         Episode ep;
@@ -99,7 +106,7 @@ public double getTimeStamp(){return timeStamp;}
             }
         }
         return result;
-    }//equals
+    }
 
     /**
      * Compare this episode's title/published date/category/length to the target
@@ -109,70 +116,84 @@ public double getTimeStamp(){return timeStamp;}
      * Returns 1 if episode var is greater than var
      *
      * @param var  - var to compare
-     * @return see description
+     * @return Returns integer comparison to be used for episode sorting. Episodes are ordered by title, then date posted, then length.
      */
     public int compareTo(@NonNull Object var) {
-        int ret = 0;
+        int result = 0;
 
         if (var instanceof String) // compare title
         {
             String otherVar = (String)var;
-            if ((ret = compareTitle(this.title, otherVar)) != 0)
+            if ((result = compareTitle(this.title, otherVar)) != 0)
             {
-                return ret;
+                return result;
             }
         }
 
         else if (var instanceof Date)  // compare date published
         {
             Date otherVar = (Date)var;
-            if ((ret = this.publishDate.compareTo(otherVar)) != 0)
+            if ((result = this.publishDate.compareTo(otherVar)) != 0)
             {
-                return ret;
+                return result;
             }
         }
 
         else if (var instanceof Double) // compare length
         {
             double otherVar = (double)var;
-            if ((ret = compareLength(this.length, otherVar)) != 0)
+            if ((result = compareLength(this.length, otherVar)) != 0)
             {
-                return ret;
+                return result;
             }
         }
 
-        return ret;
+        return result;
     }
 
+    /**
+     * Lexiographically compares two titles (as strings)
+     * 
+     * @param thisTitle  - First title to be compared
+     * @param otherTitle - Title being compared to thisTitle
+     * @return Returns lexiographic string comparison
+     */
     private int compareTitle(String thisTitle, String otherTitle) {
-        int ret = 0;
+        int result = 0;
 
         if (thisTitle.compareTo(otherTitle) < 0)
         {
-            ret = -1;
+            result = -1;
         }
 
         else if (thisTitle.compareTo(otherTitle) > 0)
         {
-            ret = 1;
+            result = 1;
         }
 
-        return ret;
+        return result;
     }
 
+    /**
+     * Compares lengths of two episodes as doubles
+     * 
+     * @param thisLength - first length being compared
+     * @param otherLength - second length being compared
+     * @return Returns sign of (thisLength - otherLength)
+     */    
     private int compareLength(double thisLength, double otherLength) {
-        int ret = 0;
+        int result = 0;
 
         if (thisLength < otherLength)
         {
-            ret = -1;
+            result = -1;
         }
 
         else if (thisLength > otherLength)
         {
-            ret = 1;
+            result = 1;
         }
 
-        return ret;
+        return result;
     }
-}//episode
+}
