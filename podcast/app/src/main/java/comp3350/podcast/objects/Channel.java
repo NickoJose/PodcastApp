@@ -1,18 +1,12 @@
-/*
-Jackson Barker
-Software Engineering group K
-*/
+
 package comp3350.podcast.objects;
-
 import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 
 public class Channel implements Serializable{
 
-    //vars
     private String title;
-    private String desc; //description of the channel
+    private String desc;
     private String url;
     private Episode lastPlayed;
     private int numEps;
@@ -53,6 +47,13 @@ public class Channel implements Serializable{
     public int getNumEps(){return numEps;}
     public Date getLastUpdate(){return lastUpdate;}
 
+    
+    /**
+     * Checks if a given object represents the same channel. Checks title and source URL.
+     * 
+     * @param obj  - obj to compare
+     * @return Returns true on success.
+     */
     public boolean equals(Object obj)
     {
         boolean result = false;
@@ -77,53 +78,70 @@ public class Channel implements Serializable{
      * Returns 1 if channel var is greater than var
      *
      * @param var  - var to compare
-     * @return see description
+     * @return Returns integer comparison to be used for channel sorting. Episodes are ordered by title, then date posted, then length.
      */
     public int compareTo(@NonNull Object var) {
-        int ret = 0;
+        int result = 0;
 
         if (var instanceof String) // compare title
         {
             String otherVar = (String)var;
-            if ((ret = compareTitle(this.title, otherVar)) != 0)
+            if ((result = compareTitle(this.title, otherVar)) != 0)
             {
-                return ret;
+                return result;
             }
         }
 
         else if (var instanceof Date)  // compare date published
         {
             Date otherVar = (Date)var;
-            if ((ret = this.publishDate.compareTo(otherVar)) != 0)
+            if ((result = this.publishDate.compareTo(otherVar)) != 0)
             {
-                return ret;
+                return result;
             }
         }
 
-        return ret;
+        return result;
     }
 
+    /**
+     * Lexiographically compares two channels (as strings)
+     * 
+     * @param thisTitle  - First channel to be compared
+     * @param otherTitle - channel being compared to thisTitle
+     * @return Returns lexiographic string comparison
+     */
     private int compareTitle(String thisTitle, String otherTitle) {
-        int ret = 0;
+        int result = 0;
 
         if (thisTitle.compareTo(otherTitle) < 0)
         {
-            ret = -1;
+            result = -1;
         }
 
         else if (thisTitle.compareTo(otherTitle) > 0)
         {
-            ret = 1;
+            result = 1;
         }
 
-        return ret;
+        return result;
     }
 
+    /**
+     * To String
+     * 
+     * @return Returns string representing the channel. Formatted as "Channel name: <TITLE>"
+     */ 
     public String toString() {
         return ("Channel name: " + title);
     }
-
+    
+    /**
+     * Increases the episode count for this channel
+     * 
+     * @return void
+     */ 
     public void incNumEps() {
         numEps++;
-    }//incNumEps
-}//channel
+    }
+}
