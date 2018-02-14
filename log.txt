@@ -14,6 +14,11 @@ February 2-3, 2018 - Listener can uniquely identify clicked items without search
 February 6, 2018 - Added creation of playlists to home screen. - 3 hours.
 February 7, 2018 - Made home page use domain specific objects to build content for home screen. 2 hours.
 
+Log Entry - Mike Reimer
+February 4-10 2018 - Early/Mid work on playContent user story.
+February 13, 2018 - Finalized GUI, began merging. Not polished enough to be safely tested for deliverable. Remains in dedicated branch.
+February 13-14 2018 - Finalized the coding standards manufesto; went through project source to make coding consistent with standards.
+
 Log Entry - Jackson Barker
 January 27th, 2018	- Created and uploaded Android Studio project with Episode and Channel DSOs to repository. - 2 hours.
 January 29th, 2018	- Added more parameters to episode and channel constructors and relevant getters. - 1 hour.
