@@ -1,4 +1,12 @@
-Log Entry - Gareth
+Team Meetings
+January 23, 2018 - Decided on which big user story to focus on first. Divided the big user story into developer tasks.
+January 25, 2018 - Continuation of dividing story into developer tasks. Assigned the developer tasks to the members of the group.
+January 30, 2018 - Clarification of the goals and due dates of each developer tasks. Conversation about the methods a class should have.
+February 1, 2018 - Conversation on how the gui should look and it should work.
+  Communications over discord on the following week
+February 13, 2018 - Finalizing everything we need before handin.
+
+Log Entry - Gareth Wiebe
 January 30, 2018 - Started work on home page. - 2 hours
 January 31, 2018 - Worked on recommended section on home page. Setup listeners for podcast cards. 3 hours.
 February 1, 2018 - Removed hardcoded interface. Home page builds interface itself and listeners. 3-4 hours.
@@ -14,7 +22,7 @@ February 9th, 2018	- Made Episode fields passable to viewEpisode from mainActivi
 February 11th, 2018	- Made Episodes, Channels, and Dates implement serializable to make the whole object passable between activities. Added basic display to ViewChannel. - 3 hours.
 February 13th, 2018	- Made viewChannel actually display its list of Episodes. Made episodes link to their viewEpisode pages when clicked. - 2 hours.
 
-Log Entry – Nicko
+Log Entry – Nicko Jose
 January 29, 2018 – Stub database with static content. Worked for about 2-3 hours. 
 January 30, 2018 – Incomplete sort. Needed to be tested to see if insertion sort is working properly. Worked for about 1-2 hours.
 February 3, 2018 – Main and services classes to initialize the database. Worked for about 1-2 hours.
