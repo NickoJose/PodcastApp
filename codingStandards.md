@@ -10,7 +10,7 @@ be misunderstood. (Eg, Does a method accept on '>' vs '>=' ).
 
    - This header must contain one @param for every method parameter, even if it's self-explanatory in name (in which case it is acceptable to have a 1-3 word description).
 
-   - The header must also contain an @return field. If the method is void, "@return - void" is perscribed.
+   - The header must also contain an @return field. If the method is void, "@return - void" is fine.
 
 3. Non-header comments are left up to programmer discression in order to show logic and chunk the code into 
 sections.
@@ -27,7 +27,9 @@ For example, a method containing only one Episode object should be named "ep".
 If an object type is not unique in a method, detailed names are advised to reduce commenting and maintain
 readability.
 
-7. Recommended Unexplained abbreviation list:
+7.Three blank lines before the start of a class.
+
+8. Recommended Unexplained abbreviation list:
 
 	- Episode: ep
   
@@ -38,4 +40,10 @@ readability.
 	- Object: obj
   
 	- iterator: iter
+	
+	- description: desc
+	
+	- image - img
+	
+	- text - txt
   
