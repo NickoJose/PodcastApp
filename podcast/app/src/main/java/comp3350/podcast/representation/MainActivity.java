@@ -63,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Creates a button for a new playlist.
+     *
+     * @param label - button label
+     * @return - void
+     */
     private void createNewPlaylistBtn(String label) {
         View view;
         Button btn;
@@ -76,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
         ll.addView(view);
     }
 
+    /**
+     * Makes a new playlist. Prompts user to name it
+     *
+     * @return - void
+     */
     private void makePlaylist(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter playlist name");
@@ -101,7 +112,11 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    // Populates recommended video list.
+    /**
+     * Populates recommended list with suggestions. Sets onClick handlers for recommended episodes.
+     *
+     * @return - void
+     */
     private void populateRecList()
     {
         int index = 0;
@@ -119,17 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();
-                    /*b.putString("title", a.getEp().getTitle());
-                    b.putString("author", a.getEp().getAuthor());
-                    b.putString("url", a.getEp().getUrl());
-                    b.putString("desc", a.getEp().getDesc());
-                    b.putString("category", a.getEp().getCategory());
-                    b.putDouble("length", a.getEp().getLength());
-                    b.putInt("epnum", a.getEp().getEpNum());
-                    String date = a.getEp().getPublishDate().year + "/" + a.getEp().getPublishDate().month
-                            + "/" + a.getEp().getPublishDate().day;
-                    b.putString("date", date);
-                    */
                     b.putSerializable("episode", a.getEp());
                     episodeIntent.putExtras(b);
                     startActivity(episodeIntent);
