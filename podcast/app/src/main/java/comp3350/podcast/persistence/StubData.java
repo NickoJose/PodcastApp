@@ -26,6 +26,12 @@ public class StubData {
 
     public StubData() {this(Main.dbName);}    
 
+    
+    /**
+     * Opens a connection to the database via this object
+     *
+     * @return - void
+     */
     public void open(String dbName) {
         Channel channel;
         Episode episode;
@@ -123,17 +129,36 @@ public class StubData {
         System.out.println("Opened " +dbType +" database " +dbName);
     }
 
+    /**
+     * Closes a connection to the database through this object
+     *
+     * @return - void
+     */
     public void close()
     {
         System.out.println("Closed " +dbType +" database " +dbName);
     }
 
+    /**
+     * Puts the ordered list of all channels into a given List<Channel>
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param channelResult - a list of channels object that we will store the result in.
+     * @return - null. This pattern was taken from sample project
+     */
     public String getChannelSequential(List<Channel> channelResult)
     {
         channelResult.addAll(channels);
         return null;
     }
 
+    /**
+     * Inserts a new channel into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be inserted into database
+     * @return - null. This pattern was taken from sample project
+     */
     public String insertChannel(Channel currentChannel)
     {
         int index;
@@ -146,6 +171,13 @@ public class StubData {
         return null;
     }
 
+    /**
+     * Removes a channel into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be removed from database
+     * @return - null. This pattern was taken from sample project
+     */
     public String deleteChannel(Channel currentChannel)
     {
         int index;
@@ -158,6 +190,13 @@ public class StubData {
         return null;
     }
 
+    /**
+     * Updates a channel's entry in the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be updated
+     * @return - null. This pattern was taken from sample project
+     */
     public String updateChannel(Channel currentChannel)
     {
         int index;
@@ -170,13 +209,27 @@ public class StubData {
         return null;
     }
 
+    /**
+     * Puts an ordered list of all the episodes into a given List<Episode> object
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param episodeResult - The list that will store the result
+     * @return - null. This pattern was taken from sample project
+     */
     public String getEpisodesSequential(List<Episode> episodeResult)
     {
         episodeResult.addAll(episodes);
         return null;
     }
 
-    // get all episodes of a channel
+    /**
+     * Takes all the episodes from a channel and stores it in a List<Episode> object.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param episodeResult - The list that will store the result
+     * @param currentChannel - channel to be inserted into database
+     * @return - null. This pattern was taken from sample project
+     */
     public String getChannelEpisodeSequential(List<Episode> episodeResult, Channel currentChannel)
     {
         int index;
@@ -193,7 +246,13 @@ public class StubData {
         return null;
     }
     
-    // add an episode
+    /**
+     * Inserts an episode into the database, without a parent Channel.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - episode to be inserted into database
+     * @return - null. This pattern was taken from sample project
+     */
     public String insertEpisode(Episode currentEpisode)
     {
         // don't bother checking for duplicates
@@ -201,7 +260,13 @@ public class StubData {
         return null;
     }
 
-    // delete an episode
+    /**
+     * Deletes an episode from the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be removed from the database
+     * @return - null. This pattern was taken from sample project
+     */
     public String deleteEpisode(Episode currentEpisode)
     {
         int index;
@@ -214,6 +279,13 @@ public class StubData {
         return null;
     }
 
+    /**
+     * Updates an episode in the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - Episode to be updated
+     * @return - null. This pattern was taken from sample project
+     */
     public String updateEpisode(Episode currentEpisode)
     {
         int index;
@@ -225,34 +297,72 @@ public class StubData {
         }
         return null;
     }
-    
+   
+    /**
+     * Puts all the channels in a playlist into a given List<Channel> object. The source playlist is stored in this object
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param channelResult - the List where the result will be stored
+     * @return - null. This pattern was taken from sample project
+     */
     public String getPlaylistChannelSequential(List<Channel> channelResult)
     {
         channelResult.addAll(playlist.getChannels());
         return null;
     }
 
+    /**
+     * Puts all the episodes in a playlist into a given List<Channel> object. The source playlist is stored in this object
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param episodeResult - the List where the result will be stored
+     * @return - null. This pattern was taken from sample project
+     */
     public String getPlayListEpisodeSequential(List<Episode> episodeResult)
     {
         episodeResult.addAll(playlist.getEpisodes());
         return null;
     }
 
+    /**
+     * Inserts a given channel into the playlist stored in this object.
+     *
+     * @param currentChannel - the channel to be inserted into the database
+     * @return - Returns success
+     */
     public boolean insertPlaylistChannel(Channel currentChannel)
     {
         return playlist.addChannel(currentChannel);
     }
-
+    
+    /**
+     * Inserts a given channel into the playlist stored in this object.
+     *
+     * @param currentEpisode - the episode to be inserted into the database
+     * @return - Returns success
+     */
     public boolean insertPlaylistEpisode(Episode currentEpisode)
     {
         return playlist.addEpisode(currentEpisode);
     }
 
+    /**
+     * Removes a channel from the current playlist
+     *
+     * @param channelResult - the channel to be removed from the current playlist
+     * @return - Returns success
+     */
     public boolean deletePlaylistChannel(Channel currentChannel)
     {
         return playlist.removeChannel(currentChannel);
     }
 
+    /**
+     * Removes a given episode from the current playlist
+     *
+     * @param currentEpisode - the episode to be removed from the playlist
+     * @return - Returns success
+     */
     public boolean deletePlaylistEpisode(Episode currentEpisode)
     {
         return playlist.removeEpisode(currentEpisode);
