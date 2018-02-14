@@ -3,12 +3,7 @@ package comp3350.podcast.representation;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
-
 import comp3350.podcast.objects.Episode;
-
-/**
- * Created by Gareth on 2018-02-01.
- */
 
 public class CardViewPC extends CardView{
     private String whoDis;
@@ -20,6 +15,7 @@ public class CardViewPC extends CardView{
     public void setWhoDis(String whoDis){
         this.whoDis = whoDis;
     }
+    
     public void setEp(Episode episode) { this.episode = episode; }
 
     public Episode getEp()
