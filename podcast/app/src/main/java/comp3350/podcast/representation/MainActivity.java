@@ -145,21 +145,6 @@ public class MainActivity extends AppCompatActivity {
                     view = LayoutInflater.from(this).inflate(R.layout.card, ll, false);
                     recIds.add(view.getId());
 
-                    // todo: use this to load thumbnails or get rid of it
-                    //Add thumbnail
-                    /*
-                    File imgFile = new File("C:\\Users\\Gareth\\StudioProjects\\SoftEngProject\\podcast\\app\\src\\main\\java\\comp3350\\podcast\\cat.jpg");
-                    if (imgFile.exists()){
-
-                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-                        ImageView myImage = view.findViewById(R.id.recImageView);
-
-                        myImage.setImageBitmap(myBitmap);
-
-                    }
-                    */
-
                     temp = recList.get(index);
 
                     // find this cards title
