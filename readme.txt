@@ -2,21 +2,21 @@
 ### Students: Michael Reimer, Nicko Jose, Gareth Wiebe, Jackson Barker, Russell Thiessen
 
 All of the packages are found under java/comp3350/podcast.
-Application package ñ Found under comp3350/podcast/application. It contains classes that initializes and terminates the stub database.
-Business package ñ Found under comp3350/podcast/business. It contains the interface to the database which retrieves the information the presentation needs. It also has the sort class that sorts a list based on a particular type.
-Objects package ñ Found under comp3350/podcast/objects. It contains all the domain-specific objects such as episodes and channels.
-Persistence package ñ Found under comp3350/podcast/persistence. It contains the stub database that is implemented by using a non-persistent storage with static content.
-Representation package ñ Found under comp3350/podcast/representation. It contains all GUIs activities currently used on the emulator.
+Application package ‚Äì Found under comp3350/podcast/application. It contains classes that initializes and terminates the stub database.
+Business package ‚Äì Found under comp3350/podcast/business. It contains the interface to the database which retrieves the information the presentation needs. It also has the sort class that sorts a list based on a particular type.
+Objects package ‚Äì Found under comp3350/podcast/objects. It contains all the domain-specific objects such as episodes and channels.
+Persistence package ‚Äì Found under comp3350/podcast/persistence. It contains the stub database that is implemented by using a non-persistent storage with static content.
+Representation package ‚Äì Found under comp3350/podcast/representation. It contains all GUIs activities currently used on the emulator.
 
 Unit tests are found under java/comp3350/podcast (test)
-AllTests ñ Found under comp3350/podcast (test)/tests. It a test suite that runs all of the unit tests
-Business test package ñ Found under comp3350/podcast (test)/tests/business. It contains unit tests for the sort class.
-Objects test package ñ Found under comp3350/podcast (test)/tests/objects. It contains unit tests for the objects implemented.
+AllTests ‚Äì Found under comp3350/podcast (test)/tests. It a test suite that runs all of the unit tests
+Business test package ‚Äì Found under comp3350/podcast (test)/tests/business. It contains unit tests for the sort class.
+Objects test package ‚Äì Found under comp3350/podcast (test)/tests/objects. It contains unit tests for the objects implemented.
 
-The log file can found under the name log.txt submitted separately from the project zip file.
+The log file can found under the name log.txt.
 
 To run all the unit tests, select AllTests.java -> run.
 To run the project, download the zip file -> file (android studio) -> new -> import project -> select SoftEngProject-master -> select build.gradle.
 
-After successfully launching the project on the Nexus 7, a search bar, recommended episodes, playlists, and ìcreate new playlistî button will show up on the screen. Selecting one of the episodes in the recommended list will display all the information regarding that particular episode. Selecting the ìback to channelî on the episode gui will switch the screen to the channel gui which displays all the information about the channel of the currently selected episode. It will also display all the episodes the channel has.
+After successfully launching the project on the Nexus 7, a search bar, recommended episodes, playlists, and ‚Äúcreate new playlist‚Äù button will show up on the screen. Selecting one of the episodes in the recommended list will display all the information regarding that particular episode. Selecting the ‚Äúback to channel‚Äù on the episode gui will switch the screen to the channel gui which displays all the information about the channel of the currently selected episode. It will also display all the episodes the channel has.
 
