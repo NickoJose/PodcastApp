@@ -2,7 +2,7 @@ Team Meetings
 January 23, 2018 - Decided on which big user story to focus on first. Divided the big user story into developer tasks.
 January 25, 2018 - Continuation of dividing story into developer tasks. Assigned the developer tasks to the members of the group.
 January 30, 2018 - Clarification of the goals and due dates of each developer tasks. Conversation about the methods a class should have.
-February 1, 2018 - Conversation on how the gui should look and it should work.
+February 1, 2018 - Conversation on how the gui should look and how it should work.
   Communications over discord on the following week
 February 13, 2018 - Finalizing everything we need before handin.
 
