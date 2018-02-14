@@ -24,38 +24,69 @@ public class AccessPlaylists{
     }
 
     /**
-     * Adds a Episode to the list if the list does not contain the Episode
+     * Puts all the channels in a playlist into a given List<Channel> object. The source playlist is stored in this object
+     * The input/output follows a design pattern from the sample project.
      *
-     * @parma index - The index to add the episode to
-     * @param ep - The episode to add
-     * @return - void
+     * @param channels - the List where the result will be stored
+     * @return - null string pointer
      */
     public String getPlaylistChannels(List<Channel> channels){
         channels.clear();
         return accessData.getPlaylistChannelSequential(channels);
     }
 
+    /**
+     * Puts all the episodes in a playlist into a given List<Channel> object. The source playlist is stored in this object
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param episodes - A List<Episode> object to store the result
+     * @return - null string pointer
+     */    
     public String getPlaylistEpisodes(List<Episode> episodes)
     {
         episodes.clear();
         return accessData.getPlayListEpisodeSequential(episodes);
     }
 
+    /**
+     * Inserts a channel into a playlist
+     *
+     * @param currentChannel - the channel that will be inserted
+     * @return - success
+     */    
     public boolean insertPlaylistChannel(Channel currentChannel)
     {
         return accessData.insertPlaylistChannel(currentChannel);
     }
 
+    /**
+     * Inserts an episode into a playlist
+     *
+     * @param currentEpisode - the episode that will be inserted
+     * @return - success
+     */  
     public boolean insertPlaylistEpisode(Episode currentEpisode)
     {
         return accessData.insertPlaylistEpisode(currentEpisode);
     }
 
+    /**
+     * Deletes a channel from a playlist
+     *
+     * @param currentChannel - the channel that will be removed
+     * @return - success
+     */      
     public boolean deletePlaylistChannel(Channel currentChannel)
     {
         return accessData.deletePlaylistChannel(currentChannel);
     }
-
+    
+    /**
+     * Deletes an episode from a playlist
+     *
+     * @param currentEpisode - the episode to be removed
+     * @return - success
+     */  
     public boolean deletePlaylistEpisode(Episode currentEpisode)
     {
         return accessData.deletePlaylistEpisode(currentEpisode);
