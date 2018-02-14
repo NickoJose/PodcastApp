@@ -1,0 +1,24 @@
+Log Entry - Gareth
+January 30, 2018 - Started work on home page. - 2 hours
+January 31, 2018 - Worked on recommended section on home page. Setup listeners for podcast cards. 3 hours.
+February 1, 2018 - Removed hardcoded interface. Home page builds interface itself and listeners. 3-4 hours.
+February 2-3, 2018 - Listener can uniquely identify clicked items without search. Fixed git files. 2 hours.
+February 6, 2018 - Added creation of playlists to home screen. - 3 hours.
+February 7, 2018 - Made home page use domain specific objects to build content for home screen. 2 hours.
+
+Log Entry - Jackson Barker
+January 27th, 2018	- Created and uploaded Android Studio project with Episode and Channel DSOs to repository. - 2 hours.
+January 29th, 2018	- Added more parameters to episode and channel constructors and relevant getters. - 1 hour.
+February 5th, 2018	- Started work on a GUI for viewing an individual episode. - 3 hours.
+February 9th, 2018	- Made Episode fields passable to viewEpisode from mainActivity. Made very basic viewChannel GUI. - 3 hours.
+February 11th, 2018	- Made Episodes, Channels, and Dates implement serializable to make the whole object passable between activities. Added basic display to ViewChannel. - 3 hours.
+February 13th, 2018	- Made viewChannel actually display its list of Episodes. Made episodes link to their viewEpisode pages when clicked. - 2 hours.
+
+Log Entry – Nicko
+January 29, 2018 – Stub database with static content. Worked for about 2-3 hours. 
+January 30, 2018 – Incomplete sort. Needed to be tested to see if insertion sort is working properly. Worked for about 1-2 hours.
+February 3, 2018 – Main and services classes to initialize the database. Worked for about 1-2 hours.
+February 6, 2018 – Access classes for channels, episodes and playlist and temporary tests in main to test database and sort. Worked for about 3 hours.
+February 10, 2018 – Unit tests for sort, channel and episode. Removed the temporary tests from main. Worked for about 2 hours.
+February 11, 2018 – AllTest to run all tests. Replaced methods in the activities class with the methods from access classes. Worked for 1 hour.
+February 12, 2018 – Merged the branch that has all of the changes I made to the master and some cleanups. Worked for 1 hour.
