@@ -35,3 +35,13 @@ February 6, 2018 – Access classes for channels, episodes and playlist and temp
 February 10, 2018 – Unit tests for sort, channel and episode. Removed the temporary tests from main. Worked for about 2 hours.
 February 11, 2018 – AllTest to run all tests. Replaced methods in the activities class with the methods from access classes. Worked for 1 hour.
 February 12, 2018 – Merged the branch that has all of the changes I made to the master and some cleanups. Worked for 1 hour.
+
+LogEntry - Russell Thiessen
+January 8, 2018 - Setup repository and Discord (chat server) - 1 hour
+January 27, 2018 - Created EpisodeList and ChannelList, these are incomplete and need to be converted to extend ArrayList, not just wrap it. - 1 hour
+January 29, 2018 - Created playlist object, needs to be tested - 1 hour
+February 7, 2018 - Created Date object, and some tests for it - 1 hour
+February 8, 2018 - Finished date object, wrote some tests, fixed all bugs in compareTo - 2 hours
+February 10, 2018 - Fixed all the lists, added tests to ensure the custom functionality works properly. - 3 hours
+February 12, 2018 - Create subscription view and episode list view. Thier implementation makes other GUI items crash. Unsure of cause. Not added to master - 4 hours
+

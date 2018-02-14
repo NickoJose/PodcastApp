@@ -1,3 +1,6 @@
+# COMP 3350 - Group K
+### Students: Michael Reimer, Nicko Jose, Gareth Wiebe, Jackson Barker, Russell Thiessen
+
 All of the packages are found under java/comp3350/podcast.
 Application package – Found under comp3350/podcast/application. It contains classes that initializes and terminates the stub database.
 Business package – Found under comp3350/podcast/business. It contains the interface to the database which retrieves the information the presentation needs. It also has the sort class that sorts a list based on a particular type.
