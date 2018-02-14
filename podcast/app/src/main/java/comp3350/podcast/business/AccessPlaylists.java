@@ -9,27 +9,28 @@ import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.Playlist;
 import comp3350.podcast.persistence.StubData;
 
-/**
- * Created by Almach on 2018-02-06.
- */
-
-public class AccessPlaylists
-{
+public class AccessPlaylists{
+    
     private StubData accessData;
     private Playlist playlists;
     private int currentEpisode;
     private int currentChannel;
 
-    public AccessPlaylists()
-    {
+    public AccessPlaylists(){
         accessData = (StubData) Services.getDataAccess(Main.dbName);
         playlists = null;
         currentChannel = 0;
         currentEpisode = 0;
     }
 
-    public String getPlaylistChannels(List<Channel> channels)
-    {
+    /**
+     * Adds a Episode to the list if the list does not contain the Episode
+     *
+     * @parma index - The index to add the episode to
+     * @param ep - The episode to add
+     * @return - void
+     */
+    public String getPlaylistChannels(List<Channel> channels){
         channels.clear();
         return accessData.getPlaylistChannelSequential(channels);
     }
