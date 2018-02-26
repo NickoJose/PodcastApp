@@ -29,10 +29,21 @@ public class viewEpisode extends AppCompatActivity {
     private String desc;
     private String category;
     private String date;
-    private Double length;
+    private int length;
     private int epnum;
     private String chName;
     private Channel ch;
+
+
+
+    private void tryPlay(View v){
+        Intent episodeIntent = new Intent(viewEpisode.this, playContent.class);
+        Bundle b = new Bundle();
+
+        b.putSerializable("episode", ep);
+        episodeIntent.putExtras(b);
+        startActivity(episodeIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +86,7 @@ public class viewEpisode extends AppCompatActivity {
         thumbnail.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //Toast.makeText(getApplicationContext(),"You clicked the "+ep.getTitle(),Toast.LENGTH_LONG).show();
-                Intent episodeIntent = new Intent(viewEpisode.this, playContent.class);
-                Bundle b = new Bundle();
-
-                b.putSerializable("episode", ep);
-                episodeIntent.putExtras(b);
-                startActivity(episodeIntent);
+                tryPlay(v);
             }
         });
 
@@ -125,9 +130,7 @@ public class viewEpisode extends AppCompatActivity {
     View.OnClickListener play = new View.OnClickListener() {
         ///@Override
         public void onClick(View v) {
-            //Changed from placeholder. When merging, do we need this?
-            //Toast.makeText(getApplicationContext(),"You clicked the Play button",Toast.LENGTH_LONG).show();
-            ///
+            tryPlay(v);
         }
     };
 

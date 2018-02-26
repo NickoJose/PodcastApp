@@ -15,9 +15,9 @@ public class Episode implements Serializable {
     private String subtitle;
     private String desc; //description
     private String url;
-    private double length;
+    private int length; //length in seconds
     private Channel ch; //channel this episode belongs to
-    private double timeStamp; //if previously played, episode will resume from this point
+    private int timeStamp; //if previously played, episode will resume from this point
     private Date publishDate;
     private String author;
     private String category; // /genre
@@ -27,7 +27,7 @@ public class Episode implements Serializable {
     ///something for the thumbnail...
 
     public Episode(String title, String url, String desc,
-                   double length, Channel ch,Date publishDate,
+                   int length, Channel ch,Date publishDate,
                    String author, String category,int epNum)
     {
         this.title = title;
@@ -39,7 +39,7 @@ public class Episode implements Serializable {
         this.author = author;
         this.category = category;
         this.epNum = epNum;
-        timeStamp = 0.0;
+        timeStamp = 0;
 
         publishDate = new Date();
 
@@ -50,7 +50,7 @@ public class Episode implements Serializable {
 public String getTitle(){return title;}
 public String getUrl(){return url;}
 public String getDesc(){return desc;}
-public double getLength(){return length;}
+public int getLength(){return length;}
 public Channel getChannel(){return ch;} //for reference to actual channel
 public Date getPublishDate(){return publishDate;}
 public String getChannelTitle(){return ch.getTitle();} //for displaying just the name of the channel
@@ -75,17 +75,21 @@ public double getTimeStamp(){return timeStamp;}
     }//setChannel
 
     //set the Episodes timestamp given where it paused last
-    public void setTimeStamp(double t) {
+    public void setTimeStamp(int t) {
         if (t <= length) //just in case
         {
             timeStamp = t;
         } else {
-            timeStamp = 0.0;
+            timeStamp = 0;
         }
     }//setTimeStamp
 
     public String toString() {
         return ("Episode #"+epNum+"\t\"" + title+"\"");
+    }
+
+    public void incTimeStamp(){
+        timeStamp++;
     }
 
     public boolean equals(Object obj) {
@@ -132,9 +136,9 @@ public double getTimeStamp(){return timeStamp;}
             }
         }
 
-        else if (var instanceof Double) // compare length
+        else if (var instanceof Integer) // compare length
         {
-            double otherVar = (double)var;
+            Integer otherVar = (Integer)var;
             if ((ret = compareLength(this.length, otherVar)) != 0)
             {
                 return ret;
@@ -160,7 +164,7 @@ public double getTimeStamp(){return timeStamp;}
         return ret;
     }
 
-    private int compareLength(double thisLength, double otherLength) {
+    private int compareLength(int thisLength, int otherLength) {
         int ret = 0;
 
         if (thisLength < otherLength)
@@ -174,5 +178,39 @@ public double getTimeStamp(){return timeStamp;}
         }
 
         return ret;
+    }
+
+    private String timeString(int sec){
+
+        String result = "";
+
+        int hours = sec/3600;
+        int minutes  = (sec-(hours*3600))/60;
+        int seconds = (sec-(hours*3600))%60;
+
+        if(hours > 0){
+            result += hours+":";
+        }
+
+        if(minutes < 10){
+            result +="0";
+        }
+
+        result+=minutes+":";
+
+        if(seconds < 10){
+            result+="0";
+        }
+        result += seconds;
+
+        return result;
+    }
+
+    public String getTimeStampString(){
+        return timeString(timeStamp);
+    }
+
+    public String getLengthString(){
+        return timeString(length);
     }
 }//episode

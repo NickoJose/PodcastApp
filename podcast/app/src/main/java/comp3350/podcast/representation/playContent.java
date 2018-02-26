@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,6 +55,13 @@ public class playContent extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.playContent_progressBar).setOnDragListener(new View.OnDragListener(){
+            @Override
+            public boolean onDrag(View v, DragEvent de){
+                return true;
+            }
+        });
+
 
 
 
@@ -64,16 +72,9 @@ public class playContent extends AppCompatActivity {
 
     private void timerAction(){
         if(!isPaused){
-
-            ep.setTimeStamp(ep.getTimeStamp()+0.01);
-            if(ep.getTimeStamp() >= ep.getLength()){
-                isPaused = true;
-                ep.setTimeStamp(0.0);
-            }
+            ep.incTimeStamp();
             updateScreen();
         }
-
-
     }
 
     private void updateScreen(){
@@ -93,7 +94,7 @@ public class playContent extends AppCompatActivity {
 
     private void updateTime(){
         TextView time = (TextView) findViewById(R.id.time);
-        time.setText(Math.floor(ep.getTimeStamp()*100)/100+"/"+ep.getLength());
+        time.setText(ep.getTimeStampString()+"/"+ep.getLengthString());
     }
 
 }
