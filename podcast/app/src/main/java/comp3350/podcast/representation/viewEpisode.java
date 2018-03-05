@@ -48,7 +48,7 @@ public class viewEpisode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_episode);
 
-        Episode ep = (Episode)getIntent().getSerializableExtra("episode");
+        ep = (Episode)getIntent().getSerializableExtra("episode");
         title = ep.getTitle();
         author = ep.getAuthor();
         url = ep.getUrl();
