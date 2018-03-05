@@ -132,29 +132,17 @@ public int getTimeStamp(){return timeStamp;}
 
         if (var instanceof String) // compare title
         {
-            String otherVar = (String)var;
-            if ((result = compareTitle(this.title, otherVar)) != 0)
-            {
-                return result;
-            }
+            result = compareTitle(title,(String)var);
         }
 
         else if (var instanceof Date)  // compare date published
         {
-            Date otherVar = (Date)var;
-            if ((result = this.publishDate.compareTo(otherVar)) != 0)
-            {
-                return result;
-            }
+            result = publishDate.compareTo((Date)var);
         }
 
         else if (var instanceof Integer) // compare length
         {
-            Integer otherVar = (Integer)var;
-            if ((result = compareLength(this.length, otherVar)) != 0)
-            {
-                return result;
-            }
+            result = compareLength(length,(Integer)var);
         }
 
         return result;
@@ -194,12 +182,12 @@ public int getTimeStamp(){return timeStamp;}
         int result = 0;
 
 
-        if (thisLength < otherLength)
+        if (thisLength > otherLength)
         {
             result = -1;
         }
 
-        else if (thisLength > otherLength)
+        else if (thisLength < otherLength)
         {
             result = 1;
         }
