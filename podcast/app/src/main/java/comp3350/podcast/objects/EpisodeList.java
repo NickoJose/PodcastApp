@@ -1,14 +1,8 @@
 package comp3350.podcast.objects;
-
 import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-/**
- * Created by Russell on 2018-01-27.
- */
 
 public class EpisodeList extends ArrayList<Episode> {
 
@@ -17,6 +11,7 @@ public class EpisodeList extends ArrayList<Episode> {
      *
      * @parma index - The index to add the episode to
      * @param ep - The episode to add
+     * @return - void
      */
     @Override
     public void add(int index, Episode ep) {
@@ -30,9 +25,10 @@ public class EpisodeList extends ArrayList<Episode> {
     }
 
     /**
-     * If two lists contain the same episodes return true.
+     * Returns whether two lists contain exactly the same set of episodes
      *
      * @param obj - The object to compare against
+     * @return - Returns object equality
      */
     @Override
     public boolean equals(Object obj) {
@@ -56,9 +52,9 @@ public class EpisodeList extends ArrayList<Episode> {
     }
 
     /**
-     * Gets all episodes released after a given date
-     * @param date
-     * @return
+     * Gets all episodes released strictly after a given date. Same date will not be included.
+     * @param date - Cutoff date.
+     * @return - void
      */
     public EpisodeList getEpisodesAfter(Date date) {
 
@@ -81,6 +77,7 @@ public class EpisodeList extends ArrayList<Episode> {
      * Adds multiple episodes to the list
      *
      * @param newEps - The episodes to list
+     * @return - void
      */
     public void add(Iterable<Episode> newEps) {
         Iterator<Episode> iter = newEps.iterator();

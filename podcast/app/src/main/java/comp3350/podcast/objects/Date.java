@@ -1,12 +1,9 @@
 package comp3350.podcast.objects;
-
 import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 
-/**
- * Created by Russell on 2018-01-27.
- */
+//================================ CONSTRUCTORS ==========================================//
+
 public class Date implements Comparable, Serializable {
 
     public int year = -1, month = -1, day = -1, hour = -1, minute = -1, second = -1;
@@ -86,17 +83,17 @@ public class Date implements Comparable, Serializable {
     @Override
     public int compareTo(@NonNull Object obj) {
         Date other = (Date) obj;
-        int ret;
+        int result;
 
         //Check all the stages on the date
-        if ((ret = compareTimes(this.year, other.year)) == 0)
-            if ((ret = compareTimes(this.month, other.month)) == 0)
-                if ((ret = compareTimes(this.day, other.day)) == 0)
-                    if ((ret = compareTimes(this.hour, other.hour)) == 0)
-                        if ((ret = compareTimes(this.minute, other.minute)) == 0)
-                            ret = compareTimes(this.second, other.second);
+        if ((result = compareTimes(this.year, other.year)) == 0)
+            if ((result = compareTimes(this.month, other.month)) == 0)
+                if ((result = compareTimes(this.day, other.day)) == 0)
+                    if ((result = compareTimes(this.hour, other.hour)) == 0)
+                        if ((result = compareTimes(this.minute, other.minute)) == 0)
+                            result = compareTimes(this.second, other.second);
 
-        return ret;
+        return result;
 
     }
 
@@ -107,7 +104,8 @@ public class Date implements Comparable, Serializable {
      *
      * @param thisTime  - The time for this object
      * @param otherTime - The time for the other object
-     * @return see description
+     * @return returns integer comparison of given times as ints. Note this is intended for comparing components of a time, not
+     * the whole time object.
      */
     private int compareTimes(int thisTime, int otherTime) {
 
@@ -121,7 +119,12 @@ public class Date implements Comparable, Serializable {
 
         return 0;
     }
-
+    
+    /**
+     * To String
+     * 
+     * @return Returns string representing the date in YYYY-MM-DD format
+     */ 
     public String toString()
     {
         return (year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second);

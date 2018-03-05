@@ -50,20 +50,7 @@ public class viewEpisode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_episode);
 
-
-
-
-
-       /* title = b.getString("title");
-        author = b.getString("author");
-        url = b.getString("url");
-        desc = b.getString("desc");
-        category = b.getString("category");
-        date = b.getString("date");
-        length = b.getDouble("length");
-        epnum = b.getInt("epnum");
-*/
-        ep = (Episode)getIntent().getSerializableExtra("episode");
+        Episode ep = (Episode)getIntent().getSerializableExtra("episode");
         title = ep.getTitle();
         author = ep.getAuthor();
         url = ep.getUrl();
@@ -75,22 +62,12 @@ public class viewEpisode extends AppCompatActivity {
         chName = ep.getChannelTitle();
         ch = ep.getChannel();
 
-
         Button channelButton = findViewById(R.id.back_to_channel);
         channelButton.setOnClickListener(backToChannel);
 
         Button playButton = findViewById(R.id.play);
         playButton.setOnClickListener(play);
 
-        ImageView thumbnail = findViewById(R.id.thumbnail);
-        thumbnail.setOnClickListener( new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                tryPlay(v);
-            }
-        });
-
-        //Toast.makeText(getApplicationContext(),"Test Toast",Toast.LENGTH_LONG).show();
         updateText();
 
     }
@@ -105,10 +82,15 @@ public class viewEpisode extends AppCompatActivity {
         }
     };
 
+    /**
+     * Updates text on the episode view, according to the latest object state.
+     *
+     * @return - void
+     */
     private void updateText()
     {
         TextView newText = (TextView) findViewById(R.id.title);
-        //String date = (ep.getPublishDate().toString());
+
         newText.setText("Title:\t"+title+"\n"
                 +"Author:\t"+author+"\n"
                 +"Url:\t"+url);//crashes without concat for some reason

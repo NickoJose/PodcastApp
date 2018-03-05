@@ -42,7 +42,11 @@ public class viewChannel extends AppCompatActivity {
         updateText();
         populateList();
     }
-
+    /**
+     * Populates episode ListView on GUI
+     *
+     * @return - void
+     */
     public void populateList()
     {
 
@@ -66,6 +70,11 @@ public class viewChannel extends AppCompatActivity {
 
     }
 
+    /**
+     * Updates the information displayed on a channel according to the latest channel state
+     *
+     * @return - void
+     */
     public void updateText()
     {
         TextView newText = (TextView) findViewById(R.id.channel_info);

@@ -3,12 +3,6 @@ package comp3350.podcast.objects;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
-/**
- * Created by Russell on 2018-01-27.
- *
- * Same as an array list except doesn't accept doubles.
- */
 public class ChannelList extends ArrayList<Channel>{
 
     /**
@@ -39,13 +33,19 @@ public class ChannelList extends ArrayList<Channel>{
     @Override
     public void add(int index, Channel ch) {
         if(ch == null){
-            throw new NullPointerException("Channel must not be Null");
+            throw new NullPointerException("Channel must not be null");
         }
         if (!contains(ch)) {
             super.add(index, ch);
         }
     }
-
+    
+    /**
+     * Checks if a given object represents the same object as this. That is, if they both contain identical lists.
+     *
+     * @param obj - object being compared to this
+     * @return - True if added, false if not added.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ChannelList) {

@@ -1,0 +1,47 @@
+Team Meetings
+January 23, 2018 - Decided on which big user story to focus on first. Divided the big user story into developer tasks.
+January 25, 2018 - Continuation of dividing story into developer tasks. Assigned the developer tasks to the members of the group.
+January 30, 2018 - Clarification of the goals and due dates of each developer tasks. Conversation about the methods a class should have.
+February 1, 2018 - Conversation on how the gui should look and how it should work.
+  Communications over discord on the following week
+February 13, 2018 - Finalizing everything we need before handin.
+
+Log Entry - Gareth Wiebe
+January 30, 2018 - Started work on home page. - 2 hours
+January 31, 2018 - Worked on recommended section on home page. Setup listeners for podcast cards. 3 hours.
+February 1, 2018 - Removed hardcoded interface. Home page builds interface itself and listeners. 3-4 hours.
+February 2-3, 2018 - Listener can uniquely identify clicked items without search. Fixed git files. 2 hours.
+February 6, 2018 - Added creation of playlists to home screen. - 3 hours.
+February 7, 2018 - Made home page use domain specific objects to build content for home screen. 2 hours.
+
+Log Entry - Mike Reimer
+February 4-10 2018 - Early/Mid work on playContent user story.
+February 13, 2018 - Finalized GUI, began merging. Not polished enough to be safely tested for deliverable. Remains in dedicated branch.
+February 13-14 2018 - Finalized the coding standards manufesto; went through project source to make coding consistent with standards.
+
+Log Entry - Jackson Barker
+January 27th, 2018	- Created and uploaded Android Studio project with Episode and Channel DSOs to repository. - 2 hours.
+January 29th, 2018	- Added more parameters to episode and channel constructors and relevant getters. - 1 hour.
+February 5th, 2018	- Started work on a GUI for viewing an individual episode. - 3 hours.
+February 9th, 2018	- Made Episode fields passable to viewEpisode from mainActivity. Made very basic viewChannel GUI. - 3 hours.
+February 11th, 2018	- Made Episodes, Channels, and Dates implement serializable to make the whole object passable between activities. Added basic display to ViewChannel. - 3 hours.
+February 13th, 2018	- Made viewChannel actually display its list of Episodes. Made episodes link to their viewEpisode pages when clicked. - 2 hours.
+
+Log Entry – Nicko Jose
+January 29, 2018 – Stub database with static content. Worked for about 2-3 hours. 
+January 30, 2018 – Incomplete sort. Needed to be tested to see if insertion sort is working properly. Worked for about 1-2 hours.
+February 3, 2018 – Main and services classes to initialize the database. Worked for about 1-2 hours.
+February 6, 2018 – Access classes for channels, episodes and playlist and temporary tests in main to test database and sort. Worked for about 3 hours.
+February 10, 2018 – Unit tests for sort, channel and episode. Removed the temporary tests from main. Worked for about 2 hours.
+February 11, 2018 – AllTest to run all tests. Replaced methods in the activities class with the methods from access classes. Worked for 1 hour.
+February 12, 2018 – Merged the branch that has all of the changes I made to the master and some cleanups. Worked for 1 hour.
+
+LogEntry - Russell Thiessen
+January 8, 2018 - Setup repository and Discord (chat server) - 1 hour
+January 27, 2018 - Created EpisodeList and ChannelList, these are incomplete and need to be converted to extend ArrayList, not just wrap it. - 1 hour
+January 29, 2018 - Created playlist object, needs to be tested - 1 hour
+February 7, 2018 - Created Date object, and some tests for it - 1 hour
+February 8, 2018 - Finished date object, wrote some tests, fixed all bugs in compareTo - 2 hours
+February 10, 2018 - Fixed all the lists, added tests to ensure the custom functionality works properly. - 3 hours
+February 12, 2018 - Create subscription view and episode list view. Thier implementation makes other GUI items crash. Unsure of cause. Not added to master - 4 hours
+

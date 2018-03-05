@@ -1,20 +1,13 @@
 package comp3350.podcast.objects;
-
-
 import android.support.v4.os.IResultReceiver;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 import comp3350.podcast.persistence.StubData;
 
-/**
- * Created by Russell on 2018-01-27.
- *
- * TODO: Nothing to test because it wraps a bunch of already tested methods, and update is not required yet
- */
+
+
 public class Playlist {
 
     private EpisodeList episodes;
@@ -30,16 +23,18 @@ public class Playlist {
     }
 
     /**
-     * Adds a Episode to the list if the list does not contain the Episode
+     * Adds a Episode to the episodeList if the episodeList does not contain the Episode
      *
+     * @param index - The position in the list the episode should be added at
      * @param ep - The Episode to add
+     * @return - void
      */
     public void addEpisode(int index, Episode ep) {
         episodes.add(index, ep);
     }
 
     /**
-     * Removes a Episode from the list
+     * Removes a Episode from the episodeList
      *
      * @param ep - The Episode to remove
      * @return - True if removed, false if not removed
@@ -65,24 +60,27 @@ public class Playlist {
     }
 
     /**
-     * Does this sublist contain the given Episode
+     * Does this sublist contain the given Episode?
      *
      * @param ep - The Episode
-     * @return - If the list contains the Episode
+     * @return - Returns whether the list contains the Episode
      */
     public boolean contains(Episode ep) {
         return episodes.contains(ep);
     }
 
     /**
-     * Returns the index of the given Episode or -1 if not contained
+     * Returns the position in the list, of the given Episode - or -1 if not contained
+     *
+     * @param ep - The Episode
+     * @return - the position in the episode list of the episode. Measured from 0.
      */
     public int indexOf(Episode ep) {
         return episodes.indexOf(ep);
     }
 
     /**
-     * returns the Episode at the given index
+     * Returns the Episode at the given index
      *
      * @param index - Index of the Episode
      * @return - The Episode at the index
@@ -91,6 +89,13 @@ public class Playlist {
         return episodes.get(index);
     }
 
+    /**
+     * Returns the a subset of this list containing only episodes posted exclusively after this date. If it was posted
+     * on the same date, it will not be included.
+     *
+     * @param date - The cutoff date
+     * @return - An episodeList containing only  episodes posted after the given date
+     */
     public EpisodeList getEpisodesAfter(Date date) {
         return episodes.getEpisodesAfter(date);
     }
@@ -99,6 +104,7 @@ public class Playlist {
      * Adds multiple episodes
      *
      * @param newEpisodes - An iterable object containing the new episodes (dupes won't be added)
+     * @return - void
      */
     public void addEpisodes(Iterable<Episode> newEpisodes) {
         episodes.add(newEpisodes);
@@ -107,7 +113,7 @@ public class Playlist {
     /**
      * Appends a channel to the list if the list does not contain the channel
      *
-     * @param ch - The channel to addEpisodes
+     * @param ch - The channel to addEpisodes from
      * @return - True if added, false if not added.
      */
     public boolean addChannel(Channel ch) {
@@ -195,8 +201,13 @@ public class Playlist {
         return episodes.add(ep);
     }
 
+    /**
+     * Updates the current episode list with new content from channel subscriptions
+     *
+     * @return - Returns if the channel episode list has changed.
+     */
     public boolean update() {
-        // TODO update update, this is a temporary method, Do not test until it is required to be implmented
+
         boolean updated = false;
 
         Iterator channelIter = channels.iterator();
@@ -215,7 +226,6 @@ public class Playlist {
             if (ch.getLastUpdate().compareTo(lastChannelUpdates.get(ch)) < 0) {
                 updated = true;
 
-                //TODO Temporary way of getting episodes from persistence, will be optimized in later iteration
                 eps = new EpisodeList();
                 data.getChannelEpisodeSequential(eps, ch);
 
@@ -229,8 +239,9 @@ public class Playlist {
     }
 
     /**
-     * Get this playlists channel list
-     * @return
+     * Get this playlist's channel list
+     *
+     * @return - Returns the channels this playlist subscribes to
      */
     public ChannelList getChannels(){
         return channels;
@@ -238,7 +249,8 @@ public class Playlist {
 
     /**
      * This playlists episode list
-     * @return
+     *
+     * @return - Returns the episode list contained in this object
      */
     public EpisodeList getEpisodes(){
         return episodes;

@@ -1,4 +1,4 @@
-package comp3350.podcast;
+package comp3350.podcast.representation;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,13 +16,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import java.io.Serializable;
-
+import comp3350.podcast.R;
 import comp3350.podcast.application.Main;
 import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.objects.Episode;
-import comp3350.podcast.representation.CardViewPC;
-import comp3350.podcast.representation.viewEpisode;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> recIds;
@@ -66,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Creates a button for a new playlist.
+     *
+     * @param label - button label
+     * @return - void
+     */
     private void createNewPlaylistBtn(String label) {
         View view;
         Button btn;
@@ -79,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
         ll.addView(view);
     }
 
+    /**
+     * Makes a new playlist. Prompts user to name it
+     *
+     * @return - void
+     */
     private void makePlaylist(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter playlist name");
@@ -104,7 +112,11 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    // Populates recommended video list.
+    /**
+     * Populates recommended list with suggestions. Sets onClick handlers for recommended episodes.
+     *
+     * @return - void
+     */
     private void populateRecList()
     {
         int index = 0;
@@ -122,17 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();
-                    /*b.putString("title", a.getEp().getTitle());
-                    b.putString("author", a.getEp().getAuthor());
-                    b.putString("url", a.getEp().getUrl());
-                    b.putString("desc", a.getEp().getDesc());
-                    b.putString("category", a.getEp().getCategory());
-                    b.putDouble("length", a.getEp().getLength());
-                    b.putInt("epnum", a.getEp().getEpNum());
-                    String date = a.getEp().getPublishDate().year + "/" + a.getEp().getPublishDate().month
-                            + "/" + a.getEp().getPublishDate().day;
-                    b.putString("date", date);
-                    */
                     b.putSerializable("episode", a.getEp());
                     episodeIntent.putExtras(b);
                     startActivity(episodeIntent);
@@ -147,21 +148,6 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout ll = findViewById(R.id.recLayout);
                     view = LayoutInflater.from(this).inflate(R.layout.card, ll, false);
                     recIds.add(view.getId());
-
-                    // todo: use this to load thumbnails or get rid of it
-                    //Add thumbnail
-                    /*
-                    File imgFile = new File("C:\\Users\\Gareth\\StudioProjects\\SoftEngProject\\podcast\\app\\src\\main\\java\\comp3350\\podcast\\cat.jpg");
-                    if (imgFile.exists()){
-
-                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-                        ImageView myImage = view.findViewById(R.id.recImageView);
-
-                        myImage.setImageBitmap(myBitmap);
-
-                    }
-                    */
 
                     temp = recList.get(index);
 
