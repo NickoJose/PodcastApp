@@ -150,7 +150,7 @@ public int getTimeStamp(){return timeStamp;}
         else if (var instanceof Integer) // compare length
         {
             Integer otherVar = (Integer)var;
-            if ((ret = compareLength(this.length, otherVar)) != 0)
+            if ((result = compareLength(this.length, otherVar)) != 0)
             {
                 return result;
             }
