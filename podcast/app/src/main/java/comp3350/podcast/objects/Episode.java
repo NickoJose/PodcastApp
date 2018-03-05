@@ -72,13 +72,13 @@ public int getTimeStamp(){return timeStamp;}
      * @return void
      */
     public void setTimeStampPercent(double t) {
+        t=t/100;
         if(t>=0 && t<100){
             timeStamp = (int)(t*length);
         }
     }
 
     public void setTimeStampInt(int i){
-        t=t/100;
         if(i>=0 && i<length){
            timeStamp = i;
         }
