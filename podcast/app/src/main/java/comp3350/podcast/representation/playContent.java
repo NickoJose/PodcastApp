@@ -11,6 +11,7 @@ import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import static android.support.v4.app.ServiceCompat.START_STICKY;
 
 public class playContent extends AppCompatActivity {
 
+    SeekBar seekbar;
     Episode ep;
     boolean isPaused = true;
     Handler handler = new Handler();
@@ -36,8 +38,12 @@ public class playContent extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_content);
+
+
+        seekbar = findViewById(R.id.playContent_seekBar);
 
         ep = (Episode)getIntent().getSerializableExtra("episode");
         updateScreen();
@@ -55,17 +61,30 @@ public class playContent extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.playContent_progressBar).setOnDragListener(new View.OnDragListener(){
+        seekbar.setMax(ep.getLength());
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
             @Override
-            public boolean onDrag(View v, DragEvent de){
-                return true;
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progress = i;
+                ep.setTimeStampInt(progress);
+                updateScreen();
             }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
         });
 
 
-
-
-        //TODO: Do the thing, Zhu-li!
         handler.post(handlerTimer);
     }
 
@@ -73,7 +92,7 @@ public class playContent extends AppCompatActivity {
     private void timerAction(){
         if(!isPaused){
             ep.incTimeStamp();
-            updateScreen();
+            seekbar.setProgress(ep.getTimeStamp());
         }
     }
 

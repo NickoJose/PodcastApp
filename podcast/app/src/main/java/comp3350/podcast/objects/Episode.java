@@ -57,7 +57,7 @@ public String getChannelTitle(){return ch.getTitle();} //for displaying just the
 public String getAuthor(){return author;}
 public String getCategory(){return category;}
 public int getEpNum(){return epNum;}
-public double getTimeStamp(){return timeStamp;}
+public int getTimeStamp(){return timeStamp;}
 
 
 //================================ SETTERS ==========================================//
@@ -75,14 +75,17 @@ public double getTimeStamp(){return timeStamp;}
     }//setChannel
 
     //set the Episodes timestamp given where it paused last
-    public void setTimeStamp(int t) {
-        if (t <= length) //just in case
-        {
-            timeStamp = t;
-        } else {
-            timeStamp = 0;
+    public void setTimeStampPercent(double t) {
+        if(t>=0 && t<100){
+            timeStamp = (int)(t*length);
         }
     }//setTimeStamp
+
+    public void setTimeStampInt(int i){
+        if(i>=0 && i<length){
+           timeStamp = i;
+        }
+    }
 
     public String toString() {
         return ("Episode #"+epNum+"\t\"" + title+"\"");

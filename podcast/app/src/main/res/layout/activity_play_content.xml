@@ -8,7 +8,7 @@
     tools:context="comp3350.podcast.representation.playContent">
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/playContent_seekBar"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
@@ -63,7 +63,7 @@
         android:ems="10"
         android:inputType="none"
         android:text="TIME"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintBottom_toTopOf="@+id/playContent_seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/playButton" />
 
@@ -75,7 +75,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Play"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintBottom_toTopOf="@+id/playContent_seekBar"
         app:layout_constraintEnd_toStartOf="@+id/time"
         app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent"
