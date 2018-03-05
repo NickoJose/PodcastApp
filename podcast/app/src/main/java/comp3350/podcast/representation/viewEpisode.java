@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import comp3350.podcast.MainActivity;
 import comp3350.podcast.objects.*;
 
 import comp3350.podcast.R;
