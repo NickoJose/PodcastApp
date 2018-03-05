@@ -64,12 +64,12 @@ public class SortTest {
                 "and then he eats a cookie", "https://youarenotsosmart.com/", chDate3, "David McRaney", "Social Sciences", "David McRaney", "davidmcraney@gmail.com");
 
         episode1 = new Episode("JRE MMA Show #10 with Tyron Woodley", "http://traffic.libsyn.com/joeroganexp/mmashow010.mp3?dest-id=19997",
-                "Joe Rogan sits down with UFC Welterweight Champion Tyron Woodley", 1.42, channel1, epDate1, "Joe Rogan", "Sports", 10);
+                "Joe Rogan sits down with UFC Welterweight Champion Tyron Woodley", 6120, channel1, epDate1, "Joe Rogan", "Sports", 10);
         episode2 = new Episode("#990 - Jamie Foxx", "http://traffic.libsyn.com/joeroganexp/p990.mp3?dest-id=19997",
                 "Jamie Foxx is an Academy Award winning actor, singer, and comedian. He can currently be seen hosting \"Beat Shazam\" on Fox and " +
-                        "in the movie \"Baby Driver\" in theaters now.", 1.8, channel1, epDate2, "Joe Rogan", "Comedy", 990);
+                        "in the movie \"Baby Driver\" in theaters now.", 4080, channel1, epDate2, "Joe Rogan", "Comedy", 990);
         episode3 = new Episode("#890 - Fight Breakdown", "http://traffic.libsyn.com/joeroganexp/p890.mp3?dest-id=19997",
-                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 0.49, channel1 , epDate3, "Joe Rogan", "Sports", 890);
+                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 13740, channel1 , epDate3, "Joe Rogan", "Sports", 890);
 
         channelList = new ArrayList<>();
         episodeList = new ArrayList<>();

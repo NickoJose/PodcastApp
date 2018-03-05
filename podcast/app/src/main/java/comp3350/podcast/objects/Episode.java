@@ -8,16 +8,16 @@ public class Episode implements Serializable {
     private String subtitle;
     private String desc;
     private String url;
-    private double length;
+    private int length; //length in seconds
     private Channel ch; //channel this episode belongs to
-    private double timeStamp; //if previously played, episode will resume from this point. This is a percentage.
+    private int timeStamp; //if previously played, episode will resume from this point
     private Date publishDate;
     private String author;
     private String category; // AKA genre
     private int epNum; //episode number
 
     public Episode(String title, String url, String desc,
-                   double length, Channel ch,Date publishDate,
+                   int length, Channel ch,Date publishDate,
                    String author, String category,int epNum)
     {
         this.title = title;
@@ -29,7 +29,7 @@ public class Episode implements Serializable {
         this.author = author;
         this.category = category;
         this.epNum = epNum;
-        timeStamp = 0.0;
+        timeStamp = 0;
 
         publishDate = new Date();
     }
@@ -38,14 +38,14 @@ public class Episode implements Serializable {
 public String getTitle(){return title;}
 public String getUrl(){return url;}
 public String getDesc(){return desc;}
-public double getLength(){return length;}
+public int getLength(){return length;}
 public Channel getChannel(){return ch;} //for reference to actual channel
 public Date getPublishDate(){return publishDate;}
 public String getChannelTitle(){return ch.getTitle();} //for displaying just the name of the channel
 public String getAuthor(){return author;}
 public String getCategory(){return category;}
 public int getEpNum(){return epNum;}
-public double getTimeStamp(){return timeStamp;}
+public int getTimeStamp(){return timeStamp;}
 
 
 //================================ SETTERS ==========================================//
@@ -63,20 +63,24 @@ public double getTimeStamp(){return timeStamp;}
             result = true;
         }
         return result;
-    }
-    
-    /**
+    }//setChannel
+
+   /**
      * Sets the time stamp as a percentage of completion
      * 
      * @param t - Percent complete that episode is
      * @return void
      */
-    public void setTimeStamp(double t) {
-        if (t <= length) //just in case
-        {
-            timeStamp = t;
-        } else {
-            timeStamp = 0.0;
+    public void setTimeStampPercent(double t) {
+        t=t/100;
+        if(t>=0 && t<100){
+            timeStamp = (int)(t*length);
+        }
+    }
+
+    public void setTimeStampInt(int i){
+        if(i>=0 && i<length){
+           timeStamp = i;
         }
     }
 
@@ -85,8 +89,13 @@ public double getTimeStamp(){return timeStamp;}
      * 
      * @return Returns string representing episode. Formatted for convenient GUI use.
      */ 
+
     public String toString() {
         return ("Episode #"+epNum+"\t\"" + title+"\"");
+    }
+
+    public void incTimeStamp(){
+        timeStamp++;
     }
 
     /**
@@ -123,29 +132,17 @@ public double getTimeStamp(){return timeStamp;}
 
         if (var instanceof String) // compare title
         {
-            String otherVar = (String)var;
-            if ((result = compareTitle(this.title, otherVar)) != 0)
-            {
-                return result;
-            }
+            result = compareTitle(title,(String)var);
         }
 
         else if (var instanceof Date)  // compare date published
         {
-            Date otherVar = (Date)var;
-            if ((result = this.publishDate.compareTo(otherVar)) != 0)
-            {
-                return result;
-            }
+            result = publishDate.compareTo((Date)var);
         }
 
-        else if (var instanceof Double) // compare length
+        else if (var instanceof Integer) // compare length
         {
-            double otherVar = (double)var;
-            if ((result = compareLength(this.length, otherVar)) != 0)
-            {
-                return result;
-            }
+            result = compareLength(length,(Integer)var);
         }
 
         return result;
@@ -181,19 +178,54 @@ public double getTimeStamp(){return timeStamp;}
      * @param otherLength - second length being compared
      * @return Returns sign of (thisLength - otherLength)
      */    
-    private int compareLength(double thisLength, double otherLength) {
+    private int compareLength(int thisLength, int otherLength) {
         int result = 0;
 
-        if (thisLength < otherLength)
+
+        if (thisLength > otherLength)
         {
             result = -1;
         }
 
-        else if (thisLength > otherLength)
+        else if (thisLength < otherLength)
         {
             result = 1;
         }
 
         return result;
     }
-}
+  
+    private String timeString(int sec){
+
+        String result = "";
+
+        int hours = sec/3600;
+        int minutes  = (sec-(hours*3600))/60;
+        int seconds = (sec-(hours*3600))%60;
+
+        if(hours > 0){
+            result += hours+":";
+        }
+
+        if(minutes < 10){
+            result +="0";
+        }
+
+        result+=minutes+":";
+
+        if(seconds < 10){
+            result+="0";
+        }
+        result += seconds;
+
+        return result;
+    }
+
+    public String getTimeStampString(){
+        return timeString(timeStamp);
+    }
+
+    public String getLengthString(){
+        return timeString(length);
+    }
+}//episode

@@ -8,9 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import comp3350.podcast.objects.*;
 
 import comp3350.podcast.R;
@@ -20,23 +20,35 @@ import java.io.Serializable;
 
 public class viewEpisode extends AppCompatActivity {
 
+    private Episode ep; //Needed for playContent call
     private String title;
     private String author;
     private String url;
     private String desc;
     private String category;
     private String date;
-    private Double length;
+    private int length;
     private int epnum;
     private String chName;
     private Channel ch;
+
+
+
+    private void tryPlay(View v){
+        Intent episodeIntent = new Intent(viewEpisode.this, playContent.class);
+        Bundle b = new Bundle();
+
+        b.putSerializable("episode", ep);
+        episodeIntent.putExtras(b);
+        startActivity(episodeIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_episode);
 
-        Episode ep = (Episode)getIntent().getSerializableExtra("episode");
+        ep = (Episode)getIntent().getSerializableExtra("episode");
         title = ep.getTitle();
         author = ep.getAuthor();
         url = ep.getUrl();
@@ -98,8 +110,7 @@ public class viewEpisode extends AppCompatActivity {
     View.OnClickListener play = new View.OnClickListener() {
         ///@Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(),"You clicked the Play button",Toast.LENGTH_LONG).show();
-            ///
+            tryPlay(v);
         }
     };
 

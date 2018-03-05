@@ -9,10 +9,6 @@ import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 
-/**
- * Created by Almach on 2018-02-09.
- */
-
 public class EpisodeTest
 {
     private Episode episode;
@@ -29,7 +25,7 @@ public class EpisodeTest
                 "https://seafoodmania.com/", date, "Joe Jones", "Food",
                 "Jones Surfing Company", "jonesjoe@gmail.com");
         episode = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "We talk about lobster and lobster only", 1.30, channel, date, "Joe Jones",
+                "We talk about lobster and lobster only", 3900, channel, date, "Joe Jones",
                 "Food",13 );
     }
 
@@ -41,13 +37,22 @@ public class EpisodeTest
         assertEquals("http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
                 episode.getUrl());
         assertEquals("We talk about lobster and lobster only", episode.getDesc());
-        assertEquals(1.30, episode.getLength(), 0.1);
+        assertEquals(3900, episode.getLength(), 0.1);
         assertTrue(episode.getChannel().equals(channel));
         assertEquals(0, date.compareTo(episode.getPublishDate()));
         assertEquals("Joe Jones", episode.getAuthor());
         assertEquals("Food", episode.getCategory());
         assertEquals(13, episode.getEpNum());
         assertEquals(channel.getTitle(), episode.getChannelTitle());
+
+        assertEquals(0,episode.getTimeStamp());
+        episode.incTimeStamp();
+        assertEquals(1,episode.getTimeStamp());
+        episode.setTimeStampInt(3200);
+        assertEquals(3200,episode.getTimeStamp());
+        episode.setTimeStampPercent(50);
+        assertEquals(0.5*episode.getLength(),episode.getTimeStamp(),0.1);
+
 
         System.out.println("Finished EpisodeTest : episode info");
     }
@@ -58,10 +63,10 @@ public class EpisodeTest
         Date dateBefore = new Date(2006, 5, 3);
 
         Episode newEpisode = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "We talk about lobster and lobster only", 1.30, channel, date, "Joe Jones",
+                "We talk about lobster and lobster only", 3900, channel, date, "Joe Jones",
                 "Food", 13);
         Episode anotherEpisode = new Episode("Seafood Mania - Crabs Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=11111",
-                "We talk about lobster and lobster only", 1.30, channel, date, "Joe Jones",
+                "We talk about lobster and lobster only", 3900, channel, date, "Joe Jones",
                 "Food", 13);
 
         System.out.println("\nStarting EpisodeTest : compare by type");

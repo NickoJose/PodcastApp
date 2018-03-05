@@ -50,6 +50,7 @@
         android:id="@+id/thumbnail"
         android:layout_width="0dp"
         android:layout_height="450dp"
+        android:layout_marginTop="44dp"
         android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
