@@ -78,6 +78,7 @@ public int getTimeStamp(){return timeStamp;}
     }
 
     public void setTimeStampInt(int i){
+        t=t/100;
         if(i>=0 && i<length){
            timeStamp = i;
         }
