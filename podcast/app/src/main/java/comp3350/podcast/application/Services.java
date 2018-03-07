@@ -1,23 +1,36 @@
 package comp3350.podcast.application;
 
+import comp3350.podcast.persistence.AccessData;
+import comp3350.podcast.persistence.ObjectData;
 import comp3350.podcast.persistence.StubData;
 
 public class Services
 {
-    private static StubData accessData = null;
+    private static AccessData accessData = null;
 
     /**
      * Opens database connection and gets local copy of data with identifying name
      *
      * @param dbName - name identifying user's database
-     * @return - NEW StubData object containing user's database
+     * @return - NEW AccessData object containing user's database
      */
-    public static StubData createDataAccess(String dbName)
+    public static AccessData createDataAccess(String dbName)
     {
         if (accessData == null)
         {
-            accessData = new StubData(dbName);
+            accessData = new ObjectData(dbName);
             accessData.open(Main.dbName);
+        }
+        return accessData;
+    }
+
+    // TODO COMMENTS
+    public static AccessData createDataAccess(AccessData alternateDataAccessService)
+    {
+        if (accessData == null)
+        {
+            accessData = alternateDataAccessService;
+            accessData.open(Main.getDBPathName());
         }
         return accessData;
     }
@@ -26,9 +39,9 @@ public class Services
      * Gets local copy of data with identifying name from an already open Database
      *
      * @param dbName - name identifying user's database
-     * @return - EXISTING StubData object containing user's database
+     * @return - EXISTING AccessData object containing user's database
      */
-    public static StubData getDataAccess(String dbName)
+    public static AccessData getDataAccess(String dbName)
     {
         if (accessData == null)
         {
