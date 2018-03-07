@@ -77,7 +77,7 @@ public class SearchableActivity extends AppCompatActivity {
         for (index = 0; index < recList.size(); index++) {
             // get layouts
             LinearLayout ll = findViewById(R.id.resultLayout);
-            view = LayoutInflater.from(this).inflate(R.layout.card, ll, false);
+            view = LayoutInflater.from(this).inflate(R.layout.card_search, ll, false);
             recIds.add(view.getId());
 
             temp = recList.get(index);
