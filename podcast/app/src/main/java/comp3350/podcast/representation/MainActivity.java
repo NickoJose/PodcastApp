@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.TextInputLayout;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn = findViewById(R.id.newPlaylist);
         btn.setOnClickListener(playlistHandler);
+
+        Button searchBtn = findViewById(R.id.searchButton);
+        searchBtn.setOnClickListener(searchHandler);
     }
 
     @Override
@@ -60,6 +64,25 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
+        }
+    };
+
+    View.OnClickListener searchHandler = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+
+            TextInputLayout text = findViewById(R.id.searchString);
+
+            String searchString = text.getEditText().getText().toString();
+
+            Toast.makeText(getApplicationContext(), "You clicked search"+searchString, Toast.LENGTH_LONG).show();
+
+            Intent searchIntent = new Intent(MainActivity.this, SearchableActivity.class);
+            Bundle b = new Bundle();
+            b.putSerializable("search", searchString);
+            searchIntent.putExtras(b);
+            startActivity(searchIntent);
         }
     };
 
