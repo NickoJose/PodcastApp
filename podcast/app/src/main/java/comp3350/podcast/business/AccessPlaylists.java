@@ -7,17 +7,17 @@ import comp3350.podcast.application.Services;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.Playlist;
-import comp3350.podcast.persistence.StubData;
+import comp3350.podcast.persistence.AccessData;
 
 public class AccessPlaylists{
     
-    private StubData accessData;
+    private AccessData accessData;
     private Playlist playlists;
     private int currentEpisode;
     private int currentChannel;
 
     public AccessPlaylists(){
-        accessData = (StubData) Services.getDataAccess(Main.dbName);
+        accessData = Services.getDataAccess(Main.dbName);
         playlists = null;
         currentChannel = 0;
         currentEpisode = 0;
