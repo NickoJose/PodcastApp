@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import comp3350.podcast.R;
 import comp3350.podcast.business.AccessEpisodes;
@@ -20,7 +21,8 @@ import comp3350.podcast.objects.Episode;
 
 public class SearchableActivity extends AppCompatActivity {
     private ArrayList<Integer> recIds;
-    private ArrayList<Episode> recList;
+    private ArrayList<Episode> tempList;
+    private LinkedList<Episode> recList;
     private AccessEpisodes accessEpisodes;
 
     @Override
@@ -30,16 +32,17 @@ public class SearchableActivity extends AppCompatActivity {
 
         // get database content
         recIds = new ArrayList<>();
-        recList = new ArrayList<>();
+        tempList = new ArrayList<>();
+        recList = new LinkedList<>();
         accessEpisodes = new AccessEpisodes();
-        String result = accessEpisodes.getEpisodes(recList);
-
-        if (result == null)
-        {
-            populateResultList();
-        }
+        String result = accessEpisodes.getEpisodes(tempList);
 
         String search = (String)getIntent().getSerializableExtra("search");
+        if (result == null)
+        {
+            recList = getRelavenceList(tempList, search);
+            populateResultList();
+        }
 
     }
 
@@ -73,7 +76,6 @@ public class SearchableActivity extends AppCompatActivity {
         };
 
         // update titles
-
         for (index = 0; index < recList.size(); index++) {
             // get layouts
             LinearLayout ll = findViewById(R.id.resultLayout);
@@ -106,6 +108,70 @@ public class SearchableActivity extends AppCompatActivity {
             view.setOnClickListener(handler1);
             ll.addView(view);
         }
+    }
+    /**
+     * Populates a linkedlist with episodes similar to key.
+     *
+     * @return - void
+     */
+    // todo: move to business eventualy
+    public LinkedList<Episode> getRelavenceList(ArrayList<Episode> in, String key)
+    {
+        LinkedList<Episode> out2 = new LinkedList<>();
+
+
+        int l;
+        int bestL = 0;
+        int decent = 3;
+        int index;
+
+        // very janky but quick
+        for(Episode a : in)
+        {
+            l = lcs(a.getTitle(), key).length();
+
+            if (l > bestL || bestL == l)
+            {
+                bestL = l;
+                out2.addFirst(a);
+            }
+            else out2.addLast(a);
+
+        }
+
+        return out2;
+    }
+// todo: move to business with the above
+    public static String lcs(String a, String b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        int[][] lengths = new int[a.length()+1][b.length()+1];
+
+        for (int i = 0; i < a.length(); i++)
+            for (int j = 0; j < b.length(); j++)
+                if (a.charAt(i) == b.charAt(j))
+                    lengths[i+1][j+1] = lengths[i][j] + 1;
+                else
+                    lengths[i+1][j+1] =
+                            Math.max(lengths[i+1][j], lengths[i][j+1]);
+
+        // recover string from matrix
+        StringBuffer sb = new StringBuffer();
+        for (int x = a.length(), y = b.length();
+             x != 0 && y != 0; ) {
+            if (lengths[x][y] == lengths[x-1][y])
+                x--;
+            else if (lengths[x][y] == lengths[x][y-1])
+                y--;
+            else {
+                assert a.charAt(x-1) == b.charAt(y-1);
+                sb.append(a.charAt(x-1));
+                x--;
+                y--;
+            }
+        }
+
+        return sb.reverse().toString();
     }
 
 }
