@@ -42,7 +42,7 @@ public class Search {
      * Creates a heuristic for the similarity between two strings using the length of
      * the longest common subsequence and substring
      *
-     * @return - String containing the longest common subsequence
+     * @return - int of the heuristic
      */
     public static int matchHeuristic (String a, String b) {
         a = a.toLowerCase();

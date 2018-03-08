@@ -71,79 +71,94 @@ public class SearchTest {
     }
 
     @Test
+    public void testMatchHeuristic()
+    {
+        System.out.println("\nStarting SearchTest: MatchHeuristic");
+
+        Search search = new Search();
+        int out = search.matchHeuristic("String","String");
+        assertTrue(out > 0); // a match was found
+
+        out = search.matchHeuristic("String","z");
+        assertTrue(out < 1); // a match was not found
+
+        // test relative heuristic quality
+        int out1 = search.matchHeuristic("String","Str");
+        int out2 = search.matchHeuristic("String","Stri");
+        int out3 = search.matchHeuristic("String","Strin");
+        assertTrue(out1 < out2 && out2 < out3);
+
+        // test char case
+        out = search.matchHeuristic("words","WORDS");
+        assertTrue(out > 0);
+
+        // test spaces
+        out = search.matchHeuristic("the brown fox","thebrownfox");
+        assertTrue(out > 0);
+
+        // test special chars
+        search.matchHeuristic("\0","\0");
+        assertTrue(out > 0);
+
+        // test empty strings
+        search.matchHeuristic("","");
+        assertTrue(out > 0);
+
+        System.out.println("Finished SearchTest: MatchHeuristic");
+    }
+
+    @Test
     public void testGetRelavenceList()
     {
-        System.out.println("\nStarting SearchTest: Perfect match");
+        System.out.println("\nStarting SearchTest: getRelavenceList");
         Search search = new Search();
 
         LinkedList<Episode> list = search.getRelavenceList(episodeList, "JRE MMA Show #10 with Tyron Woodley");
         assertTrue( list.get(0).getTitle().equals( "JRE MMA Show #10 with Tyron Woodley" ));
 
-        System.out.println("Finished SearchTest: Perfect match");
 
-
-        System.out.println("\nStarting SearchTest: Empty String");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "");
         assertTrue(list != null);
 
-        System.out.println("Finished SearchTest: Empty String");
 
-        System.out.println("\nStarting SearchTest: Strange Characters");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "!F %\n __+=");
         assertTrue(list != null);
 
-        System.out.println("Finished SearchTest: Strange Characters");
 
-        System.out.println("\nStarting SearchTest: Lower Case");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "jamie foxx");
         assertTrue(list.get(0).getTitle().equals( "#990 - Jamie Foxx" ));
 
-        System.out.println("Finished SearchTest: Lower Case");
-
-        System.out.println("\nStarting SearchTest: Misspell");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "jamy fox");
         assertTrue(list.get(0).getTitle().equals( "#990 - Jamie Foxx" ));
 
-        System.out.println("Finished SearchTest: Misspell");
-
-        System.out.println("\nStarting SearchTest: Long string");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "Wow this string sure is long I wonder what would happen if someone where to use it as a search query");
         assertTrue(list != null);
 
-        System.out.println("Finished SearchTest: Long string");
-
-        System.out.println("\nStarting SearchTest: No spaces");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "nospacesforu");
         assertTrue(list != null);
 
-        System.out.println("Finished SearchTest: No spaces");
-
-        System.out.println("\nStarting SearchTest: Null terminator");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "\0");
         assertTrue(list != null);
 
-        System.out.println("Finished SearchTest: Null terminator");
-
-        System.out.println("\nStarting SearchTest: Spanned similarity");
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "890 break down");
         assertTrue(list.get(0).getTitle().equals( "#890 - Fight Breakdown" ));
 
-        System.out.println("Finished SearchTest: Spanned similarity");
+        System.out.println("Finished SearchTest: getRelavanceList");
     }
 }
