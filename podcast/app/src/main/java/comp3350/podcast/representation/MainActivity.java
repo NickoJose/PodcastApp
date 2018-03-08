@@ -43,9 +43,51 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Button btn = findViewById(R.id.newPlaylist);
-        btn.setOnClickListener(playlistHandler);
+        Button newPlaylistBtn = findViewById(R.id.newPlaylist);
+        newPlaylistBtn.setOnClickListener(playlistHandler);
+
+        Button searchBtn = findViewById(R.id.searchButton);
+        searchBtn.setOnClickListener(searchButton);
+
+        Button subsBtn = findViewById(R.id.subsButton);
+        subsBtn.setOnClickListener(subsButton);
+
+        Button playlistsBtn = findViewById(R.id.playlistsButton);
+        playlistsBtn.setOnClickListener(playlistsButton);
+
+        Button allBtn = findViewById(R.id.allButton);
+        allBtn.setOnClickListener(allButton);
     }
+
+    View.OnClickListener searchButton = new View.OnClickListener(){
+        public void onClick(View v)
+        {
+            Toast.makeText(getApplicationContext(), "You clicked Search", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    View.OnClickListener subsButton = new View.OnClickListener(){
+        public void onClick(View v)
+        {
+            Toast.makeText(getApplicationContext(), "You clicked Subs", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    View.OnClickListener playlistsButton = new View.OnClickListener(){
+        public void onClick(View v)
+        {
+            Toast.makeText(getApplicationContext(), "You clicked PlayLists", Toast.LENGTH_LONG).show();
+        }
+    };
+
+
+    View.OnClickListener allButton = new View.OnClickListener(){
+        @Override
+        public void onClick(View v)
+        {
+            Toast.makeText(getApplicationContext(), "You clicked All", Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     protected void onDestroy() {
