@@ -14,9 +14,6 @@ import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 
-/**
- * Created by Almach on 2018-02-09.
- */
 
 public class SortTest {
     private ArrayList<Channel> channelList;
