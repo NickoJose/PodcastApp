@@ -269,7 +269,7 @@ public class StubData {
      * Deletes an episode from the database
      * The input/output follows a design pattern from the sample project.
      *
-     * @param currentChannel - channel to be removed from the database
+     * @param currentEpisode - Episode to be removed from the database
      * @return - null. This pattern was taken from sample project
      */
     public String deleteEpisode(Episode currentEpisode)
@@ -354,7 +354,7 @@ public class StubData {
     /**
      * Removes a channel from the current playlist
      *
-     * @param channelResult - the channel to be removed from the current playlist
+     * @param currentChannel - the channel to be removed from the current playlist
      * @return - Returns success
      */
     public boolean deletePlaylistChannel(Channel currentChannel)
