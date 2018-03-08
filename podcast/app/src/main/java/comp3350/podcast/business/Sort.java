@@ -1,85 +1,98 @@
 package comp3350.podcast.business;
 
-import java.util.ArrayList;
+import java.util.*;
+
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Episode;
 
-public class Sort {
+enum CompMode{
+    Title,
+    Date,
+    Length
+}
 
-    public static void channel(ArrayList<Channel> current, String type)
-    {
-        Channel temp;
-        int i,k;
+class ChannelComparator implements Comparator<Channel>
+{
+    //Not familiar enough with java to merge this comparator class with the below. If someone is,
+    //please merge ASAP.
 
-        if (type.equals("title")) // sort by title
-        {
-            for( i = 0; i < current.size(); i++) {
-                temp = current.get(i);
-                k = i;
-                while ((k > 0) && (current.get(k-1).compareTo(temp.getTitle())) > 0) {
-                    current.set(k, current.get(k - 1));
-                    k--;
-                }
-                current.set(k, temp);
-            }
-        }
+    CompMode mode = CompMode.Title;
 
-        else if (type.equals("date"))  // sort by date published
-        {
-            for( i = 0; i < current.size(); i++) {
-                temp = current.get(i);
-                k = i;
-                while ((k > 0) && (current.get(k-1).compareTo(temp.getPublishDate())) > 0) {
-                    current.set(k, current.get(k - 1));
-                    k--;
-                }
-                current.set(k, temp);
-            }
-        }
+    public ChannelComparator(CompMode mode){
+        this.mode = mode;
     }
 
+    @Override
+    public int compare(Channel a, Channel b)
+    {
+        int result =0;
+        switch(mode){
+            case Title: result = a.getTitle().compareToIgnoreCase(b.getTitle());  break;
+            case Date: result = a.getPublishDate().compareTo(b.getPublishDate()); break;
+            case Length: result = a.getLastUpdate().compareTo(b.getLastUpdate()); break;
+        }
+        return result;
+    }
+}
+
+
+class EpisodeComparator implements Comparator<Episode>
+{
+    //Not familiar enough with java to merge this comparator class with the above. If someone is,
+    //please merge ASAP.
+    CompMode mode = CompMode.Title;
+
+    public EpisodeComparator(CompMode mode){
+        this.mode = mode;
+    }
+
+    @Override
+    public int compare(Episode a, Episode b)
+    {
+        int result =0;
+        switch(mode){
+            case Title: result = a.getTitle().compareToIgnoreCase(b.getTitle());  break;
+            case Date: result = a.getPublishDate().compareTo(b.getPublishDate()); break;
+            case Length: result = a.getLength()-b.getLength(); break;
+        }
+        return result;
+    }
+}
+
+public class Sort {
+
+    /**
+     * Sorts a given ChannelList/ArrayList<Channel></> object according to a supported property. Currently supported are:
+     * "title", "date", and "length"
+     *
+     * @param current  - The ChannelList object to have it's contents sorted
+     * @param type - The supported field to be sorted by.
+     * @return void
+     */
+    public static void channel(ArrayList<Channel> current, String type)
+    {
+        switch(type){
+            case "title": Collections.sort(current,new ChannelComparator(CompMode.Title));break;
+            case "date": Collections.sort(current,new ChannelComparator(CompMode.Date));break;
+            case "length": Collections.sort(current,new ChannelComparator(CompMode.Length));break;
+        }
+
+    }
+
+    /**
+     * Sorts a given episode list according to a supported property. Currently supported are:
+     * "title", "date", and "length"
+     *
+     * @param current  - The episode list to be sorted
+     * @param type - The supported field to be sorted by.
+     * @return void
+     */
     public static void episode(ArrayList<Episode> current, String type)
     {
-        Episode temp;
-        int i,k;
-
-        if (type.equals("title")) // sort by title
-        {
-            for( i = 0; i < current.size(); i++) {
-                temp = current.get(i);
-                k = i;
-                while ((k > 0) && (current.get(k-1).compareTo(temp.getTitle())) > 0) {
-                    current.set(k, current.get(k - 1));
-                    k--;
-                }
-                current.set(k, temp);
-            }
-        }
-
-        else if (type.equals("date"))  // sort by date published
-        {
-            for( i = 0; i < current.size(); i++) {
-                temp = current.get(i);
-                k = i;
-                while ((k > 0) && (current.get(k-1).compareTo(temp.getPublishDate())) > 0) {
-                    current.set(k, current.get(k - 1));
-                    k--;
-                }
-                current.set(k, temp);
-            }
-        }
-
-        else if (type.equals("length"))  // compare date published
-        {
-            for( i = 0; i < current.size(); i++) {
-                temp = current.get(i);
-                k = i;
-                while ((k > 0) && (current.get(k-1).compareTo(temp.getLength())) > 0) {
-                    current.set(k, current.get(k - 1));
-                    k--;
-                }
-                current.set(k, temp);
-            }
+        switch(type){
+            case "title":Collections.sort(current,new EpisodeComparator(CompMode.Title));break;
+            case "date":Collections.sort(current,new EpisodeComparator(CompMode.Date)); break;
+            case "length":Collections.sort(current,new EpisodeComparator(CompMode.Length)); break;
         }
     }
 }
