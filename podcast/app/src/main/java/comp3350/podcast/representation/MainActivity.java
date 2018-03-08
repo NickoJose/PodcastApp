@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     {
         public void onClick(View v)
         {
-            Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
         }
     };
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             String searchString = text.getEditText().getText().toString();
 
-            Toast.makeText(getApplicationContext(), "You clicked search"+searchString, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "You clicked search"+searchString, Toast.LENGTH_LONG).show();
 
             Intent searchIntent = new Intent(MainActivity.this, SearchableActivity.class);
             Bundle b = new Bundle();
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();

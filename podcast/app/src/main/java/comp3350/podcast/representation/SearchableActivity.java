@@ -66,7 +66,7 @@ public class SearchableActivity extends AppCompatActivity {
             {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(SearchableActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();
