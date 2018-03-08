@@ -3,25 +3,21 @@ package comp3350.podcast.tests.business;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 import comp3350.podcast.business.Sort;
 import comp3350.podcast.objects.Channel;
+import comp3350.podcast.objects.ChannelList;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 
-/**
- * Created by Almach on 2018-02-09.
- */
-
 public class SortTest {
-    private ArrayList<Channel> channelList;
-    private ArrayList<Channel> sortedByTitleChannelList;
-    private ArrayList<Channel> sortedByDateChannelList;
+    private ChannelList channelList;
+    private ChannelList sortedByTitleChannelList;
+    private ChannelList sortedByDateChannelList;
     private ArrayList<Episode> episodeList;
     private ArrayList<Episode> sortedByTitleEpisodeList;
     private ArrayList<Episode> sortedByDateEpisodeList;
@@ -38,10 +34,16 @@ public class SortTest {
     private Date epDate1;
     private Date epDate2;
     private Date epDate3;
-    private ArrayList<Channel> chCopy;
+    private ChannelList chCopy;
     private ArrayList<Episode> epCopy;
 
     public SortTest() { super(); }
+
+    public void print(ChannelList ch){
+        for(int i=0;i<ch.size();i++){
+            System.out.println(ch.get(i).getTitle());
+        }
+    }
 
     @Before
     public void setUp()
@@ -71,10 +73,10 @@ public class SortTest {
         episode3 = new Episode("#890 - Fight Breakdown", "http://traffic.libsyn.com/joeroganexp/p890.mp3?dest-id=19997",
                 "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 13740, channel1 , epDate3, "Joe Rogan", "Sports", 890);
 
-        channelList = new ArrayList<>();
+        channelList = new ChannelList();
         episodeList = new ArrayList<>();
-        sortedByTitleChannelList = new ArrayList<>();
-        sortedByDateChannelList = new ArrayList<>();
+        sortedByTitleChannelList = new ChannelList();
+        sortedByDateChannelList = new ChannelList();
         sortedByTitleEpisodeList = new ArrayList<>();
         sortedByDateEpisodeList = new ArrayList<>();
         sortedByLengthEpisodeList = new ArrayList<>();
@@ -103,9 +105,9 @@ public class SortTest {
         sortedByDateEpisodeList.add(episode3);
         sortedByDateEpisodeList.add(episode1);
 
-        sortedByLengthEpisodeList.add(episode3);
-        sortedByLengthEpisodeList.add(episode1);
         sortedByLengthEpisodeList.add(episode2);
+        sortedByLengthEpisodeList.add(episode1);
+        sortedByLengthEpisodeList.add(episode3);
     }
 
     @Test
@@ -150,7 +152,7 @@ public class SortTest {
     {
         System.out.println("\nStarting SortTest: null type");
 
-        chCopy = (ArrayList<Channel>)channelList.clone();
+        chCopy = (ChannelList)channelList.clone();
         epCopy = (ArrayList<Episode>)episodeList.clone();
 
         try {
@@ -175,7 +177,7 @@ public class SortTest {
     {
         System.out.println("\nStarting SortTest: invalid type");
 
-        chCopy = (ArrayList<Channel>)channelList.clone();
+        chCopy = (ChannelList)channelList.clone();
         epCopy = (ArrayList<Episode>)episodeList.clone();
 
         Sort.channel(chCopy, "category");
@@ -191,10 +193,10 @@ public class SortTest {
     public void testEmptyList()
     {
         System.out.println("\nStarting SortTest: empty list");
-        chCopy = new ArrayList<>();
+        chCopy = new ChannelList();
         epCopy = new ArrayList<>();
 
-        ArrayList<Channel> chTemp = new ArrayList<>();
+        ChannelList chTemp = new ChannelList();
         ArrayList<Episode> epTemp = new ArrayList<>();
 
         Sort.channel(chCopy, "title");
@@ -219,9 +221,9 @@ public class SortTest {
     public void testOneEntry()
     {
         System.out.println("\nStarting SortTest: one entry");
-        chCopy = new ArrayList<>();
+        chCopy = new ChannelList();
         epCopy = new ArrayList<>();
-        ArrayList<Channel> chTemp = new ArrayList<>();
+        ChannelList chTemp = new ChannelList();
         ArrayList<Episode> epTemp = new ArrayList<>();
 
         chCopy.add(channel1);
@@ -252,50 +254,36 @@ public class SortTest {
     {
         System.out.println("\nStarting SortTest: multiple entries");
 
-        chCopy = (ArrayList<Channel>)channelList.clone();
+        chCopy = (ChannelList)channelList.clone();
         epCopy = (ArrayList<Episode>)episodeList.clone();
 
         Sort.channel(chCopy, "title");
         assertTrue(compareChannelLists(sortedByTitleChannelList, chCopy));
-        assertFalse(compareChannelLists(channelList, chCopy));
+
 
         Sort.channel(chCopy, "date");
         assertTrue(compareChannelLists(sortedByDateChannelList, chCopy));
-        assertFalse(compareChannelLists(channelList, chCopy));
+
 
         Sort.episode(epCopy, "title");
         assertTrue(compareEpisodeLists(sortedByTitleEpisodeList, epCopy));
-        assertFalse(compareEpisodeLists(episodeList, epCopy));
+
 
         Sort.episode(epCopy, "date");
         assertTrue(compareEpisodeLists(sortedByDateEpisodeList, epCopy));
-        assertFalse(compareEpisodeLists(episodeList, epCopy));
+
 
         Sort.episode(epCopy, "length");
         assertTrue(compareEpisodeLists(sortedByLengthEpisodeList, epCopy));
-        assertFalse(compareEpisodeLists(episodeList, epCopy));
+
 
         System.out.println("Finished SortTest: multiple entries");
 
     }
 
-    private boolean compareChannelLists(ArrayList<Channel> origChannel, ArrayList<Channel>otherChannel)
+    private boolean compareChannelLists(ChannelList origChannel, ChannelList otherChannel)
     {
-        Boolean result = false;
-        if (origChannel.size() == otherChannel.size())
-        {
-            result = true;
-            for ( int i = 0; i < origChannel.size(); i++ )
-            {
-                if ( !origChannel.get(i).equals(otherChannel.get(i)) )
-                {
-                    result = false;
-                    return result;
-                }
-            }
-        }
-
-        return result;
+        return origChannel.equals(otherChannel);
     }
 
     private boolean compareEpisodeLists(ArrayList<Episode> origEpisode, ArrayList<Episode>otherEpisode)
