@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">podcast</string>
     <string name="hint">Search for Podcasts</string>
+    <string name="search">Search</string>
     <string name="recommended_for_you">Recommended for you</string>
     <string name="new_playlist">New Playlist</string>
     <string name="create_new_playlist">Create New Playlist</string>
@@ -14,4 +15,5 @@
     <item name="visible" type="id" />
     <item name="masked" type="id" />
     <string name="title_activity_play_content">playContent</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
 </resources>

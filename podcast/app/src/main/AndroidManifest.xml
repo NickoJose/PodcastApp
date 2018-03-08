@@ -16,11 +16,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".representation.viewEpisode"></activity>
-        <activity android:name=".representation.viewChannel"></activity>
+        <activity android:name=".representation.viewEpisode" />
+        <activity android:name=".representation.viewChannel" />
         <activity
             android:name=".representation.playContent"
             android:label="@string/title_activity_play_content"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainAcrivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".representation.SearchableActivity"
+            android:label="@string/title_activity_searchable"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

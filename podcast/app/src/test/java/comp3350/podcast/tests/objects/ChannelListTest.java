@@ -11,9 +11,6 @@ import comp3350.podcast.persistence.StubData;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Russell on 2018-02-10.
- */
 public class ChannelListTest {
 
     private StubData data;
