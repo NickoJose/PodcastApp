@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v)
         {
             Toast.makeText(getApplicationContext(), "You clicked Search", Toast.LENGTH_LONG).show();
+            /*Intent intent = new Intent(MainActivity.this,SearchableActivity.class);
+            startActivity(intent);*/ //doesn't exist in this branch yet
         }
     };
 
