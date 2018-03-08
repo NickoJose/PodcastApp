@@ -7,6 +7,12 @@
     <string name="create_new_playlist">Create New Playlist</string>
     <string name="your_playlists">Your Playlists</string>
 
+    <!-- Menu text -->
+    <string name="menu_search">Search</string>
+    <string name="menu_subs">Subs</string>
+    <string name="menu_playlists">Playlists</string>
+    <string name="menu_allEps">All</string>
+
     <!-- card sizes -->
     <string name="cardWidth">275dp</string>
     <string name="cardHeight">100dp</string>
