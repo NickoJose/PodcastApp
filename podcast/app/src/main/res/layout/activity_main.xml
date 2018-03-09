@@ -35,7 +35,7 @@
         android:text="@string/recommended_for_you"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/body" />
+        app:layout_constraintTop_toBottomOf="@+id/plLayout" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -62,7 +62,7 @@
     <LinearLayout
         android:id="@+id/body"
         android:layout_width="0dp"
-        android:layout_height="608dp"
+        android:layout_height="396dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -81,43 +81,6 @@
             android:layout_width="match_parent"
             android:layout_height="294dp"
             android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/yourPlaylists"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/your_playlists" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:id="@+id/playlistsLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </ScrollView>
-
-        <Button
-            android:id="@+id/newPlaylist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="#b9ea9a"
-            android:text="@string/create_new_playlist" />
 
 
     </LinearLayout>
@@ -156,5 +119,69 @@
             android:layout_height="wrap_content"
             android:text="@string/menu_allEps" />
     </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/plLayout"
+        android:layout_width="0dp"
+        android:layout_height="206dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/body">
+
+        <TextView
+            android:id="@+id/yourPlaylists"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/your_playlists"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/newPlaylist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/yourPlaylists">
+
+            <LinearLayout
+                android:id="@+id/playlistsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/newPlaylist"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="#b9ea9a"
+            android:text="@string/create_new_playlist"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
