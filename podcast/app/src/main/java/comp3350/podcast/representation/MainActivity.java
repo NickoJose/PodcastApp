@@ -47,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
         Button newPlaylistBtn = findViewById(R.id.newPlaylist);
         newPlaylistBtn.setOnClickListener(playlistHandler);
 
+        /*
         Button searchBtn = findViewById(R.id.searchButton);
         searchBtn.setOnClickListener(searchButton);
-
+*/
         Button subsBtn = findViewById(R.id.subsButton);
         subsBtn.setOnClickListener(subsButton);
 
@@ -58,9 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
         Button allBtn = findViewById(R.id.allButton);
         allBtn.setOnClickListener(allButton);
+        /*
         Button btn = findViewById(R.id.newPlaylist);
         btn.setOnClickListener(playlistHandler);
-
+*/
         Button searchBtn = findViewById(R.id.searchButton);
         searchBtn.setOnClickListener(searchHandler);
     }
