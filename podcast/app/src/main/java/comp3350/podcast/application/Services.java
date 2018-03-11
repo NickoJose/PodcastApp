@@ -19,12 +19,17 @@ public class Services
         if (accessData == null)
         {
             accessData = new ObjectData(dbName);
-            accessData.open(Main.dbName);
+            accessData.open(Main.getDBPathName());
         }
         return accessData;
     }
 
-    // TODO COMMENTS
+    /**
+     * Sets the database to an alternate database
+     *
+     * @param alternateDataAccessService - database to replace the current one
+     * @return - Alternate database
+     */
     public static AccessData createDataAccess(AccessData alternateDataAccessService)
     {
         if (accessData == null)

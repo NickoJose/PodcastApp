@@ -2,12 +2,13 @@ package comp3350.podcast.application;
 
 public class Main
 {
-    public static final String dbName = "Pod";
-    private static String dbPathName = "database/Pod";
+    public static final String dbName = "Podcast";
+    private static String dbPathName = "database/Podcast";
 
     public static void main(String[] args)
     {
         startUp();
+
 
         shutDown();
 
@@ -35,8 +36,11 @@ public class Main
         Services.closeDataAccess();
     }
 
-    //TODO COMMENTS
-
+    /**
+     * Returns the database's name
+     *
+     * @return - String
+     */
     public static String getDBPathName()
     {
         if (dbPathName == null)
@@ -49,8 +53,11 @@ public class Main
         }
     }
 
-    //TODO COMMENTS
-
+    /**
+     * sets the database's name
+     *
+     * @return - void
+     */
     public static void setDBPathName(String pathName) {
         System.out.println("Setting DB path to: " + pathName);
         dbPathName = pathName;
