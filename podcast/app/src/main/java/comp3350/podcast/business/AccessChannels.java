@@ -6,18 +6,18 @@ import java.util.List;
 import comp3350.podcast.application.Main;
 import comp3350.podcast.application.Services;
 import comp3350.podcast.objects.Channel;
-import comp3350.podcast.persistence.StubData;
+import comp3350.podcast.persistence.AccessData;
 
 public class AccessChannels
 {
-    private StubData accessData;
+    private AccessData accessData;
     private List<Channel> channels;
     private Channel channel;
     private int currentChannel;
 
     public AccessChannels()
     {
-        accessData = (StubData) Services.getDataAccess(Main.dbName);
+        accessData = Services.getDataAccess(Main.dbName);
         channels = null;
         channel = null;
         currentChannel = 0;

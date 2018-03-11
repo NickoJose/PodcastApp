@@ -12,14 +12,16 @@ public class Playlist {
 
     private EpisodeList episodes;
     private ChannelList channels;
+    private String name;
 
     private Hashtable<Channel, Date> lastChannelUpdates;
 
-    public Playlist() {
+    public Playlist(String name) {
         super();
         episodes = new EpisodeList();
         channels = new ChannelList();
         lastChannelUpdates = new Hashtable<>();
+        this.name = name;
     }
 
     /**
@@ -256,5 +258,21 @@ public class Playlist {
         return episodes;
     }
 
+    /**
+     * Get the name of the playlist
+     *
+     * @return - Returns the name of the playlist
+     */
+    public String getName(){
+        return name;
+    }
 
+    /**
+     * To String
+     *
+     * @return Returns string representing the playlist. Formatted as "CPlaylist name: <NAME>"
+     */
+    public String toString() {
+        return ("Playlist name: " + name);
+    }
 }
