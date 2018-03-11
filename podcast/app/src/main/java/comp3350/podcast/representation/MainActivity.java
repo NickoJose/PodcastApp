@@ -1,10 +1,13 @@
 package comp3350.podcast.representation;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.TextInputLayout;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import comp3350.podcast.R;
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        copyDatabaseToDevice();
         Main.startUp();
         setContentView(R.layout.activity_main);
 
@@ -42,9 +50,17 @@ public class MainActivity extends AppCompatActivity {
             populateRecList();
         }
 
+        else
+        {
+            Toast.makeText(this, "Database loading failed.", Toast.LENGTH_LONG).show();
+        }
+
 
         Button btn = findViewById(R.id.newPlaylist);
         btn.setOnClickListener(playlistHandler);
+
+        Button searchBtn = findViewById(R.id.searchButton);
+        searchBtn.setOnClickListener(searchHandler);
     }
 
     @Override
@@ -58,8 +74,27 @@ public class MainActivity extends AppCompatActivity {
     {
         public void onClick(View v)
         {
-            Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
+        }
+    };
+
+    View.OnClickListener searchHandler = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+
+            TextInputLayout text = findViewById(R.id.searchString);
+
+            String searchString = text.getEditText().getText().toString();
+
+            //Toast.makeText(getApplicationContext(), "You clicked search"+searchString, Toast.LENGTH_LONG).show();
+
+            Intent searchIntent = new Intent(MainActivity.this, SearchableActivity.class);
+            Bundle b = new Bundle();
+            b.putSerializable("search", searchString);
+            searchIntent.putExtras(b);
+            startActivity(searchIntent);
         }
     };
 
@@ -130,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();
@@ -175,6 +210,68 @@ public class MainActivity extends AppCompatActivity {
                     view.setOnClickListener(handler1);
                     ll.addView(view);
                 }
+    }
+
+    /**
+     * Copies the database to the device
+     *
+     * @return - void
+     */
+    private void copyDatabaseToDevice() {
+        final String DB_PATH = "db";
+
+        String[] assetNames;
+        Context context = getApplicationContext();
+        File dataDirectory = context.getDir(DB_PATH, Context.MODE_PRIVATE);
+        AssetManager assetManager = getAssets();
+
+        try {
+
+            assetNames = assetManager.list(DB_PATH);
+            for (int i = 0; i < assetNames.length; i++) {
+                assetNames[i] = DB_PATH + "/" + assetNames[i];
+            }
+
+            copyAssetsToDirectory(assetNames, dataDirectory);
+
+            Main.setDBPathName(dataDirectory.toString() + "/" + Main.dbName);
+
+        } catch (IOException ioe) {
+            Toast.makeText(this, "Unable to access application data: " + ioe.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Copies the database to the directory specified
+     * @param assets - database to be copied
+     * @param directory - target directory
+     * @return - void
+     */
+    public void copyAssetsToDirectory(String[] assets, File directory) throws IOException {
+        AssetManager assetManager = getAssets();
+
+        for (String asset : assets) {
+            String[] components = asset.split("/");
+            String copyPath = directory.toString() + "/" + components[components.length - 1];
+            char[] buffer = new char[1024];
+            int count;
+
+            File outFile = new File(copyPath);
+
+            if (!outFile.exists()) {
+                InputStreamReader in = new InputStreamReader(assetManager.open(asset));
+                FileWriter out = new FileWriter(outFile);
+
+                count = in.read(buffer);
+                while (count != -1) {
+                    out.write(buffer, 0, count);
+                    count = in.read(buffer);
+                }
+
+                out.close();
+                in.close();
+            }
+        }
     }
 
 
