@@ -120,13 +120,13 @@ public class SearchTest {
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "");
-        assertTrue(list != null);
+        assertTrue(list instanceof LinkedList);
 
 
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "!F %\n __+=");
-        assertTrue(list != null);
+        assertTrue(list instanceof LinkedList);
 
 
         search = new Search();
@@ -142,17 +142,17 @@ public class SearchTest {
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "Wow this string sure is long I wonder what would happen if someone where to use it as a search query");
-        assertTrue(list != null);
+        assertTrue(list instanceof LinkedList);
 
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "nospacesforu");
-        assertTrue(list != null);
+        assertTrue(list instanceof LinkedList);
 
         search = new Search();
 
         list = search.getRelavenceList(episodeList, "\0");
-        assertTrue(list != null);
+        assertTrue(list instanceof LinkedList);
 
         search = new Search();
 

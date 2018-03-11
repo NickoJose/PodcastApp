@@ -2,7 +2,7 @@ package comp3350.podcast.objects;
 import android.support.annotation.NonNull;
 import java.io.Serializable;
 
-public class Episode implements Serializable {
+public class Episode extends DescribedObject implements Serializable {
 
     private String title;
     private String subtitle;

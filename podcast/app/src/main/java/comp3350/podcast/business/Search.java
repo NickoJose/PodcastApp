@@ -1,6 +1,8 @@
 package comp3350.podcast.business;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import comp3350.podcast.objects.Episode;
@@ -8,15 +10,14 @@ import comp3350.podcast.objects.Episode;
 public class Search {
     /**
      * Populates a linkedlist with episodes with the top being the most similar to the key.
-     * Similarity is measured based on the length of the longest common subsequence of chars.
+     * Similarity is measured based on a heuristic calculated by matchHeuristic.
      *
      * @return - void
      */
-    public LinkedList<Episode> getRelavenceList(ArrayList<Episode> in, String key)
+    public LinkedList getRelavenceList(ArrayList<Episode> in, String key)
     {
-        LinkedList<Episode> out2 = new LinkedList<>();
+        LinkedList<WeightedEpNode> weightedList = new LinkedList<>();
         int l;
-        int bestL = key.length()*2;
         int minL = key.length();
 
         // not the best way to sort
@@ -24,18 +25,13 @@ public class Search {
         {
             l = matchHeuristic(a.getTitle(), key);
 
-            if (l >= bestL) {
-                out2.addFirst(a);
-                bestL = l;
-            }
-            else if (l >= minL)
-            {
-                out2.addLast(a);
-            }
+            if (l >= minL)
+                weightedList.add(new WeightedEpNode(a,l));
 
         }
 
-        return out2;
+        Collections.sort(weightedList);
+        return weightedList;
     }
 
     /**
@@ -44,7 +40,7 @@ public class Search {
      *
      * @return - int of the heuristic
      */
-    public static int matchHeuristic (String a, String b) {
+    public int matchHeuristic (String a, String b) {
         a = a.toLowerCase();
         b = b.toLowerCase();
 
@@ -93,5 +89,39 @@ public class Search {
 
         String lcsub = sb.reverse().toString();
         return lcsub.length() + max*2;
+    }
+}
+
+class WeightedEpNode extends Episode implements Comparable<Object>
+{
+    private Episode episode;
+    private int weight;
+
+    public WeightedEpNode(Episode episode, int weight)
+    {
+        super(episode.getTitle(), episode.getUrl(), episode.getDesc(),
+        episode.getLength(), episode.getChannel(), episode.getPublishDate(),
+            episode.getAuthor(), episode.getCategory(), episode.getEpNum());
+
+        this.episode = episode;
+        this.weight = weight;
+    }
+
+    public Episode getEpisode()
+    {
+        return episode;
+    }
+
+    public int getWeight()
+    {
+        return weight;
+    }
+
+    public int compareTo(Object weightedEpNode) {
+        if (weightedEpNode instanceof WeightedEpNode)
+        {
+            return ((WeightedEpNode)weightedEpNode).getWeight() - this.weight;
+        }
+        return 0;
     }
 }

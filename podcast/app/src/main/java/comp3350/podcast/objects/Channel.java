@@ -3,7 +3,7 @@ package comp3350.podcast.objects;
 import android.support.annotation.NonNull;
 import java.io.Serializable;
 
-public class Channel implements Serializable{
+public class Channel extends DescribedObject implements Serializable{
 
     private String title;
     private String desc;
