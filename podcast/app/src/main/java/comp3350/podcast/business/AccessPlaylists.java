@@ -24,15 +24,53 @@ public class AccessPlaylists{
     }
 
     /**
+     * Puts all the playlist in a playlist into a given List<Playlist> object.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param playlists - list that we will store the result in
+     * @return - null. This pattern was taken from sample project
+     */
+
+    public String getPlaylists(List<Playlist> playlists)
+    {
+        playlists.clear();
+        return accessData.getPlaylistSequential(playlists);
+    }
+
+    /**
+     * Inserts playlist into database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentPlaylist - the playlist we are inserting
+     * @return - null. This pattern was taken from sample project
+     */
+    public String insertPlaylist(Playlist currentPlaylist)
+    {
+        return accessData.insertPlaylist(currentPlaylist);
+    }
+
+    /**
+     * Deletes a given playlist from the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentPlaylist - the playlist being removed from the database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String deletePlaylist(Playlist currentPlaylist)
+    {
+        return accessData.deletePlaylist(currentPlaylist);
+    }
+
+    /**
      * Puts all the channels in a playlist into a given List<Channel> object. The source playlist is stored in this object
      * The input/output follows a design pattern from the sample project.
      *
      * @param channels - the List where the result will be stored
      * @return - null string pointer
      */
-    public String getPlaylistChannels(List<Channel> channels){
+    public String getPlaylistChannels(List<Channel> channels, Playlist currentPlaylist){
         channels.clear();
-        return accessData.getPlaylistChannelSequential(channels);
+        return accessData.getPlaylistChannelSequential(channels, currentPlaylist);
     }
 
     /**
@@ -42,10 +80,10 @@ public class AccessPlaylists{
      * @param episodes - A List<Episode> object to store the result
      * @return - null string pointer
      */    
-    public String getPlaylistEpisodes(List<Episode> episodes)
+    public String getPlaylistEpisodes(List<Episode> episodes, Playlist currentPlaylist)
     {
         episodes.clear();
-        return accessData.getPlayListEpisodeSequential(episodes);
+        return accessData.getPlayListEpisodeSequential(episodes, currentPlaylist);
     }
 
     /**
@@ -54,9 +92,9 @@ public class AccessPlaylists{
      * @param currentChannel - the channel that will be inserted
      * @return - success
      */    
-    public boolean insertPlaylistChannel(Channel currentChannel)
+    public boolean insertPlaylistChannel(Channel currentChannel, Playlist currentPlaylist)
     {
-        return accessData.insertPlaylistChannel(currentChannel);
+        return accessData.insertPlaylistChannel(currentChannel, currentPlaylist);
     }
 
     /**
@@ -65,9 +103,9 @@ public class AccessPlaylists{
      * @param currentEpisode - the episode that will be inserted
      * @return - success
      */  
-    public boolean insertPlaylistEpisode(Episode currentEpisode)
+    public boolean insertPlaylistEpisode(Episode currentEpisode, Playlist currentPlaylist)
     {
-        return accessData.insertPlaylistEpisode(currentEpisode);
+        return accessData.insertPlaylistEpisode(currentEpisode, currentPlaylist);
     }
 
     /**
@@ -76,9 +114,9 @@ public class AccessPlaylists{
      * @param currentChannel - the channel that will be removed
      * @return - success
      */      
-    public boolean deletePlaylistChannel(Channel currentChannel)
+    public boolean deletePlaylistChannel(Channel currentChannel, Playlist currentPlaylist)
     {
-        return accessData.deletePlaylistChannel(currentChannel);
+        return accessData.deletePlaylistChannel(currentChannel, currentPlaylist);
     }
     
     /**
@@ -87,9 +125,9 @@ public class AccessPlaylists{
      * @param currentEpisode - the episode to be removed
      * @return - success
      */  
-    public boolean deletePlaylistEpisode(Episode currentEpisode)
+    public boolean deletePlaylistEpisode(Episode currentEpisode, Playlist currentPlaylist)
     {
-        return accessData.deletePlaylistEpisode(currentEpisode);
+        return accessData.deletePlaylistEpisode(currentEpisode, currentPlaylist);
     }
 }
 
