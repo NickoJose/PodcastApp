@@ -275,7 +275,7 @@ public class StubData implements AccessData{
      * Deletes an episode from the database
      * The input/output follows a design pattern from the sample project.
      *
-     * @param currentEpisode - episode to be removed from the database
+     * @param currentEpisode - Episode to be removed from the database
      * @return - null. This pattern was taken from sample project
      */
     public String deleteEpisode(Episode currentEpisode)
