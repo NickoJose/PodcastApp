@@ -4,16 +4,14 @@ package comp3350.podcast.persistence;
 import java.util.List;
 
 import comp3350.podcast.objects.Channel;
-import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
+import comp3350.podcast.objects.Playlist;
 
 public interface AccessData
 {
     void open(String dbName);
 
     void close();
-
-    Date createDate(int objYear, int objMonth, int objDay, int objHour, int objMinute, int objSecond);
 
     String getChannelSequential(List<Channel> channelResult);
 
@@ -33,15 +31,21 @@ public interface AccessData
 
     String updateEpisode(Episode currentEpisode);
 
-    String getPlaylistChannelSequential(List<Channel> channelResult);
+    String getPlaylistSequential(List<Playlist> playlistResult);
 
-    String getPlayListEpisodeSequential(List<Episode> episodeResult);
+    String getPlaylistChannelSequential(List<Channel> channelResult, Playlist currentPlaylist);
 
-    boolean insertPlaylistChannel(Channel currentChannel);
+    String getPlayListEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist);
 
-    boolean insertPlaylistEpisode(Episode currentEpisode);
+    String insertPlaylist(Playlist currentPlaylist);
 
-    boolean deletePlaylistChannel(Channel currentChannel);
+    String deletePlaylist(Playlist currentPlaylist);
 
-    boolean deletePlaylistEpisode(Episode currentEpisode);
+    boolean insertPlaylistChannel(Channel currentChannel, Playlist currentPlaylist);
+
+    boolean insertPlaylistEpisode(Episode currentEpisode, Playlist currentPlaylist);
+
+    boolean deletePlaylistChannel(Channel currentChannel, Playlist currentPlaylist);
+
+    boolean deletePlaylistEpisode(Episode currentEpisode, Playlist currentPlaylist);
 }
