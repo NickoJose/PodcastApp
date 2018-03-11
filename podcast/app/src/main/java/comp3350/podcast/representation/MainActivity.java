@@ -223,7 +223,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
+        CardList.createEpisodeCardList(handler1,findViewById(R.id.recLayout),this,R.layout.card,recList,recIds);
+/*
         // update titles
 
                 for (index = 0; index < recList.size(); index++) {
@@ -257,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                     // set listener
                     view.setOnClickListener(handler1);
                     ll.addView(view);
-                }
+                }*/
     }
 
     /**

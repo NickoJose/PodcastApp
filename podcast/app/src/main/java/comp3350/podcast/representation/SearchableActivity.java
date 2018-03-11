@@ -76,7 +76,8 @@ public class SearchableActivity extends AppCompatActivity {
                 }
             }
         };
-
+        CardList.createEpisodeCardList(handler1,findViewById(R.id.resultLayout),this,R.layout.card_search,recList,recIds);
+/*
         // update titles
         for (index = 0; index < recList.size(); index++) {
             // get layouts
@@ -110,6 +111,7 @@ public class SearchableActivity extends AppCompatActivity {
             view.setOnClickListener(handler1);
             ll.addView(view);
         }
+        */
     }
 
 }
