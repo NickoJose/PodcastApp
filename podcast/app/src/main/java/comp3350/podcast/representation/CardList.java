@@ -19,67 +19,22 @@ import comp3350.podcast.objects.Channel;
 public final class CardList {
 
     private CardList(){}
-/*
-    private static void createCardList(View.OnClickListener handler1, View layout, Context context,
-    int resource,List<Channel> recList, ArrayList<Integer> recIds, DescribedObject temp)
-    {
-        int index = 0;
-        //DescribedObject temp;
-        TextView title = null;
-        TextView description = null;
-        View view;
 
-        if(temp instanceof Episode)
-        {
-            temp = (Episode)temp;
-        }
-        else if (temp instanceof Channel)
-        {
-            temp = (Channel)temp;
-        }
-
-        // update titles
-
-        for (index = 0; index < recList.size(); index++) {
-            // get layouts
-            LinearLayout ll = (LinearLayout)layout;
-            view = LayoutInflater.from(context).inflate(resource, ll, false);
-            recIds.add(view.getId());
-
-            temp = recList.get(index);
-
-            // find this cards title
-            title = view.findViewById(R.id.recTitle);
-
-            // find this cards description
-            description = view.findViewById(R.id.recDsc);
-
-            // set this cards properties
-            if (temp != null)
-            {
-                description.setText(temp.getDesc());
-                title.setText(temp.getTitle());
-
-                if (view instanceof CardViewPC)
-                {
-                    CardViewPC a = (CardViewPC) view;
-                    a.setWhoDis(temp.getTitle());
-                    a.setCh(temp);
-                }
-            }
-
-            // set listener
-            view.setOnClickListener(handler1);
-            ll.addView(view);
-        }
-
-    }*/
-
+    /**
+     * Creates a list of channel cards in a given layout/list
+     *
+     * @param handler1 - the OnClickListener for the items you want listed
+     * @param layout - the layout the cards will be placed in
+     * @param context - the calling activity's context
+     * @param resource - either card or card_search (what is being displayed)
+     * @param recList - list of items to be made into cards
+     * @param recIds - integer ids of each item in recList
+     *
+     * @return void
+     */
     public static void createChannelCardList(View.OnClickListener handler1, View layout, Context context,
                                              int resource,List<Channel> recList, ArrayList<Integer> recIds)
     {
-       //Channel temp = null;
-       //createCardList(handler1,layout,context,resource,recList,recIds,temp);
         int index = 0;
         Channel temp;
         TextView title = null;
@@ -122,12 +77,21 @@ public final class CardList {
         }
     }
 
+    /**
+     * Creates a list of episode cards in a given layout/list
+     *
+     * @param handler1 - the OnClickListener for the items you want listed
+     * @param layout - the layout the cards will be placed in
+     * @param context - the calling activity's context
+     * @param resource - either card or card_search (what is being displayed)
+     * @param recList - list of items to be made into cards
+     * @param recIds - integer ids of each item in recList
+     *
+     * @return void
+     */
     public static void createEpisodeCardList(View.OnClickListener handler1, View layout, Context context,
                                              int resource,List<Episode> recList, ArrayList<Integer> recIds)
     {
-        //Episode temp = null;
-        //createCardList(handler1,layout,context,resource,recList,recIds,temp);
-
         int index = 0;
         Episode temp;
         TextView title = null;
@@ -168,6 +132,5 @@ public final class CardList {
             view.setOnClickListener(handler1);
             ll.addView(view);
         }
-
     }
 }

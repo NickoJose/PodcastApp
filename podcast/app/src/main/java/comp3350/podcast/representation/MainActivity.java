@@ -73,18 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         result = accessChannels.getChannels(chList);
 
-        if (result == null)
-        {
-            LinearLayout quickList = findViewById(R.id.quick_list);
-            quickList.removeAllViews();
-           // populateQuickListChannels();
-        }
-
-        else
-        {
-            Toast.makeText(this, "Database loading failed.", Toast.LENGTH_LONG).show();
-        }
-
 
         Button newPlaylistBtn = findViewById(R.id.newPlaylist);
         newPlaylistBtn.setOnClickListener(playlistHandler);
@@ -241,9 +229,14 @@ public class MainActivity extends AppCompatActivity {
         CardList.createEpisodeCardList(handler1,findViewById(R.id.recLayout),this,R.layout.card,recList,recIds);
     }
 
+    /**
+     * Populates quick list with channels. Sets onClick handlers for each channel.
+     *
+     * @return - void
+     */
     private void populateQuickListChannels()
     {
-        View.OnClickListener handler1 = new View.OnClickListener()
+        View.OnClickListener allChHandler = new View.OnClickListener()
         {
             public void onClick(View v)
             {
@@ -259,12 +252,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        CardList.createChannelCardList(handler1,findViewById(R.id.quick_list),this,R.layout.card_search,chList,quickIds);
+        CardList.createChannelCardList(allChHandler,findViewById(R.id.quick_list),this,R.layout.card_search,chList,quickIds);
     }
 
+    /**
+     * Populates quick list with all episodes. Sets onClick handlers for each episode.
+     *
+     * @return - void
+     */
     private void populateQuickListAll()
     {
-        View.OnClickListener handler1 = new View.OnClickListener()
+        View.OnClickListener allEpsHandler = new View.OnClickListener()
         {
             public void onClick(View v)
             {
@@ -274,13 +272,13 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();
-                    b.putSerializable("episode", a.getCh());
+                    b.putSerializable("episode", a.getEp());
                     episodeIntent.putExtras(b);
                     startActivity(episodeIntent);
                 }
             }
         };
-        CardList.createEpisodeCardList(handler1,findViewById(R.id.quick_list),this,R.layout.card_search,recList,recIds);
+        CardList.createEpisodeCardList(allEpsHandler,findViewById(R.id.quick_list),this,R.layout.card_search,recList,recIds);
     }
 
     /**
