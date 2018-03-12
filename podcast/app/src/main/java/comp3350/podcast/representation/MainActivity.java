@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private AccessPlaylists accessPlaylists;
     private ArrayList<Integer> quickIds;
     private ArrayList<Channel> chList;
-    private ArrayList<Playlist> PLList;
+    private ArrayList<Playlist> PList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
