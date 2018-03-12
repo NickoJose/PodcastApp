@@ -12,6 +12,7 @@
     <string name="menu_subs">Subs</string>
     <string name="menu_playlists">Playlists</string>
     <string name="menu_allEps">All</string>
+    <string name="menu_channels">Channels</string>
 
     <!-- card sizes -->
     <string name="cardWidth">275dp</string>

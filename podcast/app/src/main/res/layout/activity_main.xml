@@ -75,14 +75,17 @@
         app:layout_constraintStart_toEndOf="@+id/menuButtons"
         app:layout_constraintTop_toBottomOf="@+id/searchString">
 
-        <fragment
-            android:id="@+id/placeHolder"
-            android:name="android.app.ListFragment"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="294dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent">
 
-
+            <LinearLayout
+                android:id="@+id/quick_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -108,10 +111,10 @@
             android:text="@string/menu_subs" />
 
         <Button
-            android:id="@+id/playlistsButton"
+            android:id="@+id/channelsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/menu_playlists" />
+            android:text="@string/menu_channels" />
 
         <Button
             android:id="@+id/allButton"
