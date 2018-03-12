@@ -26,6 +26,10 @@ February 5th, 2018	- Started work on a GUI for viewing an individual episode. - 
 February 9th, 2018	- Made Episode fields passable to viewEpisode from mainActivity. Made very basic viewChannel GUI. - 3 hours.
 February 11th, 2018	- Made Episodes, Channels, and Dates implement serializable to make the whole object passable between activities. Added basic display to ViewChannel. - 3 hours.
 February 13th, 2018	- Made viewChannel actually display its list of Episodes. Made episodes link to their viewEpisode pages when clicked. - 2 hours.
+March 9th, 2018 - Started work on a new main page, experimented with different layouts - 2 hours.
+March 10th, 2018 - Further refined layout of main screen - 1 hour.
+March 11th, 2018 - Added CardList class to make code used for creating lists of Cards for episodes reusable. Made Channels display their episode using Cards instead of a list of text titles only. - 2 hours.
+March 12th, 2018 - Finalized CardList class to be able to display Channels with cards as well. Added header comments to main_activity and CardList classes. Merged main-2.0 into master. - 2 hours.
 
 Log Entry – Nicko Jose
 January 29, 2018 – Stub database with static content. Worked for about 2-3 hours. 
