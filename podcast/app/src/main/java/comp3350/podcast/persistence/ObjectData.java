@@ -324,6 +324,31 @@ public class ObjectData implements AccessData
     }
 
     /**
+     * Find a channel in the subscription table that matches the param title then return that channel
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param title - The title that will be compared
+     * @return - Channel. Null if unsuccessful and channel if successful
+     */
+    private Channel getSubInfo(String title)
+    {
+        ArrayList<Channel> channels = new ArrayList<>();
+        getSubSequential(channels);
+        Channel ch = null;
+
+        for (int i = 0; i < channels.size(); i ++)
+        {
+            if (title.equals(channels.get(i).getTitle()))
+            {
+                ch = channels.get(i);
+                break;
+            }
+        }
+
+        return ch;
+    }
+
+    /**
      * Find an episode that matches the param title then return that episode
      * The input/output follows a design pattern from the sample project.
      *
@@ -896,6 +921,79 @@ public class ObjectData implements AccessData
             result = processSQLError(e);
         }
         return success;
+    }
+
+
+    public String getSubSequential(List<Channel> channelResult)
+    {
+        Channel myCh;
+        String chTitle;
+
+        result = null;
+        try
+        {
+            cmdString = "Select * from Subscriptions";
+            rs3 = st3.executeQuery(cmdString);
+            while (rs3.next())
+            {
+                chTitle = rs3.getString("Title");
+                myCh = getChannelInfo(chTitle);
+                channelResult.add(myCh);
+            }
+        }
+
+        catch (Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    public String insertSub(Channel currentChannel)
+    {
+        String values;
+        Channel ch;
+
+        result = null;
+
+        ch = getSubInfo(currentChannel.getTitle());
+        if (ch == null) // does not exist in the database
+        {
+            try
+            {
+                values = "'" + currentChannel.getTitle() + "'";
+                cmdString = "Insert into Subscriptions " +" Values(" +values +")";
+                updateCount = st2.executeUpdate(cmdString);
+                result = checkWarning(st2, updateCount);
+            }
+            catch (Exception e)
+            {
+                result = processSQLError(e);
+            }
+        }
+
+        return result;
+    }
+
+    public String deleteSub(Channel currentChannel)
+    {
+        String values;
+        String nextValues;
+
+        result = null;
+        try
+        {
+            values = currentChannel.getTitle();
+            cmdString = "Delete from Subscriptions where Title='" +values +"'";
+            updateCount = st2.executeUpdate(cmdString);
+            result = checkWarning(st2, updateCount);
+        }
+        catch (Exception e)
+        {
+            result = processSQLError(e);
+        }
+        return result;
     }
 
     /**

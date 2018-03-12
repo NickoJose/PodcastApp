@@ -48,4 +48,10 @@ public interface AccessData
     boolean deletePlaylistChannel(Channel currentChannel, Playlist currentPlaylist);
 
     boolean deletePlaylistEpisode(Episode currentEpisode, Playlist currentPlaylist);
+
+    String insertSub(Channel currentChannel);
+
+    String deleteSub(Channel currentChannel);
+
+    String getSubSequential(List<Channel> channelResult);
 }
