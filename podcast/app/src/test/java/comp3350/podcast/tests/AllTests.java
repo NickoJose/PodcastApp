@@ -3,6 +3,9 @@ package comp3350.podcast.tests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import comp3350.podcast.tests.business.AccessChannelsTest;
+import comp3350.podcast.tests.business.AccessEpisodesTest;
+import comp3350.podcast.tests.business.AccessPlaylistsTest;
 import comp3350.podcast.tests.business.SearchTest;
 import comp3350.podcast.tests.business.SortTest;
 import comp3350.podcast.tests.objects.ChannelListTest;
@@ -14,6 +17,9 @@ import comp3350.podcast.tests.objects.EpisodeTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        AccessChannelsTest.class,
+        AccessEpisodesTest.class,
+        AccessPlaylistsTest.class,
         SortTest.class,
         SearchTest.class,
         ChannelTest.class,

@@ -142,6 +142,10 @@ public class ObjectData implements AccessData
         Channel ch;
         result = null;
 
+        if(currentChannel == null){
+            throw new NullPointerException("Channel must not be Null");
+        }
+
         ch = getChannelInfo(currentChannel.getTitle());
         if (ch == null) // does not exist in the database
         {
@@ -501,6 +505,10 @@ public class ObjectData implements AccessData
         String ch;
         Episode ep;
 
+        if(currentEpisode == null){
+            throw new NullPointerException("Episode must not be Null");
+        }
+
         result = null;
         ep = getEpisodeInfo(currentEpisode.getTitle());
         if (ep == null) // does not exist in the database
@@ -712,6 +720,10 @@ public class ObjectData implements AccessData
         String values;
         Playlist playlist;
         result = null;
+
+        if(currentPlaylist == null){
+            throw new NullPointerException("Playlist must not be Null");
+        }
 
         playlist = getPlaylistInfo(currentPlaylist.getName());
         if (playlist == null) // does not exist in the database

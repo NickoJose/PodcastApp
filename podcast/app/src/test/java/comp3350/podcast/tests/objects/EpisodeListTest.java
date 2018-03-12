@@ -8,16 +8,13 @@ import java.util.ArrayList;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.EpisodeList;
-import comp3350.podcast.persistence.StubData;
+import comp3350.podcast.tests.persistence.StubData;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-/**
- * Created by Russell on 2018-02-10.
- */
 public class EpisodeListTest {
 
     private StubData data;
