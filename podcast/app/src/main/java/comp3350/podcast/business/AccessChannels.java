@@ -37,34 +37,6 @@ public class AccessChannels
     }
 
     /**
-     * Gets the next channel in order. Functions similar to an iterator's get()
-     * The input/output follows a design pattern from the sample project.
-     *
-     * @return - next channel
-     */
-    public Channel getSequential()
-    {
-        String result = null;
-        if (channels == null)
-        {
-            result = accessData.getChannelSequential(channels);
-            currentChannel = 0;
-        }
-        if (currentChannel < channels.size())
-        {
-            channel = (Channel) channels.get(currentChannel);
-            currentChannel++;
-        }
-        else
-        {
-            channels = null;
-            channel = null;
-            currentChannel = 0;
-        }
-        return channel;
-    }
-
-    /**
      * Sorts a channel list in-object, according to a given data field.
      * Valid fields are: "title", "date".
      * The input/output follows a design pattern from the sample project.

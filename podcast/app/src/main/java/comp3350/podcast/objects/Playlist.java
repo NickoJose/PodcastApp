@@ -1,12 +1,9 @@
 package comp3350.podcast.objects;
-import android.support.v4.os.IResultReceiver;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.LinkedList;
-import comp3350.podcast.persistence.StubData;
 
-
+import comp3350.podcast.persistence.AccessData;
+import comp3350.podcast.persistence.ObjectData;
 
 public class Playlist {
 
@@ -215,7 +212,8 @@ public class Playlist {
         Iterator channelIter = channels.iterator();
         int counter = 0;
 
-        StubData data = new StubData("LIES");
+        AccessData data = new ObjectData("LIES") {
+        };
         Channel ch;
         EpisodeList eps;
         Iterator iter;
@@ -275,4 +273,26 @@ public class Playlist {
     public String toString() {
         return ("Playlist name: " + name);
     }
+
+    /**
+     * Checks if a given object represents the same channel. Checks title and source URL.
+     *
+     * @param obj  - obj to compare
+     * @return Returns true on success.
+     */
+    public boolean equals(Object obj)
+    {
+        boolean result = false;
+        Playlist pl;
+
+        if(obj instanceof Playlist)
+        {
+            pl = (Playlist)obj;
+            if(pl.getName().equals(name))
+            {
+                result = true;
+            }
+        }
+        return result;
+    }//equals
 }

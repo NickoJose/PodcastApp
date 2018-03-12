@@ -39,12 +39,6 @@ public class SortTest {
 
     public SortTest() { super(); }
 
-    public void print(ChannelList ch){
-        for(int i=0;i<ch.size();i++){
-            System.out.println(ch.get(i).getTitle());
-        }
-    }
-
     @Before
     public void setUp()
     {

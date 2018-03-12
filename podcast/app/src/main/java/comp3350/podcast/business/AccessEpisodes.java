@@ -52,34 +52,6 @@ public class AccessEpisodes
     }
     
     /**
-     * Gets the next episode in the playlist from a channel
-     *
-     * @param currentChannel - the channel we want to get the next episode from
-     * @return - next episode
-     */
-    public Episode getSequential(Channel currentChannel)
-    {
-        String result = null;
-        if (episodes == null)
-        {
-            result = accessData.getChannelEpisodeSequential(episodes, currentChannel);
-            currentEpisode = 0;
-        }
-        if (currentEpisode < episodes.size())
-        {
-            episode = (Episode) episodes.get(currentEpisode);
-            currentEpisode++;
-        }
-        else
-        {
-            episodes = null;
-            episode = null;
-            currentEpisode = 0;
-        }
-        return episode;
-    }
-    
-    /**
      * Sorts episodes according to a given data field. Valid firelds are:
      * "title", "date", "length".
      * The input/output follows a design pattern from the sample project.

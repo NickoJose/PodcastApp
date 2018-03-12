@@ -1,14 +1,16 @@
-package comp3350.podcast.persistence;
+package comp3350.podcast.tests.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.podcast.application.Main;
 import comp3350.podcast.objects.Channel;
+import comp3350.podcast.objects.ChannelList;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.Playlist;
+import comp3350.podcast.persistence.AccessData;
 
-public class StubData implements AccessData{
+public class StubData implements AccessData {
     private String dbName;
     private String dbType = "stub";
     private ArrayList<Channel> channels;
@@ -109,14 +111,19 @@ public class StubData implements AccessData{
         episodes.add(episode);
 
         playlist = new Playlist("Chill");
-        playlist.addChannel(channels.get(0));
-        playlist.addChannel(channels.get(2));
+        playlists.add(playlist);
+        playlist = new Playlist("Relax");
+        playlists.add(playlist);
 
-        playlist.addEpisode(episodes.get(0));
-        playlist.addEpisode(episodes.get(2));
-        playlist.addEpisode(episodes.get(6));
-        playlist.addEpisode(episodes.get(7));
-        playlist.addEpisode(episodes.get(8));
+        playlists.get(0).addChannel(channels.get(1));
+        playlists.get(0).addChannel(channels.get(2));
+        playlists.get(1).addChannel(channels.get(0));
+
+        playlists.get(0).addEpisode(episodes.get(6));
+        playlists.get(0).addEpisode(episodes.get(4));
+        playlists.get(0).addEpisode(episodes.get(0));
+        playlists.get(1).addEpisode(episodes.get(4));
+        playlists.get(1).addEpisode(episodes.get(5));
 
 
         System.out.println("Opened " +dbType +" database " +dbName);
@@ -173,6 +180,10 @@ public class StubData implements AccessData{
     public String insertChannel(Channel currentChannel)
     {
         int index;
+
+        if(currentChannel == null){
+            throw new NullPointerException("Channel must not be Null");
+        }
 
         index = channels.indexOf(currentChannel);
         if (index < 0) // check duplicates
@@ -266,8 +277,18 @@ public class StubData implements AccessData{
      */
     public String insertEpisode(Episode currentEpisode)
     {
-        // don't bother checking for duplicates
-        episodes.add(currentEpisode);
+        int index;
+
+        if(currentEpisode == null){
+            throw new NullPointerException("Episode must not be Null");
+        }
+
+        index = episodes.indexOf(currentEpisode);
+        if (index < 0) // check duplicates
+        {
+            episodes.add(currentEpisode);
+        }
+
         return null;
     }
 
@@ -333,11 +354,10 @@ public class StubData implements AccessData{
     public String getPlaylistChannelSequential(List<Channel> channelResult, Playlist currentPlaylist)
     {
         int index;
-
         index = playlists.indexOf(currentPlaylist);
         if (index >= 0)
         {
-            channelResult.addAll(currentPlaylist.getChannels());
+            channelResult.addAll(playlists.get(index).getChannels());
         }
         return null;
     }
@@ -357,7 +377,7 @@ public class StubData implements AccessData{
         index = playlists.indexOf(currentPlaylist);
         if (index >= 0)
         {
-            episodeResult.addAll(currentPlaylist.getEpisodes());
+            episodeResult.addAll(playlists.get(index).getEpisodes());
         }
         return null;
     }
@@ -372,7 +392,17 @@ public class StubData implements AccessData{
 
     public String insertPlaylist(Playlist currentPlaylist)
     {
-        playlists.add(currentPlaylist);
+        int index;
+        if(currentPlaylist == null){
+            throw new NullPointerException("Playlist must not be Null");
+        }
+
+        index = playlists.indexOf(currentPlaylist);
+        if (index < 0) // check duplicates
+        {
+            playlists.add(currentPlaylist);
+        }
+
         return null;
     }
 
@@ -387,10 +417,10 @@ public class StubData implements AccessData{
     {
         int index;
 
-        index = channels.indexOf(currentPlaylist);
+        index = playlists.indexOf(currentPlaylist);
         if (index >= 0)
         {
-            channels.remove(index);
+            playlists.remove(index);
         }
         return null;
     }
@@ -404,7 +434,14 @@ public class StubData implements AccessData{
      */
     public boolean insertPlaylistChannel(Channel currentChannel, Playlist currentPlaylist)
     {
-        return currentPlaylist.addChannel(currentChannel);
+        int index;
+
+        index = playlists.indexOf(currentPlaylist);
+        if (index >= 0)
+        {
+            return playlists.get(index).addChannel(currentChannel);
+        }
+        return false;
     }
     
     /**
@@ -416,7 +453,14 @@ public class StubData implements AccessData{
      */
     public boolean insertPlaylistEpisode(Episode currentEpisode, Playlist currentPlaylist)
     {
-        return currentPlaylist.addEpisode(currentEpisode);
+        int index;
+
+        index = playlists.indexOf(currentPlaylist);
+        if (index >= 0)
+        {
+            return playlists.get(index).addEpisode(currentEpisode);
+        }
+        return false;
     }
 
     /**
@@ -428,7 +472,14 @@ public class StubData implements AccessData{
      */
     public boolean deletePlaylistChannel(Channel currentChannel, Playlist currentPlaylist)
     {
-        return currentPlaylist.removeChannel(currentChannel);
+        int index;
+
+        index = playlists.indexOf(currentPlaylist);
+        if (index >= 0)
+        {
+            return playlists.get(index).removeChannel(currentChannel);
+        }
+        return false;
     }
 
     /**
@@ -440,7 +491,14 @@ public class StubData implements AccessData{
      */
     public boolean deletePlaylistEpisode(Episode currentEpisode, Playlist currentPlaylist)
     {
-        return currentPlaylist.removeEpisode(currentEpisode);
+        int index;
+
+        index = playlists.indexOf(currentPlaylist);
+        if (index >= 0)
+        {
+            return playlists.get(index).removeEpisode(currentEpisode);
+        }
+        return false;
     }
 
 
