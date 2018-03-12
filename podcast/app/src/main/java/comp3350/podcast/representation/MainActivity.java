@@ -26,12 +26,22 @@ import java.util.ArrayList;
 import comp3350.podcast.R;
 import comp3350.podcast.application.Main;
 import comp3350.podcast.business.AccessEpisodes;
+import comp3350.podcast.business.AccessChannels;
+import comp3350.podcast.business.AccessPlaylists;
 import comp3350.podcast.objects.Episode;
+import comp3350.podcast.objects.Channel;
+import comp3350.podcast.objects.Playlist;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> recIds;
     private ArrayList<Episode> recList;
     private AccessEpisodes accessEpisodes;
+
+    private AccessChannels accessChannels;
+    private AccessPlaylists accessPlaylists;
+    private ArrayList<Integer> quickIds;
+    private ArrayList<Channel> chList;
+    private ArrayList<Playlist> PList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
         recIds = new ArrayList<>();
         recList = new ArrayList<>();
         accessEpisodes = new AccessEpisodes();
+
+        quickIds = new ArrayList<>();
+        chList = new ArrayList<>();
+        accessChannels = new AccessChannels();
+
+
         String result = accessEpisodes.getEpisodes(recList);
 
         if (result == null)
@@ -55,13 +71,53 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Database loading failed.", Toast.LENGTH_LONG).show();
         }
 
+        result = accessChannels.getChannels(chList);
 
-        Button btn = findViewById(R.id.newPlaylist);
-        btn.setOnClickListener(playlistHandler);
+
+        Button newPlaylistBtn = findViewById(R.id.newPlaylist);
+        newPlaylistBtn.setOnClickListener(playlistHandler);
+
+        Button subsBtn = findViewById(R.id.subsButton);
+        subsBtn.setOnClickListener(subsButtonHandler);
+
+        Button channelsBtn = findViewById(R.id.channelsButton);
+        channelsBtn.setOnClickListener(channelsButtonHandler);
+
+        Button allBtn = findViewById(R.id.allButton);
+        allBtn.setOnClickListener(allButtonHandler);
 
         Button searchBtn = findViewById(R.id.searchButton);
         searchBtn.setOnClickListener(searchHandler);
     }
+
+    View.OnClickListener subsButtonHandler = new View.OnClickListener(){
+        public void onClick(View v)
+        {
+            Toast.makeText(getApplicationContext(), "You have no subscriptions yet", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    View.OnClickListener channelsButtonHandler = new View.OnClickListener(){
+        public void onClick(View v)
+        {
+            LinearLayout quickList = findViewById(R.id.quick_list);
+            quickList.removeAllViews();
+            populateQuickListChannels();
+            Toast.makeText(getApplicationContext(), "Showing all Channels", Toast.LENGTH_LONG).show();
+        }
+    };
+
+
+    View.OnClickListener allButtonHandler = new View.OnClickListener(){
+        @Override
+        public void onClick(View v)
+        {
+            LinearLayout quickList = findViewById(R.id.quick_list);
+            quickList.removeAllViews();
+            populateQuickListAll();
+            Toast.makeText(getApplicationContext(), "Showing all Episodes", Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     protected void onDestroy() {
@@ -74,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     {
         public void onClick(View v)
         {
-            //Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
         }
     };
@@ -154,18 +210,13 @@ public class MainActivity extends AppCompatActivity {
      */
     private void populateRecList()
     {
-        int index = 0;
-        Episode temp;
-        TextView title = null;
-        TextView description = null;
-        View view;
         View.OnClickListener handler1 = new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
                     Bundle b = new Bundle();
@@ -175,41 +226,59 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+        CardList.createEpisodeCardList(handler1,findViewById(R.id.recLayout),this,R.layout.card,recList,recIds);
+    }
 
-        // update titles
+    /**
+     * Populates quick list with channels. Sets onClick handlers for each channel.
+     *
+     * @return - void
+     */
+    private void populateQuickListChannels()
+    {
+        View.OnClickListener allChHandler = new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                if (v instanceof CardViewPC) {
+                    CardViewPC a = (CardViewPC) v;
+                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
-                for (index = 0; index < recList.size(); index++) {
-                    // get layouts
-                    LinearLayout ll = findViewById(R.id.recLayout);
-                    view = LayoutInflater.from(this).inflate(R.layout.card, ll, false);
-                    recIds.add(view.getId());
-
-                    temp = recList.get(index);
-
-                    // find this cards title
-                    title = view.findViewById(R.id.recTitle);
-
-                    // find this cards description
-                    description = view.findViewById(R.id.recDsc);
-
-                    // set this cards properties
-                    if (temp != null)
-                    {
-                        description.setText(temp.getDesc());
-                        title.setText(temp.getTitle());
-
-                        if (view instanceof CardViewPC)
-                        {
-                            CardViewPC a = (CardViewPC) view;
-                            a.setWhoDis(temp.getTitle());
-                            a.setEp(temp);
-                        }
-                    }
-
-                    // set listener
-                    view.setOnClickListener(handler1);
-                    ll.addView(view);
+                    Intent episodeIntent = new Intent(MainActivity.this, viewChannel.class);
+                    Bundle b = new Bundle();
+                    b.putSerializable("channel", a.getCh());
+                    episodeIntent.putExtras(b);
+                    startActivity(episodeIntent);
                 }
+            }
+        };
+        CardList.createChannelCardList(allChHandler,findViewById(R.id.quick_list),this,R.layout.card_search,chList,quickIds);
+    }
+
+    /**
+     * Populates quick list with all episodes. Sets onClick handlers for each episode.
+     *
+     * @return - void
+     */
+    private void populateQuickListAll()
+    {
+        View.OnClickListener allEpsHandler = new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                if (v instanceof CardViewPC) {
+                    CardViewPC a = (CardViewPC) v;
+                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+
+                    Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
+                    Bundle b = new Bundle();
+                    b.putSerializable("episode", a.getEp());
+                    episodeIntent.putExtras(b);
+                    startActivity(episodeIntent);
+                }
+            }
+        };
+        CardList.createEpisodeCardList(allEpsHandler,findViewById(R.id.quick_list),this,R.layout.card_search,recList,recIds);
     }
 
     /**

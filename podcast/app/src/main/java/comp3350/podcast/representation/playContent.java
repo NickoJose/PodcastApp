@@ -1,26 +1,15 @@
 package comp3350.podcast.representation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Timer;
 
 import comp3350.podcast.R;
 import comp3350.podcast.objects.Episode;
-
-import static android.support.v4.app.ServiceCompat.START_STICKY;
 
 public class playContent extends AppCompatActivity {
 
@@ -53,7 +42,7 @@ public class playContent extends AppCompatActivity {
 
         //Event handlers
 
-        findViewById(R.id.playButton).setOnClickListener(new View.OnClickListener(){
+        findViewById(R.id.searchButton).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 isPaused = !isPaused;
@@ -100,7 +89,7 @@ public class playContent extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(ep.getTitle());
 
-        Button button = findViewById(R.id.playButton);
+        Button button = findViewById(R.id.searchButton);
 
         if(isPaused){
             button.setText("Play");

@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class viewChannel extends AppCompatActivity {
     private AccessEpisodes accessEpisodes;
     private Channel channel;
     private ArrayList<Episode> eps;
+    private ArrayList<Integer> epIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class viewChannel extends AppCompatActivity {
         accessEpisodes = new AccessEpisodes();
         channel = (Channel)getIntent().getSerializableExtra("channel");
         eps = new ArrayList<>();
+        epIds = new ArrayList<>();
         accessEpisodes.getChannelEpisodes(eps,channel);
 
 
@@ -50,11 +54,12 @@ public class viewChannel extends AppCompatActivity {
     public void populateList()
     {
 
-        ListView list = (ListView) findViewById(R.id.episode_list);
-
+        LinearLayout list = (LinearLayout) findViewById(R.id.episode_list);
+/*
         ArrayAdapter<Episode> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,eps);
         list.setAdapter(adapter);
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,6 +71,26 @@ public class viewChannel extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+*/
+
+
+        View.OnClickListener handler1 = new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                if (v instanceof CardViewPC) {
+                    CardViewPC a = (CardViewPC) v;
+                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+
+                    Intent episodeIntent = new Intent(viewChannel.this, viewEpisode.class);
+                    Bundle b = new Bundle();
+                    b.putSerializable("episode", a.getEp());
+                    episodeIntent.putExtras(b);
+                    startActivity(episodeIntent);
+                }
+            }
+        };
+        CardList.createEpisodeCardList(handler1,findViewById(R.id.episode_list),this,R.layout.card_search,eps,epIds);
 
 
     }
