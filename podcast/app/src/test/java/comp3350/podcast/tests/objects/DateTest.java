@@ -7,9 +7,6 @@ import comp3350.podcast.objects.Date;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Russell on 2018-02-07.
- */
 public class DateTest {
 
     Date blank = new Date();

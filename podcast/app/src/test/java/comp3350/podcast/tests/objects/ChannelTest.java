@@ -8,10 +8,6 @@ import static org.junit.Assert.*;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Date;
 
-/**
- * Created by Almach on 2018-02-08.
- */
-
 public class ChannelTest
 {
     private Channel channel;
