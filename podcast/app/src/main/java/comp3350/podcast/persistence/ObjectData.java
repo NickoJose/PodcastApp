@@ -883,7 +883,7 @@ public class ObjectData implements AccessData
         {
             values = currentChannel.getTitle();
             nextValues = currentPlaylist.getName();
-            cmdString = "Delete from Channellist where Title='" +values +"'" + " and where Name='" +nextValues +"'" ;
+            cmdString = "Delete from Channellist where Title='" +values +"'" + " and Name='" +nextValues +"'" ;
             updateCount = st2.executeUpdate(cmdString);
             result = checkWarning(st2, updateCount);
             success = true;
