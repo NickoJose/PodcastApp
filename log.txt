@@ -53,4 +53,7 @@ February 7, 2018 - Created Date object, and some tests for it - 1 hour
 February 8, 2018 - Finished date object, wrote some tests, fixed all bugs in compareTo - 2 hours
 February 10, 2018 - Fixed all the lists, added tests to ensure the custom functionality works properly. - 3 hours
 February 12, 2018 - Create subscription view and episode list view. Thier implementation makes other GUI items crash. Unsure of cause. Not added to master - 4 hours
+March 10, 2018 - Restarted subscriptions, channel, and episode list view, starting again from a clean master due to the strange behaviour caused by my last branch. - 3 hours
+March 11, 2018 - Made some progress in implementing a list view that uses a RecyclerView. - 3 hours
+March 13, 2018 - Completely finished implementing a list view for the subscriptions, channels, and episodes. When the items are clicked they launch ViewChannel, or ViewEpisode activities. Also cleaned up some of the GUI to make it look a little cleaner. Removed the hardcoded return buttons because they were creating tons of activities that were never being closed. We can expect the user to use their back buttons (the ones that are baked into the OS) and those do close the activities properly and won't cause a huge list of page returns. - 10 hours
 
