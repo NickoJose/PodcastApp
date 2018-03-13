@@ -9,5 +9,5 @@ February 13th, 2018	- Made viewChannel actually display its list of Episodes. Ma
 March 9th, 2018 - Started work on a new main page, experimented with different layouts - 2 hours.
 March 10th, 2018 - Further refined layout of main screen - 1 hour.
 March 11th, 2018 - Added CardList class to make code used for creating lists of Cards for episodes reusable. Made Channels display their episode using Cards instead of a list of text titles only. - 2 hours.
-March 12th, 2018 - Finalized CardList class to be able to display Channels with cards as well. Added header comments to main_activity and CardList classes. Merged main-2.0 into master. - 2 hours.
+March 12th, 2018 - Finalized CardList class to be able to display Channels with cards as well. Added header comments to main_activity and CardList classes. Merged main-2.0 into master. Added 'Back to Homepage' buttons to Episode and Channel - 2 hours.
 
