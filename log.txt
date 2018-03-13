@@ -5,6 +5,9 @@ January 30, 2018 - Clarification of the goals and due dates of each developer ta
 February 1, 2018 - Conversation on how the gui should look and how it should work.
   Communications over discord on the following week
 February 13, 2018 - Finalizing everything we need before handin.
+February 27, 2018 - Decided which user stories we need to focus on. Movied some user stories to a lower priority and some to a higher priority. Divided the user stories into developer tasks.
+March 6, 2018 - Continuation of dividing stories into developer tasks. Assigned tasks to the members of the group.
+  Communications over discord on the following week
 
 Log Entry - Gareth Wiebe
 January 30, 2018 - Started work on home page. - 2 hours
