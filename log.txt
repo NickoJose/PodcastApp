@@ -13,6 +13,9 @@ February 1, 2018 - Removed hardcoded interface. Home page builds interface itsel
 February 2-3, 2018 - Listener can uniquely identify clicked items without search. Fixed git files. 2 hours.
 February 6, 2018 - Added creation of playlists to home screen. - 3 hours.
 February 7, 2018 - Made home page use domain specific objects to build content for home screen. 2 hours.
+March 7, 2018 - Implemented search activity. - 4 hours.
+March 8, 2018 - Add search algorithm to business class and started writing tests. - 3 hours.
+March 10, 2018 - Abstracted comparisons between channel and episode objects, improved search results. - 3 hours.
 
 Log Entry - Mike Reimer
 February 4-10 2018 - Early/Mid work on playContent user story.
@@ -45,7 +48,7 @@ March 10, 2018 - Added more functions (playlists methods) to the real database. 
 March 11, 2018 - Added unit tests for access classes. Removed unusable methods (getsequential). Added exceptions for insert, get, update methods and functions such as equals() for playlist. 4 hours
 March 12, 2018 - Added subscriptions table to the database script. Added subscription interface. Modified the databases to include methods for the subscriptions. Added unit tests for persistence interface and subscription. 3 hours
 
-LogEntry - Russell Thiessen
+Log Entry - Russell Thiessen
 January 8, 2018 - Setup repository and Discord (chat server) - 1 hour
 January 27, 2018 - Created EpisodeList and ChannelList, these are incomplete and need to be converted to extend ArrayList, not just wrap it. - 1 hour
 January 29, 2018 - Created playlist object, needs to be tested - 1 hour
