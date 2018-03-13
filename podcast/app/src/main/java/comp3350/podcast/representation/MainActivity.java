@@ -1,14 +1,13 @@
 package comp3350.podcast.representation;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -27,11 +26,11 @@ import java.util.ArrayList;
 
 import comp3350.podcast.R;
 import comp3350.podcast.application.Main;
-import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.business.AccessChannels;
+import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.business.AccessSubscriptions;
-import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.Channel;
+import comp3350.podcast.objects.Episode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,19 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
         String result = accessEpisodes.getEpisodes(recList);
 
-        if (result == null)
-        {
+        if (result == null) {
             populateRecList();
-        }
-
-        else
-        {
+        } else {
             Toast.makeText(this, "Database loading failed.", Toast.LENGTH_LONG).show();
         }
 
         result = accessChannels.getChannels(chList);
 
-        if(result == null){
+        if (result == null) {
             recyclerView = (RecyclerView) findViewById(R.id.bodyRecyclerView);
 
             // use a linear layout manager
@@ -108,18 +103,17 @@ public class MainActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(searchHandler);
     }
 
-    View.OnClickListener subsButtonHandler = new View.OnClickListener(){
-        public void onClick(View v)
-        {
+    View.OnClickListener subsButtonHandler = new View.OnClickListener() {
+        public void onClick(View v) {
             recyclerView.removeAllViews();
             displaySubscribedChannels();
             Toast.makeText(getApplicationContext(), "Showing subscribed Channels", Toast.LENGTH_LONG).show();
         }
     };
 
-    View.OnClickListener allChannelsButtonHandler = new View.OnClickListener(){
+    View.OnClickListener allChannelsButtonHandler = new View.OnClickListener() {
         @Override
-        public void onClick(View v){
+        public void onClick(View v) {
             recyclerView.removeAllViews();
             displayAllChannels();
             Toast.makeText(getApplicationContext(), "Showing all Channels", Toast.LENGTH_LONG).show();
@@ -127,10 +121,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    View.OnClickListener allEpisiodesButtonHandler = new View.OnClickListener(){
+    View.OnClickListener allEpisiodesButtonHandler = new View.OnClickListener() {
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             recyclerView.removeAllViews();
             displayAllEpisodes();
             Toast.makeText(getApplicationContext(), "Showing all episodes", Toast.LENGTH_LONG).show();
@@ -144,19 +137,15 @@ public class MainActivity extends AppCompatActivity {
         Main.shutDown();
     }
 
-    View.OnClickListener playlistHandler = new View.OnClickListener()
-    {
-        public void onClick(View v)
-        {
+    View.OnClickListener playlistHandler = new View.OnClickListener() {
+        public void onClick(View v) {
             Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
         }
     };
 
-    View.OnClickListener searchHandler = new View.OnClickListener()
-    {
-        public void onClick(View v)
-        {
+    View.OnClickListener searchHandler = new View.OnClickListener() {
+        public void onClick(View v) {
 
             TextInputLayout text = findViewById(R.id.searchString);
 
@@ -196,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return - void
      */
-    private void makePlaylist(){
+    private void makePlaylist() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter playlist name");
         // Set up the input
@@ -226,12 +215,9 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return - void
      */
-    private void populateRecList()
-    {
-        View.OnClickListener handler1 = new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+    private void populateRecList() {
+        View.OnClickListener handler1 = new View.OnClickListener() {
+            public void onClick(View v) {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
                     Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
@@ -244,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        CardList.createEpisodeCardList(handler1,findViewById(R.id.recLayout),this,R.layout.card,recList,recIds);
+        CardList.createEpisodeCardList(handler1, findViewById(R.id.recLayout), this, R.layout.card, recList, recIds);
     }
 
     /**
@@ -252,8 +238,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return - void
      */
-    private void displayAllChannels()
-    {
+    private void displayAllChannels() {
         accessChannels.getChannels(chList);
         recyclerView.setAdapter(new ChannelListAdapter(chList, this));
     }
@@ -263,11 +248,12 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return - void
      */
-    private void displaySubscribedChannels()
-    {
-        accessSubs.getSubs(chList);
-
-        recyclerView.setAdapter(new ChannelListAdapter(chList, this));
+    private void displaySubscribedChannels() {
+        String result = accessSubs.getSubs(chList);
+        if (result == null)
+            recyclerView.setAdapter(new ChannelListAdapter(chList, this));
+        else
+            System.out.println(result);
     }
 
     /**
@@ -275,8 +261,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return - void
      */
-    private void displayAllEpisodes()
-    {
+    private void displayAllEpisodes() {
         ArrayList<Episode> eps = new ArrayList<>();
         accessEpisodes.getEpisodes(eps);
 
@@ -314,7 +299,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Copies the database to the directory specified
-     * @param assets - database to be copied
+     *
+     * @param assets    - database to be copied
      * @param directory - target directory
      * @return - void
      */

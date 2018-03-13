@@ -535,17 +535,17 @@ public class AccessDataTest
         // test inserting an episode into a playlist
         playlistEpisodesList.add(episodeList.get(1));
         accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
-        accessData.getPlayListEpisodeSequential(resultEp, playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
         assertTrue(playlistEpisodesList.equals(resultEp));
 
         // test inserting duplicate episode into a playlist
         accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
-        accessData.getPlayListEpisodeSequential(resultEp, playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
         assertTrue(playlistEpisodesList.equals(resultEp));
 
         // test inserting episode into a non existent playlist
         accessData.insertPlaylistEpisode(episodeList.get(3), playlist4);
-        accessData.getPlayListEpisodeSequential(resultEp, playlist4);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
 
@@ -587,12 +587,12 @@ public class AccessDataTest
         playlistEpisodesList.remove(episodeList.get(1));
         accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
         accessData.deletePlaylistEpisode(episodeList.get(1), playlist1);
-        accessData.getPlayListEpisodeSequential(resultEp, playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
         assertTrue(playlistEpisodesList.equals(resultEp));
 
         // test deleting an episode into a non existent playlist
         accessData.deletePlaylistEpisode(episodeList.get(0), playlist4);
-        accessData.getPlayListEpisodeSequential(resultEp, playlist4);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
 
@@ -623,11 +623,11 @@ public class AccessDataTest
         EpisodeList resultEp = new EpisodeList();
 
         // test retrieving the episodes based from a playlist
-        accessData.getPlayListEpisodeSequential(resultEp, playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
         assertTrue(resultEp.equals(playlistEpisodesList));
 
         // test retrieving the episodes based from a playlist that does not exist
-        accessData.getPlayListEpisodeSequential(resultEp, playlist4);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
         System.out.println("Finished AccessDataTest: PlaylistEpisodeList");

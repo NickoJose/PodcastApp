@@ -10,30 +10,36 @@
         android:id="@+id/channel_info"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guide"
         app:layout_constraintEnd_toStartOf="@+id/centre"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backToHome" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/centre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="300dp" />
+        app:layout_constraintGuide_begin="254dp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/darker_gray"
         android:src="@android:drawable/presence_audio_online"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/centre"
-        app:layout_constraintTop_toBottomOf="@+id/backToHome" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/horizontal_guide"
@@ -75,7 +81,7 @@
                 android:orientation="vertical" />
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
-
+<!--
     <Button
         android:id="@+id/backToHome"
         android:layout_width="0dp"
@@ -87,5 +93,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+-->
 </android.support.constraint.ConstraintLayout>
