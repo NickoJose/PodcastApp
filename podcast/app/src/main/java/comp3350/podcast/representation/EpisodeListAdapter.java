@@ -1,8 +1,13 @@
 package comp3350.podcast.representation;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -17,10 +22,12 @@ import comp3350.podcast.objects.Episode;
 
 class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.EpisodeViewHolder> {
     private ArrayList<Episode> episodes;
+    private Activity parent;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EpisodeListAdapter(ArrayList<Episode> episodes) {
+    public EpisodeListAdapter(ArrayList<Episode> episodes, Activity parent) {
         this.episodes = episodes;
+        this.parent = parent;
     }
 
     // Create new views (invoked by the layout manager)
@@ -41,7 +48,7 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        Episode ep = episodes.get(position);
+        final Episode ep = episodes.get(position);
 
         holder.titleView.setText(ep.getTitle());
         holder.descriptionView.setText(ep.getDesc());
@@ -65,6 +72,16 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
             hrStr = "" + hours;
         }
         holder.lengthView.setText("Length: " + hrStr + ":" + minStr + ":" + secStr);
+        holder.episodeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent channelIntent = new Intent(parent.getApplicationContext(),ViewEpisodeActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("episode",ep);
+                channelIntent.putExtras(b);
+                parent.startActivity(channelIntent);
+            }
+        });
 
     }
 
@@ -74,19 +91,19 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
     }
 
     public class EpisodeViewHolder extends RecyclerView.ViewHolder {
-        public final ConstraintLayout channelLayout;
+        public final ConstraintLayout episodeLayout;
         public final TextView titleView;
         public final TextView descriptionView;
         public final TextView episodeNumberView;
         public final TextView lengthView;
 
-        public EpisodeViewHolder(ConstraintLayout channelLayout) {
-            super(channelLayout);
-            this.channelLayout = channelLayout;
-            titleView = (TextView) channelLayout.findViewById(R.id.title);
-            lengthView = (TextView) channelLayout.findViewById(R.id.episodeLength);
-            descriptionView = (TextView) channelLayout.findViewById(R.id.description);
-            episodeNumberView = (TextView) channelLayout.findViewById(R.id.episodeNumber);
+        public EpisodeViewHolder(ConstraintLayout episodeLayout) {
+            super(episodeLayout);
+            this.episodeLayout = episodeLayout;
+            titleView = (TextView) episodeLayout.findViewById(R.id.title);
+            lengthView = (TextView) episodeLayout.findViewById(R.id.episodeLength);
+            descriptionView = (TextView) episodeLayout.findViewById(R.id.description);
+            episodeNumberView = (TextView) episodeLayout.findViewById(R.id.episodeNumber);
         }
 
         @Override

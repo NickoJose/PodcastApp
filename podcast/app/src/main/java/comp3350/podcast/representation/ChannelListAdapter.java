@@ -1,8 +1,12 @@
 package comp3350.podcast.representation;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comp3350.podcast.R;
+import comp3350.podcast.business.AccessChannels;
 import comp3350.podcast.objects.Channel;
 
 /**
@@ -18,10 +23,12 @@ import comp3350.podcast.objects.Channel;
 
 class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.ChannelViewHolder> {
     private ArrayList<Channel> channels;
+    private Activity parent;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChannelListAdapter(ArrayList<Channel> channels) {
+    public ChannelListAdapter(ArrayList<Channel> channels, Activity parent) {
         this.channels = channels;
+        this.parent = parent;
     }
 
     // Create new views (invoked by the layout manager)
@@ -38,17 +45,28 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ChannelViewHolder holder, int position) {
+    public void onBindViewHolder(final ChannelViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        Channel ch = channels.get(position);
+        final Channel ch = channels.get(position);
 
         holder.titleView.setText(ch.getTitle());
         holder.descriptionView.setText(ch.getDesc());
         holder.episodeCountView.setText("" + ch.getNumEps());
         holder.authorView.setText(ch.getAuthor());
         holder.urlView.setText(ch.getUrl());
+
+        holder.channelLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent channelIntent = new Intent(parent.getApplicationContext(),ViewChannelActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("channel",ch);
+                channelIntent.putExtras(b);
+                parent.startActivity(channelIntent);
+            }
+        });
 
     }
 
@@ -65,13 +83,12 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
         public final TextView authorView;
         public final TextView urlView;
 
-        public ChannelViewHolder(ConstraintLayout channelLayout) {
+        public ChannelViewHolder(final ConstraintLayout channelLayout) {
             super(channelLayout);
             this.channelLayout = channelLayout;
             titleView = (TextView) channelLayout.findViewById(R.id.title);
             descriptionView = (TextView) channelLayout.findViewById(R.id.description);
             episodeCountView = (TextView) channelLayout.findViewById(R.id.episodeCount);
-            System.out.println(episodeCountView.getText());
             authorView = (TextView) channelLayout.findViewById(R.id.author);
             urlView = (TextView) channelLayout.findViewById(R.id.url);
         }

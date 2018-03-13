@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".representation.viewEpisode" />
-        <activity android:name=".representation.viewChannel" />
+        <activity android:name=".representation.ViewEpisodeActivity" />
+        <activity android:name=".representation.ViewChannelActivity" />
         <activity
-            android:name=".representation.playContent"
+            android:name=".representation.PlayContentActivity"
             android:label="@string/title_activity_play_content"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainAcrivity">

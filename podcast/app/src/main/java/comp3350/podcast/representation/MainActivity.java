@@ -1,6 +1,7 @@
 package comp3350.podcast.representation;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -29,11 +29,9 @@ import comp3350.podcast.R;
 import comp3350.podcast.application.Main;
 import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.business.AccessChannels;
-import comp3350.podcast.business.AccessPlaylists;
 import comp3350.podcast.business.AccessSubscriptions;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.Channel;
-import comp3350.podcast.objects.Playlist;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,12 +45,20 @@ public class MainActivity extends AppCompatActivity {
     private AccessSubscriptions accessSubs;
     private ArrayList<Channel> chList;
 
+    private static Context context = null;
+
+    public static Context getContext() {
+        return context;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         copyDatabaseToDevice();
         Main.startUp();
         setContentView(R.layout.activity_main);
+
+        MainActivity.context = getContext();
 
         recIds = new ArrayList<>();
         recList = new ArrayList<>();
@@ -230,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                     CardViewPC a = (CardViewPC) v;
                     Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
-                    Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
+                    Intent episodeIntent = new Intent(MainActivity.this, ViewEpisodeActivity.class);
                     Bundle b = new Bundle();
                     b.putSerializable("episode", a.getEp());
                     episodeIntent.putExtras(b);
@@ -249,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayAllChannels()
     {
         accessChannels.getChannels(chList);
-        recyclerView.setAdapter(new ChannelListAdapter(chList));
+        recyclerView.setAdapter(new ChannelListAdapter(chList, this));
     }
 
     /**
@@ -261,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     {
         accessSubs.getSubs(chList);
 
-        recyclerView.setAdapter(new ChannelListAdapter(chList));
+        recyclerView.setAdapter(new ChannelListAdapter(chList, this));
     }
 
     /**
@@ -274,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Episode> eps = new ArrayList<>();
         accessEpisodes.getEpisodes(eps);
 
-        recyclerView.setAdapter(new EpisodeListAdapter(eps));
+        recyclerView.setAdapter(new EpisodeListAdapter(eps, this));
     }
 
     /**
