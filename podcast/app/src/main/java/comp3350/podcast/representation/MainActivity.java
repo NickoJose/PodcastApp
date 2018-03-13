@@ -30,6 +30,7 @@ import comp3350.podcast.application.Main;
 import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.business.AccessChannels;
 import comp3350.podcast.business.AccessPlaylists;
+import comp3350.podcast.business.AccessSubscriptions;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Playlist;
@@ -43,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private AccessEpisodes accessEpisodes;
 
     private AccessChannels accessChannels;
-    private AccessPlaylists accessPlaylists;
+    private AccessSubscriptions accessSubs;
     private ArrayList<Channel> chList;
-    private ArrayList<Playlist> pList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         chList = new ArrayList<>();
         accessChannels = new AccessChannels();
+        accessSubs = new AccessSubscriptions();
 
 
         String result = accessEpisodes.getEpisodes(recList);
@@ -258,10 +259,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displaySubscribedChannels()
     {
-        //TODO get subscribed channels!
-//        accessChannels.getChannels(chList);
+        accessSubs.getSubs(chList);
 
-        recyclerView.setAdapter(new ChannelListAdapter(new ArrayList<Channel>()));
+        recyclerView.setAdapter(new ChannelListAdapter(chList));
     }
 
     /**
