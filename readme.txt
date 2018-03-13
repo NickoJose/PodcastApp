@@ -18,7 +18,7 @@ Persistence test package - Found under comp3350/podcast (test)/tests/persistence
 The log file can found under the name log.txt.
 
 To run all the unit tests, select AllTests.java -> run.
-To run the project, download the zip file -> file (android studio) -> new -> import project -> select SoftEngProject-master -> select build.gradle.
+To run the project, download the zip file -> file (android studio) -> new -> import project -> select SoftEngProject-master -> select podcast -> select build.gradle.
 
-After successfully launching the project on the Nexus 7, a search bar, recommended episodes, playlists, and “create new playlist” button will show up on the screen. Selecting one of the episodes in the recommended list will display all the information regarding that particular episode. Selecting the “back to channel” on the episode gui will switch the screen to the channel gui which displays all the information about the channel of the currently selected episode. It will also display all the episodes the channel has.
+We added a function inside the services.class that allows switching between the real and the stub database dynamically if needed (currently not being used). The system is currently using the real database as the default database. Running the system for the first time will copy the database on the device. After successfully launching the project on the Nexus 7, a search bar, recommended episodes, playlists, and a few button will show up on the screen. Selecting one of the episodes in the recommended list will display all the information regarding that particular episode. Selecting the “back to channel” on the episode gui will switch the screen to the channel gui which displays all the information about the channel of the currently selected episode. It will also display all the episodes the channel has.
 
