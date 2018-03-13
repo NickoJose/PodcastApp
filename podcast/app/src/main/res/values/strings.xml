@@ -9,11 +9,10 @@
 
     <!-- Menu text -->
     <string name="menu_search">Search</string>
-    <string name="menu_subs">Subs</string>
+    <string name="menu_subs">Subscribed \nChannels</string>
     <string name="menu_playlists">Playlists</string>
-    <string name="menu_allEps">All</string>
-    <string name="menu_channels">Channels</string>
-    <string name="menu_back_to_home">Back to Homepage</string>
+    <string name="menu_allEps">All \nEpisodes</string>
+    <string name="menu_channels">All \nChannels</string>
 
     <!-- card sizes -->
     <string name="cardWidth">275dp</string>

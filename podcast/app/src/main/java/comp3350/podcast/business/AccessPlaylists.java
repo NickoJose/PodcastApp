@@ -83,7 +83,7 @@ public class AccessPlaylists{
     public String getPlaylistEpisodes(List<Episode> episodes, Playlist currentPlaylist)
     {
         episodes.clear();
-        return accessData.getPlayListEpisodeSequential(episodes, currentPlaylist);
+        return accessData.getPlaylistEpisodeSequential(episodes, currentPlaylist);
     }
 
     /**

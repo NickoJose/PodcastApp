@@ -48,4 +48,6 @@ readability.
 	- image - img
 	
 	- text - txt
-  
+	
+	- RecycleViewAdapter - rva, RVA  
+		- used in GUI 

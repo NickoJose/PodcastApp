@@ -8,13 +8,15 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -33,15 +35,17 @@ import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Playlist;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+
     private ArrayList<Integer> recIds;
     private ArrayList<Episode> recList;
     private AccessEpisodes accessEpisodes;
 
     private AccessChannels accessChannels;
     private AccessPlaylists accessPlaylists;
-    private ArrayList<Integer> quickIds;
     private ArrayList<Channel> chList;
-    private ArrayList<Playlist> PList;
+    private ArrayList<Playlist> pList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         recList = new ArrayList<>();
         accessEpisodes = new AccessEpisodes();
 
-        quickIds = new ArrayList<>();
         chList = new ArrayList<>();
         accessChannels = new AccessChannels();
 
@@ -73,6 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
         result = accessChannels.getChannels(chList);
 
+        if(result == null){
+            recyclerView = (RecyclerView) findViewById(R.id.bodyRecyclerView);
+
+            // use a linear layout manager
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            displayAllChannels();
+        }
 
         Button newPlaylistBtn = findViewById(R.id.newPlaylist);
         newPlaylistBtn.setOnClickListener(playlistHandler);
@@ -81,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
         subsBtn.setOnClickListener(subsButtonHandler);
 
         Button channelsBtn = findViewById(R.id.channelsButton);
-        channelsBtn.setOnClickListener(channelsButtonHandler);
+        channelsBtn.setOnClickListener(allChannelsButtonHandler);
 
         Button allBtn = findViewById(R.id.allButton);
-        allBtn.setOnClickListener(allButtonHandler);
+        allBtn.setOnClickListener(allEpisiodesButtonHandler);
 
         Button searchBtn = findViewById(R.id.searchButton);
         searchBtn.setOnClickListener(searchHandler);
@@ -93,29 +104,29 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener subsButtonHandler = new View.OnClickListener(){
         public void onClick(View v)
         {
-            Toast.makeText(getApplicationContext(), "You have no subscriptions yet", Toast.LENGTH_LONG).show();
+            recyclerView.removeAllViews();
+            displaySubscribedChannels();
+            Toast.makeText(getApplicationContext(), "Showing subscribed Channels", Toast.LENGTH_LONG).show();
         }
     };
 
-    View.OnClickListener channelsButtonHandler = new View.OnClickListener(){
-        public void onClick(View v)
-        {
-            LinearLayout quickList = findViewById(R.id.quick_list);
-            quickList.removeAllViews();
-            populateQuickListChannels();
+    View.OnClickListener allChannelsButtonHandler = new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            recyclerView.removeAllViews();
+            displayAllChannels();
             Toast.makeText(getApplicationContext(), "Showing all Channels", Toast.LENGTH_LONG).show();
         }
     };
 
 
-    View.OnClickListener allButtonHandler = new View.OnClickListener(){
+    View.OnClickListener allEpisiodesButtonHandler = new View.OnClickListener(){
         @Override
         public void onClick(View v)
         {
-            LinearLayout quickList = findViewById(R.id.quick_list);
-            quickList.removeAllViews();
-            populateQuickListAll();
-            Toast.makeText(getApplicationContext(), "Showing all Episodes", Toast.LENGTH_LONG).show();
+            recyclerView.removeAllViews();
+            displayAllEpisodes();
+            Toast.makeText(getApplicationContext(), "Showing all episodes", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -230,29 +241,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Populates quick list with channels. Sets onClick handlers for each channel.
+     * Populates list with channels. Sets onClick handlers for each channel.
      *
      * @return - void
      */
-    private void populateQuickListChannels()
+    private void displayAllChannels()
     {
-        View.OnClickListener allChHandler = new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                if (v instanceof CardViewPC) {
-                    CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+        accessChannels.getChannels(chList);
+        recyclerView.setAdapter(new ChannelListAdapter(chList));
+    }
 
-                    Intent episodeIntent = new Intent(MainActivity.this, viewChannel.class);
-                    Bundle b = new Bundle();
-                    b.putSerializable("channel", a.getCh());
-                    episodeIntent.putExtras(b);
-                    startActivity(episodeIntent);
-                }
-            }
-        };
-        CardList.createChannelCardList(allChHandler,findViewById(R.id.quick_list),this,R.layout.card_search,chList,quickIds);
+    /**
+     * Populates list with channels. Sets onClick handlers for each channel.
+     *
+     * @return - void
+     */
+    private void displaySubscribedChannels()
+    {
+        //TODO get subscribed channels!
+//        accessChannels.getChannels(chList);
+
+        recyclerView.setAdapter(new ChannelListAdapter(new ArrayList<Channel>()));
     }
 
     /**
@@ -260,25 +269,12 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return - void
      */
-    private void populateQuickListAll()
+    private void displayAllEpisodes()
     {
-        View.OnClickListener allEpsHandler = new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                if (v instanceof CardViewPC) {
-                    CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+        ArrayList<Episode> eps = new ArrayList<>();
+        accessEpisodes.getEpisodes(eps);
 
-                    Intent episodeIntent = new Intent(MainActivity.this, viewEpisode.class);
-                    Bundle b = new Bundle();
-                    b.putSerializable("episode", a.getEp());
-                    episodeIntent.putExtras(b);
-                    startActivity(episodeIntent);
-                }
-            }
-        };
-        CardList.createEpisodeCardList(allEpsHandler,findViewById(R.id.quick_list),this,R.layout.card_search,recList,recIds);
+        recyclerView.setAdapter(new EpisodeListAdapter(eps));
     }
 
     /**

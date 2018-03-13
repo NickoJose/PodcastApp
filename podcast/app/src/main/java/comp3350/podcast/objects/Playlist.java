@@ -2,6 +2,7 @@ package comp3350.podcast.objects;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import comp3350.podcast.application.Main;
 import comp3350.podcast.persistence.AccessData;
 import comp3350.podcast.persistence.ObjectData;
 
@@ -200,43 +201,42 @@ public class Playlist {
         return episodes.add(ep);
     }
 
-    /**
-     * Updates the current episode list with new content from channel subscriptions
-     *
-     * @return - Returns if the channel episode list has changed.
-     */
-    public boolean update() {
-
-        boolean updated = false;
-
-        Iterator channelIter = channels.iterator();
-        int counter = 0;
-
-        AccessData data = new ObjectData("LIES") {
-        };
-        Channel ch;
-        EpisodeList eps;
-        Iterator iter;
-
-        while (channelIter.hasNext()) {
-            ch = (Channel) channelIter.next();
-
-            // If our channel has been updated since the last time this playlist updated addEpisodes
-            // the new episodes to the episode list
-            if (ch.getLastUpdate().compareTo(lastChannelUpdates.get(ch)) < 0) {
-                updated = true;
-
-                eps = new EpisodeList();
-                data.getChannelEpisodeSequential(eps, ch);
-
-                episodes.add(eps.getEpisodesAfter(lastChannelUpdates.get(ch)));
-            }
-
-            counter++;
-        }
-
-        return updated;
-    }
+//    /**
+//     * Updates the current episode list with new content from channel subscriptions
+//     *
+//     * @return - Returns if the channel episode list has changed.
+//     */
+//    public boolean update() {
+//
+//        boolean updated = false;
+//
+//        Iterator channelIter = channels.iterator();
+//        int counter = 0;
+//
+//        AccessData data = new ObjectData(Main.dbName);
+//        Channel ch;
+//        EpisodeList eps;
+//        Iterator iter;
+//
+//        while (channelIter.hasNext()) {
+//            ch = (Channel) channelIter.next();
+//
+//            // If our channel has been updated since the last time this playlist updated addEpisodes
+//            // the new episodes to the episode list
+//            if (ch.getLastUpdate().compareTo(lastChannelUpdates.get(ch)) < 0) {
+//                updated = true;
+//
+//                eps = new EpisodeList();
+//                data.getChannelEpisodeSequential(eps, ch);
+//
+//                episodes.add(eps.getEpisodesAfter(lastChannelUpdates.get(ch)));
+//            }
+//
+//            counter++;
+//        }
+//
+//        return updated;
+//    }
 
     /**
      * Get this playlist's channel list

@@ -378,7 +378,7 @@ public class StubData implements AccessData {
      * @param currentPlaylist - The playlist to be searched
      * @return - null. This pattern was taken from sample project
      */
-    public String getPlayListEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist)
+    public String getPlaylistEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist)
     {
         episodeResult.clear();
         int index;

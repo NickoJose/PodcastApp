@@ -35,7 +35,7 @@ public interface AccessData
 
     String getPlaylistChannelSequential(List<Channel> channelResult, Playlist currentPlaylist);
 
-    String getPlayListEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist);
+    String getPlaylistEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist);
 
     String insertPlaylist(Playlist currentPlaylist);
 

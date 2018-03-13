@@ -164,6 +164,7 @@ public class ObjectData implements AccessData
 
                 cmdString = "Insert into Channels " +" Values(" +values +")";
                 updateCount = st1.executeUpdate(cmdString);
+                updateCount = st1.executeUpdate(cmdString);
                 result = checkWarning(st1, updateCount);
             }
             catch (Exception e)
@@ -222,7 +223,7 @@ public class ObjectData implements AccessData
                     +"', Author='" + currentChannel.getAuthor()
                     +"', Category='" + currentChannel.getCategory()
                     +"', Owner='" + currentChannel.getOwner()
-                    +"', OwnerEmail='" + currentChannel.getOwnerEmail()
+                    +"', OwnerEmail'" + currentChannel.getOwnerEmail()
                     +"'";
             where = "where Title='" + currentChannel.getTitle() +"'";
             cmdString = "Update Channels " +" Set " +values +" " +where;
@@ -433,7 +434,7 @@ public class ObjectData implements AccessData
     {
         boolean found = false;
         ArrayList<Episode> episodes = new ArrayList<>();
-        getPlayListEpisodeSequential(episodes, currentPlaylist);
+        getPlaylistEpisodeSequential(episodes, currentPlaylist);
 
         for (int i = 0; i < episodes.size(); i ++)
         {
@@ -700,7 +701,7 @@ public class ObjectData implements AccessData
      * @param currentPlaylist - The playlist to be searched
      * @return - null. This pattern was taken from sample project
      */
-    public String getPlayListEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist)
+    public String getPlaylistEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist)
     {
         Episode myEp;
         String playlistName = currentPlaylist.getName();
