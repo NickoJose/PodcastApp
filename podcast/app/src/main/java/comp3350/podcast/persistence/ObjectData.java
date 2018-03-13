@@ -225,7 +225,7 @@ public class ObjectData implements AccessData
                     +"', Author='" + currentChannel.getAuthor()
                     +"', Category='" + currentChannel.getCategory()
                     +"', Owner='" + currentChannel.getOwner()
-                    +"', OwnerEmail'" + currentChannel.getOwnerEmail()
+                    +"', OwnerEmail='" + currentChannel.getOwnerEmail()
                     +"'";
             where = "where Title='" + currentChannel.getTitle() +"'";
             cmdString = "Update Channels " +" Set " +values +" " +where;
