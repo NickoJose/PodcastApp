@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="123dp"
         android:layout_marginTop="10dp"
         android:text=""
         app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -21,9 +21,11 @@
     <TextView
         android:id="@+id/extrainfo"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="10dp"
         android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
@@ -31,7 +33,7 @@
     <TextView
         android:id="@+id/description"
         android:layout_width="0dp"
-        android:layout_height="170dp"
+        android:layout_height="209dp"
         android:layout_marginTop="10dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,13 +51,15 @@
     <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="0dp"
-        android:layout_height="450dp"
-        android:layout_marginTop="44dp"
+        android:layout_height="323dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/backToHome"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <Button
@@ -71,6 +75,18 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <Button
+        android:id="@+id/backToHome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/menu_back_to_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/play"

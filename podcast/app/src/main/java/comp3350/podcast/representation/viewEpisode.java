@@ -68,7 +68,21 @@ public class viewEpisode extends AppCompatActivity {
 
         updateText();
 
+        Button homeBtn = (Button)findViewById(R.id.backToHome);
+        homeBtn.setOnClickListener(homeBtnHandler);
+
     }
+
+    View.OnClickListener homeBtnHandler = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            Intent intent = new Intent(viewEpisode.this,MainActivity.class);
+            startActivity(intent);
+        }
+    };
+
     View.OnClickListener backToChannel = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

@@ -13,6 +13,7 @@
     <string name="menu_playlists">Playlists</string>
     <string name="menu_allEps">All</string>
     <string name="menu_channels">Channels</string>
+    <string name="menu_back_to_home">Back to Homepage</string>
 
     <!-- card sizes -->
     <string name="cardWidth">275dp</string>

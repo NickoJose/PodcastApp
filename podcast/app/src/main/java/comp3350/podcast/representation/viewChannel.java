@@ -41,11 +41,23 @@ public class viewChannel extends AppCompatActivity {
         epIds = new ArrayList<>();
         accessEpisodes.getChannelEpisodes(eps,channel);
 
+        Button homeBtn = (Button)findViewById(R.id.backToHome);
+        homeBtn.setOnClickListener(homeBtnHandler);
 
 
         updateText();
         populateList();
     }
+
+    View.OnClickListener homeBtnHandler = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            Intent intent = new Intent(viewChannel.this,MainActivity.class);
+            startActivity(intent);
+        }
+    };
     /**
      * Populates episode ListView on GUI
      *
@@ -55,24 +67,6 @@ public class viewChannel extends AppCompatActivity {
     {
 
         LinearLayout list = (LinearLayout) findViewById(R.id.episode_list);
-/*
-        ArrayAdapter<Episode> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,eps);
-        list.setAdapter(adapter);
-
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(viewChannel.this,viewEpisode.class);
-                Bundle b = new Bundle();
-                b.putSerializable("episode",eps.get(position));
-                intent.putExtras(b);
-                startActivity(intent);
-            }
-        });
-*/
-
 
         View.OnClickListener handler1 = new View.OnClickListener()
         {
@@ -91,8 +85,6 @@ public class viewChannel extends AppCompatActivity {
             }
         };
         CardList.createEpisodeCardList(handler1,findViewById(R.id.episode_list),this,R.layout.card_search,eps,epIds);
-
-
     }
 
     /**
