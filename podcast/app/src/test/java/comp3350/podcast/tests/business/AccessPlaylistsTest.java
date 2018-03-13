@@ -41,7 +41,8 @@ public class AccessPlaylistsTest
     public AccessPlaylistsTest() { super(); }
 
     @Before
-    public void setUp() {
+    public void setUp()
+    {
         Services.closeDataAccess();
         Services.createDataAccess(new StubData(dbName));
 
@@ -141,6 +142,7 @@ public class AccessPlaylistsTest
         assertTrue(comparePlaylistLists(resultPl, playlistList));
         System.out.println("Finished AccessPlaylistsTest: DeletePlaylist");
     }
+
     @Test
     public void testInsertPlaylistChannel()
     {
@@ -271,6 +273,7 @@ public class AccessPlaylistsTest
         ap.getPlaylistEpisodes(resultEp, playlist4);
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
+        System.out.println("Finished AccessPlaylistsTest: PlaylistEpisodeList");
     }
 
     private boolean comparePlaylistLists(ArrayList<Playlist> origPlaylist, ArrayList<Playlist> otherPlaylist)

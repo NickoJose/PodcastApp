@@ -169,6 +169,7 @@ public class StubData implements AccessData {
      * @return - null. This pattern was taken from sample project
      */
     public String getChannelSequential(List<Channel> channelResult) {
+        channelResult.clear();
         channelResult.addAll(channels);
         return null;
     }
@@ -243,6 +244,7 @@ public class StubData implements AccessData {
      */
     public String getEpisodesSequential(List<Episode> episodeResult)
     {
+        episodeResult.clear();
         episodeResult.addAll(episodes);
         return null;
     }
@@ -257,6 +259,7 @@ public class StubData implements AccessData {
      */
     public String getChannelEpisodeSequential(List<Episode> episodeResult, Channel currentChannel)
     {
+        episodeResult.clear();
         int index;
 
         index = channels.indexOf(currentChannel);
@@ -342,6 +345,7 @@ public class StubData implements AccessData {
      */
     public String getPlaylistSequential(List<Playlist> playlistResult)
     {
+        playlistResult.clear();
         playlistResult.addAll(playlists);
         return null;
     }
@@ -356,6 +360,7 @@ public class StubData implements AccessData {
      */
     public String getPlaylistChannelSequential(List<Channel> channelResult, Playlist currentPlaylist)
     {
+        channelResult.clear();
         int index;
         index = playlists.indexOf(currentPlaylist);
         if (index >= 0)
@@ -375,6 +380,7 @@ public class StubData implements AccessData {
      */
     public String getPlayListEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist)
     {
+        episodeResult.clear();
         int index;
 
         index = playlists.indexOf(currentPlaylist);
@@ -551,6 +557,7 @@ public class StubData implements AccessData {
      */
     public String getSubSequential(List<Channel> channelResult)
     {
+        channelResult.clear();
         channelResult.addAll(subs);
         return null;
     }

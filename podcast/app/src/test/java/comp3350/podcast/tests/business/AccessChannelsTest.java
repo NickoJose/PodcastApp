@@ -35,7 +35,8 @@ public class AccessChannelsTest
     public AccessChannelsTest() { super(); }
 
     @Before
-    public void setUp() {
+    public void setUp()
+    {
         Services.closeDataAccess();
         Services.createDataAccess(new StubData(dbName));
 
@@ -105,11 +106,6 @@ public class AccessChannelsTest
         ac.insertChannel(channel4);
         ac.getChannels(resultCh);
         assertTrue(resultCh.equals(channelList));
-
-        for ( int i = 0; i < resultCh.size(); i ++)
-        {
-            System.out.println(resultCh.get(i));
-        }
 
         // test inserting a null channel
         try {

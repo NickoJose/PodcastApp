@@ -51,13 +51,12 @@ public class AccessEpisodesTest
     private Date epDate8;
     private Date epDate9;
     private Date epDate10;
-    private Date epDate11;
-    private Date epDate12;
 
     public AccessEpisodesTest() { super(); }
 
     @Before
-    public void setUp() {
+    public void setUp()
+    {
         Services.closeDataAccess();
         Services.createDataAccess(new StubData(dbName));
 
@@ -78,7 +77,6 @@ public class AccessEpisodesTest
         epDate8 = new Date(2015, 8, 1);
         epDate9 = new Date(2015, 5, 8);
         epDate10 = new Date(2015, 2, 24);
-        epDate11 = new Date(2015, 2, 24);
 
         channel5 = new Channel("Seafood Mania", "Chickens only",
                 "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
