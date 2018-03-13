@@ -614,9 +614,9 @@ public class ObjectData implements AccessData
                     +"', Length='" + currentEpisode.getLength()
                     +"', Ch='" + currentEpisode.getChannel()
                     +"', PublishDate='" + currentEpisode.getPublishDate()
-                    +"', Author'" + currentEpisode.getAuthor()
-                    +"', Category'" + currentEpisode.getCategory()
-                    +"', Epnum'" + currentEpisode.getEpNum()
+                    +"', Author='" + currentEpisode.getAuthor()
+                    +"', Category='" + currentEpisode.getCategory()
+                    +"', Epnum='" + currentEpisode.getEpNum()
                     +"'";
             where = "where Title='" +currentEpisode.getTitle() +"'";
             cmdString = "Update Episodes " +" Set " +values +" " +where;
