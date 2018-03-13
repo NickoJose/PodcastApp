@@ -16,6 +16,7 @@ public class StubData implements AccessData {
     private ArrayList<Channel> channels;
     private ArrayList<Episode> episodes;
     private ArrayList<Playlist> playlists;
+    private ChannelList subs;
 
     public StubData(String dbName) {
         this.dbName = dbName;
@@ -37,6 +38,7 @@ public class StubData implements AccessData {
         channels = new ArrayList<>();
         episodes = new ArrayList<>();
         playlists = new ArrayList<>();
+        subs = new ChannelList();
 
         channel = new Channel("The Joe Rogan Experience", "The Joe Rogan Experience podcast is a long form conversation hosted by comedian, " +
                 "UFC color commentator, and actor Joe Rogan with friends and guests that have included comedians, actors, musicians, MMA instructors and " +
@@ -125,6 +127,7 @@ public class StubData implements AccessData {
         playlists.get(1).addEpisode(episodes.get(4));
         playlists.get(1).addEpisode(episodes.get(5));
 
+        subs.add(channels.get(0));
 
         System.out.println("Opened " +dbType +" database " +dbName);
     }
@@ -499,6 +502,57 @@ public class StubData implements AccessData {
             return playlists.get(index).removeEpisode(currentEpisode);
         }
         return false;
+    }
+
+    /**
+     * Inserts a new subscription into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be inserted into database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String insertSub(Channel currentChannel)
+    {
+        int index;
+
+        index = subs.indexOf(currentChannel);
+        if (index < 0) // check duplicates
+        {
+            subs.add(currentChannel);
+        }
+        return null;
+    }
+
+    /**
+     * Removes a subscription into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be removed from database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String deleteSub(Channel currentChannel)
+    {
+        int index;
+
+        index = subs.indexOf(currentChannel);
+        if (index >= 0)
+        {
+            subs.remove(index);
+        }
+        return null;
+    }
+
+    /**
+     * Puts the ordered list of all subscriptions into a given List<Channel>
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param channelResult - a list of channels object that we will store the result in.
+     * @return - null. This pattern was taken from sample project
+     */
+    public String getSubSequential(List<Channel> channelResult)
+    {
+        channelResult.addAll(subs);
+        return null;
     }
 
 
