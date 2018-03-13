@@ -2,10 +2,6 @@ package comp3350.podcast.objects;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import comp3350.podcast.application.Main;
-import comp3350.podcast.persistence.AccessData;
-import comp3350.podcast.persistence.ObjectData;
-
 public class Playlist {
 
     private EpisodeList episodes;
@@ -16,9 +12,9 @@ public class Playlist {
 
     public Playlist(String name) {
         super();
-        episodes = new EpisodeList();
-        channels = new ChannelList();
-        lastChannelUpdates = new Hashtable<>();
+        this.episodes = new EpisodeList();
+        this.channels = new ChannelList();
+        this.lastChannelUpdates = new Hashtable<>();
         this.name = name;
     }
 

@@ -51,7 +51,7 @@ public class Date implements Comparable, Serializable {
     }
 
     /**
-     * returns true if all parts of this date are equal to target object (year, month, day, etc).
+     * Returns true if all parts of this date are equal to target object (year, month, day, etc).
      *
      * @param obj - The date to compare against
      * @return - True if equal dates

@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Episode extends DescribedObject implements Serializable {
 
     private String title;
-    private String subtitle;
     private String desc;
     private String url;
     private int length; //length in seconds
@@ -29,9 +28,9 @@ public class Episode extends DescribedObject implements Serializable {
         this.author = author;
         this.category = category;
         this.epNum = epNum;
-        timeStamp = 0;
+        this.timeStamp = 0;
 
-        publishDate = new Date();
+        this.publishDate = new Date();
     }
 
 //================================ GETTERS ==========================================//
@@ -63,7 +62,7 @@ public int getTimeStamp(){return timeStamp;}
             result = true;
         }
         return result;
-    }//setChannel
+    }
 
    /**
      * Sets the time stamp as a percentage of completion
@@ -78,6 +77,12 @@ public int getTimeStamp(){return timeStamp;}
         }
     }
 
+    /**
+     * Sets the time stamp as the number of seconds this episode as been playing for
+     *
+     * @param t - Percent complete that episode is
+     * @return void
+     */
     public void setTimeStampInt(int i){
         if(i>=0 && i<length){
            timeStamp = i;
@@ -94,6 +99,11 @@ public int getTimeStamp(){return timeStamp;}
         return ("Episode #"+epNum+"\t\"" + title+"\"");
     }
 
+    /**
+     * Increments this episode's timestamp by 1 second
+     *
+     * @return void
+     */
     public void incTimeStamp(){
         timeStamp++;
     }
@@ -194,7 +204,13 @@ public int getTimeStamp(){return timeStamp;}
 
         return result;
     }
-  
+
+    /**
+     * Returns a string listing the given number of seconds in hh:mm:ss format
+     *
+     * @param sec - Time to be converted to hh:mm:ss, as a number of seconds
+     * @return String representing time formatted in hh:mm:ss
+     */
     private String timeString(int sec){
 
         String result = "";

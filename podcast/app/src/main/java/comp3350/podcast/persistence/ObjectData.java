@@ -33,7 +33,6 @@ public class ObjectData implements AccessData
      *
      * @return - void
      */
-
     public void open(String dbPath)
     {
         String url;

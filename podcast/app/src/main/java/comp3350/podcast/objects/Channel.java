@@ -29,9 +29,9 @@ public class Channel extends DescribedObject implements Serializable{
         this.category = category;
         this.owner = owner;
         this.ownerEmail = ownerEmail;
-        numEps = 0;
-        lastPlayed = null;
-        lastUpdate = new Date();
+        this.numEps = 0;
+        this.lastPlayed = null;
+        this.lastUpdate = new Date();
     }
 
     //================================ GETTERS ==========================================//
