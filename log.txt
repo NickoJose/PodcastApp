@@ -39,6 +39,11 @@ February 6, 2018 – Access classes for channels, episodes and playlist and temp
 February 10, 2018 – Unit tests for sort, channel and episode. Removed the temporary tests from main. Worked for about 2 hours.
 February 11, 2018 – AllTest to run all tests. Replaced methods in the activities class with the methods from access classes. Worked for 1 hour.
 February 12, 2018 – Merged the branch that has all of the changes I made to the master and some cleanups. Worked for 1 hour.
+March 6, 2018 - Implemented the real database (not tested and incomplete) including the persistence interface. Modifed access, main and service classes to use the real database as default. 3 hours
+March 7, 2018 - Added database script (incomplete). 1 hour
+March 10, 2018 - Added more functions (playlists methods) to the real database. Modified playlists to store them in the real database. Completed the database script. 3 hours
+March 11, 2018 - Added unit tests for access classes. Removed unusable methods (getsequential). Added exceptions for insert, get, update methods and functions such as equals() for playlist. 4 hours
+March 12, 2018 - Added subscriptions table to the database script. Added subscription interface. Modified the databases to include methods for the subscriptions. Added unit tests for persistence interface and subscription. 3 hours
 
 LogEntry - Russell Thiessen
 January 8, 2018 - Setup repository and Discord (chat server) - 1 hour
