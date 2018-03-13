@@ -163,7 +163,6 @@ public class ObjectData implements AccessData
                         +"'";
 
                 cmdString = "Insert into Channels " +" Values(" +values +")";
-                //System.out.println(cmdString); // TODO TESTING
                 updateCount = st1.executeUpdate(cmdString);
                 result = checkWarning(st1, updateCount);
             }
@@ -192,7 +191,6 @@ public class ObjectData implements AccessData
         {
             values = currentChannel.getTitle();
             cmdString = "Delete from Channels where Title='" +values +"'";
-            //System.out.println(cmdString);
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         }
@@ -219,7 +217,6 @@ public class ObjectData implements AccessData
         result = null;
         try
         {
-            // Todo SHOULD CHECK FoR EMPTY VALUES AND NOT UPDATE THEM
             values = "Desc='" + currentChannel.getDesc()
                     +"', PublishDate='" + currentChannel.getPublishDate()
                     +"', Author='" + currentChannel.getAuthor()
@@ -229,7 +226,6 @@ public class ObjectData implements AccessData
                     +"'";
             where = "where Title='" + currentChannel.getTitle() +"'";
             cmdString = "Update Channels " +" Set " +values +" " +where;
-            //System.out.println(cmdString); // TODO TESTING
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         }
@@ -295,6 +291,7 @@ public class ObjectData implements AccessData
         {
             result = processSQLError(e);
         }
+
         return result;
     }
 
@@ -553,7 +550,6 @@ public class ObjectData implements AccessData
                         +"', " + currentEpisode.getEpNum()
                         +"";
                 cmdString = "Insert into Episodes " +" Values(" +values +")";
-                //System.out.println(cmdString); // TODO TESTING
                 updateCount = st1.executeUpdate(cmdString);
                 result = checkWarning(st1, updateCount);
             }
@@ -582,7 +578,6 @@ public class ObjectData implements AccessData
         {
             values = "" + currentEpisode.getTitle();
             cmdString = "Delete from Episodes where Title='" +values +"'";
-            //System.out.println(cmdString); // TODO TESTING
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         }
@@ -608,7 +603,6 @@ public class ObjectData implements AccessData
         result = null;
         try
         {
-            // Todo SHOULD CHECK FoR EMPTY VALUES AND NOT UPDATE THEM
             values = "Url='" + currentEpisode.getUrl()
                     +"', Desc='" + currentEpisode.getDesc()
                     +"', Length='" + currentEpisode.getLength()
@@ -620,7 +614,6 @@ public class ObjectData implements AccessData
                     +"'";
             where = "where Title='" +currentEpisode.getTitle() +"'";
             cmdString = "Update Episodes " +" Set " +values +" " +where;
-            //System.out.println(cmdString);  // TODO TESTING
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         }
@@ -757,7 +750,6 @@ public class ObjectData implements AccessData
             {
                 values = "'" + currentPlaylist.getName() +"'";
                 cmdString = "Insert into Playlists " +" Values(" +values +")";
-                //System.out.println(cmdString); // TODO TESTING
                 updateCount = st2.executeUpdate(cmdString);
                 result = checkWarning(st2, updateCount);
             }
@@ -786,7 +778,6 @@ public class ObjectData implements AccessData
         {
             values = "" + currentPlaylist.getName();
             cmdString = "Delete from Playlists where Name='" +values +"'";
-            //System.out.println(cmdString); // TODO TESTING
             updateCount = st2.executeUpdate(cmdString);
             result = checkWarning(st2, updateCount);
         }
@@ -923,7 +914,13 @@ public class ObjectData implements AccessData
         return success;
     }
 
-
+    /**
+     * Puts the ordered list of all subscriptions into a given List<Channel>
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param channelResult - a list of channels object that we will store the result in.
+     * @return - null. This pattern was taken from sample project
+     */
     public String getSubSequential(List<Channel> channelResult)
     {
         Channel myCh;
@@ -950,6 +947,13 @@ public class ObjectData implements AccessData
         return result;
     }
 
+    /**
+     * Inserts a new subscription into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be inserted into database
+     * @return - null. This pattern was taken from sample project
+     */
     public String insertSub(Channel currentChannel)
     {
         String values;
@@ -976,10 +980,16 @@ public class ObjectData implements AccessData
         return result;
     }
 
+    /**
+     * Removes a subscription into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be removed from database
+     * @return - null. This pattern was taken from sample project
+     */
     public String deleteSub(Channel currentChannel)
     {
         String values;
-        String nextValues;
 
         result = null;
         try
