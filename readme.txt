@@ -1,4 +1,4 @@
-# COMP 3350 - Group K
+﻿# COMP 3350 - Group K
 ### Students: Michael Reimer, Nicko Jose, Gareth Wiebe, Jackson Barker, Russell Thiessen
 
 All of the packages are found under java/comp3350/podcast.
@@ -21,4 +21,4 @@ To run all the unit tests, select AllTests.java -> run.
 To run the project, download the zip file -> file (android studio) -> new -> import project -> select SoftEngProject-master -> select build.gradle.
 
 After successfully launching the project on the Nexus 7, a search bar, recommended episodes, playlists, and “create new playlist” button will show up on the screen. Selecting one of the episodes in the recommended list will display all the information regarding that particular episode. Selecting the “back to channel” on the episode gui will switch the screen to the channel gui which displays all the information about the channel of the currently selected episode. It will also display all the episodes the channel has.
-
+For iteration two, we also added the ability to search for podcasts by their title. The search looks for similar matches between titles and search queries, this allows the user to get results without necessarily using correct spelling.
