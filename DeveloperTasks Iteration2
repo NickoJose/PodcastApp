@@ -1,0 +1,44 @@
+Developer Tasks
+
+
+RUSSELL
+| Task                                                                                                    | Time       |
+|---------------------------------------------------------------------------------------------------------|------------|
+| Create GUI for channel lists and episode lists for the homescreen                                       | 4 hours    |
+| Add onclicklisteners to the list items that bring up the ViewChannelActivities or ViewEpisodeActivities | 2 hours    |
+| Rename some files to match coding standard                                                              | 10 minutes |
+| Clean up gui bug that causes huge back-stack                                                            | 1 hour     |
+
+JACKSON
+|Task                                                                                                     | Time       |
+|---------------------------------------------------------------------------------------------------------|------------|
+| Create GUI for the main page                                                                            | 2 hours    |
+| Create CardList class for reusability of code that creates lists of cardviews                           | 3 hours    |
+| Add OnClickListeners for main page buttons                                                              | 2 hours    |
+| Update ViewChannel to use cardViews for a nicer presentation                                            | 1 hour     |
+| Clean up old commented-out code and add comment headers to new code                                     | 1/2 hour   |
+| Create quicklist of episode/channels for main page - gives menu buttons a purpose                       | 1 hour     |
+
+NICKO
+|Task                                                                                                     | Time       |
+|---------------------------------------------------------------------------------------------------------|------------|
+| Implemented real database and an common interface                                                       | 5 hours    |
+| Created database script  with sample content.                                                           | 2 hours    |
+| Added subscription interface                                                                            | 1 hour     |
+
+MIKE
+|Task                                                                                                     | Time       |
+|---------------------------------------------------------------------------------------------------------|------------|
+| Refactor Episode.java to count time as a number of seconds                                              | 2 hours    |
+| Debug and finish code related to playContentActivity                                                    | 8 hours    |
+| Inspect project code to ensure everything follows standards                                             | 4 hours    |
+| Refactor Sort to have less redundant code                                                               | 1 hour     |
+| Improve tests for DSOs                                                                                  | 4 hours    |
+
+GARETH
+|Task                                                                                                     | Time       |
+|---------------------------------------------------------------------------------------------------------|------------|
+| Get and send search string to search activity                                                           | 1 hour     |
+| Create business class to retrieve episodes and sort by relevance to search query                        | 4 hours    |
+| Display episodes in a list as cards and setup listeners for the cards                                   | 2 hours    |
+
