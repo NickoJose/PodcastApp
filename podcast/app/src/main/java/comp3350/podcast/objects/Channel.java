@@ -43,7 +43,6 @@ public class Channel extends DescribedObject implements Serializable{
     public String getCategory(){return category;}
     public String getOwner(){return owner;}
     public String getOwnerEmail(){return ownerEmail;}
-    public Episode getLastPlayed(){return lastPlayed;}
     public int getNumEps(){return numEps;}
     public Date getLastUpdate(){return lastUpdate;}
 

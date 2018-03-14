@@ -26,7 +26,7 @@ public class ObjectData implements AccessData
     private int updateCount;
     private String result;
 
-    public ObjectData(String dbname) { this.dbName = dbName; }
+    public ObjectData(String dbname) { this.dbName = dbname; }
 
     /**
      * Opens a connection to the database via this object

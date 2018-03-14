@@ -83,7 +83,7 @@ public class Date implements Comparable, Serializable {
     @Override
     public int compareTo(@NonNull Object obj) {
         Date other = (Date) obj;
-        int result;
+        int result = 0;
 
         //Check all the stages on the date
         if ((result = compareTimes(this.year, other.year)) == 0)

@@ -29,8 +29,6 @@ public class Episode extends DescribedObject implements Serializable {
         this.category = category;
         this.epNum = epNum;
         this.timeStamp = 0;
-
-        this.publishDate = new Date();
     }
 
 //================================ GETTERS ==========================================//
@@ -48,21 +46,6 @@ public int getTimeStamp(){return timeStamp;}
 
 
 //================================ SETTERS ==========================================//
-    
-    /**
-     * Manually set a reference to the channel this episode was posted under
-     * 
-     * @param ch  - Channel reference being paired to episode
-     * @return Returns true on success.
-     */
-    public boolean setChannel(Channel ch) {
-        boolean result = false;
-        if (ch != null) {
-            this.ch = ch;
-            result = true;
-        }
-        return result;
-    }
 
    /**
      * Sets the time stamp as a percentage of completion
@@ -80,7 +63,7 @@ public int getTimeStamp(){return timeStamp;}
     /**
      * Sets the time stamp as the number of seconds this episode as been playing for
      *
-     * @param t - Percent complete that episode is
+     * @param i - Percent complete that episode is
      * @return void
      */
     public void setTimeStampInt(int i){

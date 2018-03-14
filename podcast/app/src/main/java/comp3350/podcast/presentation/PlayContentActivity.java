@@ -52,7 +52,6 @@ public class PlayContentActivity extends AppCompatActivity {
                     seekbar.setProgress(0);
                 }
 
-
                 updateScreen();
             }
         });

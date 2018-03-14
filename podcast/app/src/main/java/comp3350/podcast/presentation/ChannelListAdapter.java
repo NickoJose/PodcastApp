@@ -35,7 +35,6 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ChannelViewHolder holder, int position) {
         // - get element from your dataset at this position

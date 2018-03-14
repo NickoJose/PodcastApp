@@ -41,7 +41,7 @@ class DescribedObjectComparator implements Comparator<DescribedObject>
 public class Sort {
 
     /**
-     * Sorts a given ChannelList/ArrayList<Channel></> object according to a supported property. Currently supported are:
+     * Sorts a given ChannelList/ArrayList<Channel> object according to a supported property. Currently supported are:
      * "title", "date", and "length"
      *
      * @param current  - The ChannelList object to have it's contents sorted

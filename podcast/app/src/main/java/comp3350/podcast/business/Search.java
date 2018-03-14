@@ -38,6 +38,8 @@ public class Search {
      * Creates a heuristic for the similarity between two strings using the length of
      * the longest common subsequence and substring
      *
+     * @param a - First string
+     * @param b - Second string
      * @return - int of the heuristic
      */
     public int matchHeuristic (String a, String b) {

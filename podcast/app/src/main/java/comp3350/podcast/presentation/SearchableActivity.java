@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -49,18 +48,12 @@ public class SearchableActivity extends AppCompatActivity {
      */
     private void populateResultList()
     {
-        int index = 0;
-        Episode temp;
-        TextView title = null;
-        TextView description = null;
-        View view;
         View.OnClickListener handler1 = new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(SearchableActivity.this, ViewEpisodeActivity.class);
                     Bundle b = new Bundle();
@@ -71,41 +64,7 @@ public class SearchableActivity extends AppCompatActivity {
             }
         };
         CardList.createEpisodeCardList(handler1,findViewById(R.id.resultLayout),this,R.layout.card_search,recList,recIds);
-/*
-        // update titles
-        for (index = 0; index < recList.size(); index++) {
-            // get layouts
-            LinearLayout ll = findViewById(R.id.resultLayout);
-            view = LayoutInflater.from(this).inflate(R.layout.card_search, ll, false);
-            recIds.add(view.getId());
 
-            temp = recList.get(index);
-
-            // find this cards title
-            title = view.findViewById(R.id.recTitle);
-
-            // find this cards description
-            description = view.findViewById(R.id.recDsc);
-
-            // set this cards properties
-            if (temp != null)
-            {
-                description.setText(temp.getDesc());
-                title.setText(temp.getTitle());
-
-                if (view instanceof CardViewPC)
-                {
-                    CardViewPC a = (CardViewPC) view;
-                    a.setWhoDis(temp.getTitle());
-                    a.setEp(temp);
-                }
-            }
-
-            // set listener
-            view.setOnClickListener(handler1);
-            ll.addView(view);
-        }
-        */
     }
 
 }
