@@ -87,9 +87,6 @@ public class MainActivity extends AppCompatActivity {
             displayAllChannels();
         }
 
-        Button newPlaylistBtn = findViewById(R.id.newPlaylist);
-        newPlaylistBtn.setOnClickListener(playlistHandler);
-
         Button subsBtn = findViewById(R.id.subsButton);
         subsBtn.setOnClickListener(subsButtonHandler);
 
