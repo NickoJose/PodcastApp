@@ -19,8 +19,7 @@ public class Search {
         LinkedList<WeightedEpNode> weightedList = new LinkedList<>();
         int l;
         int minL = key.length();
-
-        // not the best way to sort
+        
         for(Episode a : in)
         {
             l = matchHeuristic(a.getTitle(), key);
