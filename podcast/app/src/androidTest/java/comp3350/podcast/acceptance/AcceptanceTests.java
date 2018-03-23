@@ -10,6 +10,7 @@ public class AcceptanceTests
     public static Test suite()
     {
         suite = new TestSuite("Acceptance tests");
+        suite.addTestSuite(MainTest.class);
         return suite;
     }
 }

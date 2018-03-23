@@ -4,6 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 
+import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.Assert;
 
 import comp3350.podcast.presentation.MainActivity;
