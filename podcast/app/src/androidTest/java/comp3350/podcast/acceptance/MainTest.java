@@ -31,8 +31,11 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	{
 		solo.finishOpenedActivities();
 	}
-	
-	// Please note again that this is not a complete set of acceptance tests
 
+	public void testMain()
+	{
+		solo.waitForActivity("MainActivity");
+		solo.clickOnButton("All Channels");
+	}
 
 }
