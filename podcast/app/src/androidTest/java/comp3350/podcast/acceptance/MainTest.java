@@ -6,6 +6,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.Assert;
 import comp3350.podcast.R;
 import comp3350.podcast.presentation.MainActivity;
+import comp3350.podcast.presentation.ViewChannelActivity;
 
 
 import android.app.AlertDialog;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
@@ -57,9 +59,21 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		solo.clickOnButton("Subscribed \nChannels");
 		solo.clickOnButton("All \nEpisodes");
 		Assert.assertTrue(solo.searchText("#890 - Fight Breakdown"));
+
 		solo.clickOnButton("All \nChannels");
 		Assert.assertTrue(solo.searchText("NBA Hang Time"));
-		//solo.clickOnText("NBA Hang Time");
+
+		solo.clickInRecyclerView(0,0);
+		solo.assertCurrentActivity("Expected ViewChannelActivity","ViewChannelActivity");
+		Assert.assertTrue(solo.searchText("NBA Hang Time"));
+
+		LinearLayout ll = (LinearLayout) solo.getView(R.id.episode_list);
+		View view = ll.getChildAt(0);
+		solo.clickOnView(view);
+		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
+		solo.clickOnButton("Play");
+		solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
+		solo.clickOnButton("Play");
 
 	}
 /*
