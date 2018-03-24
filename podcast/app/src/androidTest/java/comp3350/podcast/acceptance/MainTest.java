@@ -1,13 +1,30 @@
 package comp3350.podcast.acceptance;
 
 import android.test.ActivityInstrumentationTestCase2;
-
 import com.robotium.solo.Solo;
-
 import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.Assert;
-
+import comp3350.podcast.R;
 import comp3350.podcast.presentation.MainActivity;
+
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
@@ -37,9 +54,25 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	{
 		solo.waitForActivity("MainActivity");
 
-		solo.clickOnButton("All \nEpisodes");
-		solo.clickOnButton("All \nChannels");
 		solo.clickOnButton("Subscribed \nChannels");
-	}
+		solo.clickOnButton("All \nEpisodes");
+		Assert.assertTrue(solo.searchText("#890 - Fight Breakdown"));
+		solo.clickOnButton("All \nChannels");
+		Assert.assertTrue(solo.searchText("NBA Hang Time"));
+		//solo.clickOnText("NBA Hang Time");
 
+	}
+/*
+
+
+	public void testSearch()
+	{
+		solo.waitForActivity("MainActivity");
+
+		solo.goBack();
+		solo.clearEditText((R.id.searchString));
+		solo.enterText(R.id.searchString,"Jamie Foxx");
+		solo.clickOnButton("Search");
+		solo.assertCurrentActivity("Expected Search activity","SearchableActivity");
+	}*/
 }
