@@ -36,7 +36,10 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	public void testMain()
 	{
 		solo.waitForActivity("MainActivity");
-		solo.clickOnButton("All Channels");
+
+		solo.clickOnButton("All \nEpisodes");
+		solo.clickOnButton("All \nChannels");
+		solo.clickOnButton("Subscribed \nChannels");
 	}
 
 }
