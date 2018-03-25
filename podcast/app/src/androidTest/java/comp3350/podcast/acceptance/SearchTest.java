@@ -12,11 +12,11 @@ import junit.framework.Assert;
 import comp3350.podcast.R;
 import comp3350.podcast.presentation.MainActivity;
 
-public class searchTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class SearchTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
 	private Solo solo;
 
-	public searchTest()
+	public SearchTest()
 	{
 		super(MainActivity.class);
 	}
