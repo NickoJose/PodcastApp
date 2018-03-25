@@ -71,22 +71,10 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		View view = ll.getChildAt(0);
 		solo.clickOnView(view);
 		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
+
 		solo.clickOnButton("Play");
 		solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
-		solo.clickOnButton("Play");
+		solo.clickOnButton("Play"); //needed until merged with updated autoplay
 
 	}
-/*
-
-
-	public void testSearch()
-	{
-		solo.waitForActivity("MainActivity");
-
-		solo.goBack();
-		solo.clearEditText((R.id.searchString));
-		solo.enterText(R.id.searchString,"Jamie Foxx");
-		solo.clickOnButton("Search");
-		solo.assertCurrentActivity("Expected Search activity","SearchableActivity");
-	}*/
 }
