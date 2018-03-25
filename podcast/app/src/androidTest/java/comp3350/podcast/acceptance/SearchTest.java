@@ -42,14 +42,13 @@ public class SearchTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	{
 		solo.waitForActivity("MainActivity");
 
-		//solo.goBack();
-		//EditText edit = (EditText) solo.getView(R.id.searchEditText);
 		solo.clearEditText(0);
 		solo.enterText(0,"Jamie Foxx");
 		solo.clickOnButton("Search");
 		solo.assertCurrentActivity("Expected Search activity","SearchableActivity");
 
 		LinearLayout ll = (LinearLayout) solo.getView(R.id.resultLayout);
+		Assert.assertTrue(ll.getChildCount() > 0);
 		View view = ll.getChildAt(0);
 		solo.clickOnView(view);
 		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
@@ -57,5 +56,19 @@ public class SearchTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		solo.clickOnButton("Play");
 		solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
 		solo.clickOnButton("Play"); //needed until merged with updated autoplay
+	}
+
+	public void testBadSearch()
+	{
+
+		solo.waitForActivity("MainActivity");
+
+		solo.clearEditText(0);
+		solo.enterText(0,"skdjn237kjsdn733");
+		solo.clickOnButton("Search");
+		solo.assertCurrentActivity("Expected Search activity","SearchableActivity");
+
+		LinearLayout ll = (LinearLayout) solo.getView(R.id.resultLayout);
+		Assert.assertEquals(0,ll.getChildCount());
 	}
 }
