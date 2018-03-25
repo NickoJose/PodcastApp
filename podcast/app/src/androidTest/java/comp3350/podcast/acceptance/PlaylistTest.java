@@ -64,7 +64,7 @@ public class PlaylistTest extends ActivityInstrumentationTestCase2<MainActivity>
 		Assert.assertTrue(solo.searchText("Inspiration"));
 
 		LinearLayout ll = (LinearLayout) solo.getView(R.id.playlistsLayout);
-		Assert.assertTrue(ll.getChildCount() == 3);
+		Assert.assertEquals(3,ll.getChildCount());
 		//TODO test that the playlist buttons go to the right place when implemented
 		//View view = ll.getChildAt(0);
 
