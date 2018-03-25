@@ -177,14 +177,23 @@ public class MainActivity extends AppCompatActivity {
         btn = view.findViewById(R.id.playlist_link);
         btn.setText(label);
 
+        View.OnClickListener handlerPlaylist = new View.OnClickListener() {
+            public void onClick(View v) {
+                if (v instanceof PlaylistLayoutBtn) {
+                    PlaylistLayoutBtn a = (PlaylistLayoutBtn) v;
+                    Toast.makeText(getApplicationContext(), "You clicked it" , Toast.LENGTH_LONG).show();
+                }}};
+
+        view.setOnClickListener(handlerPlaylist);
         ll.addView(view);
     }
 
-    /**
-     * Makes a new playlist. Prompts user to name it
-     *
-     * @return - void
-     */
+
+            /**
+             * Makes a new playlist. Prompts user to name it
+             *
+             * @return - void
+             */
     private void makePlaylist() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter playlist name");
