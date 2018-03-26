@@ -202,7 +202,12 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             if (v instanceof PlaylistBtn) {
                 PlaylistBtn a = (PlaylistBtn)v;
-                Toast.makeText(getApplicationContext(), "You clicked the thang" + a.getBtnId(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "You clicked " + a.getText(), Toast.LENGTH_LONG).show();
+                Intent episodeIntent = new Intent(MainActivity.this, PlaylistActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("playlist", a.getText().toString());
+                episodeIntent.putExtras(b);
+                startActivity(episodeIntent);
             }
         }
     };
@@ -233,10 +238,11 @@ public class MainActivity extends AppCompatActivity {
                         match = true;
                         break;
                     }
-
                 }
                 if (!match) {
                     createNewPlaylistBtn(inputName);
+                    Playlist newPlaylist = new Playlist(inputName);
+                    //accessPlaylists.insertPlaylist(newPlaylist);
                 }
                 else  Toast.makeText(getApplicationContext(), "That playlist already exists", Toast.LENGTH_LONG).show();
                 //add playlist to db

@@ -15,9 +15,9 @@ import comp3350.podcast.objects.Playlist;
 
 public class ObjectData implements AccessData
 {
-    private Statement st1, st2, st3;
+    private Statement st1, st2, st3, stTemp;
     private Connection c1;
-    private ResultSet rs2, rs3, rs4, rs5;
+    private ResultSet rs2, rs3, rs4, rs5, rsTemp;
 
     private String dbName;
     private String dbType;
@@ -45,6 +45,7 @@ public class ObjectData implements AccessData
             st1 = c1.createStatement();
             st2 = c1.createStatement();
             st3 = c1.createStatement();
+            stTemp = c1.createStatement();
         }
         catch (Exception e)
         {
@@ -420,6 +421,14 @@ public class ObjectData implements AccessData
             {
                 myName = rs4.getString("Name");
                 playlist = new Playlist(myName);
+
+                cmdString = "SELECT * from EPISODELIST WHERE Name = '"+playlist.getName()+"'";
+                rsTemp = stTemp.executeQuery(cmdString);//zzz
+               while (rsTemp.next()) {
+                   myName = rsTemp.getString("Title");
+                   playlist.addEpisode(getEpisodeInfo(myName));
+                }
+
                 playlistResult.add(playlist);
             }
         }

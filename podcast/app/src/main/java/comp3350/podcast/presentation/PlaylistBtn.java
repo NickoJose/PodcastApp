@@ -17,5 +17,5 @@ public class PlaylistBtn extends android.support.v7.widget.AppCompatButton {
     public PlaylistBtn(Context context, AttributeSet attrs, int defStyleAttr) {super(context, attrs, defStyleAttr);
     btnIdUnique = btnId; btnId++;}
 
-    public int getBtnId(){return  btnIdUnique;}
+    //public int getBtnId(){return super.getText().toString();}
 }
