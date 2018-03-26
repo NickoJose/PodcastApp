@@ -1,4 +1,4 @@
-package comp3350.podcast.tests.business;
+package comp3350.podcast.business;
 
 import org.junit.After;
 import org.junit.Before;
@@ -6,14 +6,12 @@ import org.junit.Test;
 
 import comp3350.podcast.application.Main;
 import comp3350.podcast.application.Services;
-import comp3350.podcast.business.AccessChannels;
-import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.ChannelList;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.EpisodeList;
-import comp3350.podcast.tests.persistence.StubData;
+import comp3350.podcast.persistence.StubData;
 
 import static org.junit.Assert.*;
 
@@ -36,10 +34,6 @@ public class AccessEpisodesTest
     private Episode episode7;
     private Episode episode8;
     private Episode episode9;
-    private Episode episode10;
-    private Episode episode11;
-    private Episode episode12;
-    private Episode episode13;
     private Date chDate4;
     private Date epDate1;
     private Date epDate2;
@@ -50,7 +44,6 @@ public class AccessEpisodesTest
     private Date epDate7;
     private Date epDate8;
     private Date epDate9;
-    private Date epDate10;
 
     public AccessEpisodesTest() { super(); }
 
@@ -69,14 +62,13 @@ public class AccessEpisodesTest
 
         epDate1 = new Date(2018, 1, 12);
         epDate2 = new Date(2016, 7, 27);
-        epDate3 = new Date(2017, 12, 27);
+        epDate3 = new Date(2016, 12, 27);
         epDate4 = new Date(2017, 12, 14);
         epDate5 = new Date(2017, 6, 23);
         epDate6 = new Date(2016, 10, 21);
         epDate7 = new Date(2017, 2, 25);
         epDate8 = new Date(2015, 8, 1);
         epDate9 = new Date(2015, 5, 8);
-        epDate10 = new Date(2015, 2, 24);
 
         channel5 = new Channel("Seafood Mania", "Chickens only",
                 "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
@@ -113,18 +105,6 @@ public class AccessEpisodesTest
         episode9 = new Episode("049 - Rejection - Jia Jiang", "http://feeds.soundcloud.com/stream/204471744-youarenotsosmart-049-rejection-jia-jiang.mp3",
                 "What if you could give yourself a superpower? That's what Jia Jiang wondered when he began a quest to remove the fear of rejection from his " +
                         "brain and become the risk-taking, adventurous person he always wanted to be.", 3240, channelList.get(2) ,epDate9, "David McRaney", "Social Sciences", 48);
-        episode10 = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "We talk about lobster and lobster only", 3900, channel5, epDate10, "Joe Jones",
-                "Food",13 );
-        episode11 = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "CRABBBBBBS", 3900, channel5, epDate10, "Joe Jones",
-                "Food",13 );
-        episode12 = new Episode("Gimme dem beers", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "All day baby", 3900, channelList.get(0), epDate10, "Joe Jones",
-                "Food",13 );
-        episode13 = new Episode("Gimme dem beers", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "For the boys", 3900, channelList.get(0), epDate10, "Joe Jones",
-                "Food",13 );
 
         episodeList = new EpisodeList();
         episodeList.add(episode1);
@@ -139,116 +119,22 @@ public class AccessEpisodesTest
     }
 
     @Test
-    public void testInsertEpisode()
+    public void testGetEpisodes()
     {
-        System.out.println("\nStarting AccessEpisodesTest: InsertEpisode");
+        System.out.println("Starting AccessEpisodesTest: GetEpisodes");
         resultEp = new EpisodeList();
-        Episode ep = null;
 
         // test retrieving the episodes from the database
         ae.getEpisodes(resultEp);
         assertTrue(resultEp.equals(episodeList));
 
-        // test inserting a episodes
-        episodeList.add(episode10);
-        ae.insertEpisode(episode10);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test inserting multiple of episodes
-        episodeList.add(episode11);
-        ae.deleteEpisode(episode3);
-        ae.deleteEpisode(episode4);
-        ae.insertEpisode(episode3);
-        ae.insertEpisode(episode4);
-        ae.insertEpisode(episode11);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test inserting duplicate episode
-        ae.insertEpisode(episode10);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test inserting a null episode
-        try {
-            ae.insertEpisode(ep);
-            ae.getEpisodes(resultEp);
-            fail("NPE expected");
-        } catch (NullPointerException npe) {
-        }
-
-        System.out.println("Finished AccessEpisodesTest: InsertEpisode");
-    }
-
-    @Test
-    public void testDeleteEpisode()
-    {
-        System.out.println("\nStarting AccessEpisodesTest: DeleteEpisode");
-        resultEp = new EpisodeList();
-
-        episodeList.add(episode10);
-
-        // test deleting a episode
-        episodeList.remove(episode10);
-        ae.insertEpisode(episode10);
-        ae.deleteEpisode(episode10);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test deleting multiple episodes
-        episodeList.remove(episode1);
-        episodeList.remove(episode2);
-        ae.deleteEpisode(episode1);
-        ae.deleteEpisode(episode2);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test deleting a episode that does not exist
-        ae.deleteEpisode(episode13);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        System.out.println("Finished AccessEpisodesTest: DeleteEpisode");
-    }
-
-    @Test
-    public void testUpdateEpisode()
-    {
-        System.out.println("\nStarting AccessEpisodesTest: UpdateEpisode");
-        resultEp = new EpisodeList();
-
-        episodeList.add(episode10);
-        ae.insertEpisode(episode10);
-
-        // test updating a episode
-        ae.updateEpisode(episode11);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-        assertEquals(resultEp.get(resultEp.size()-1).getDesc(), episode11.getDesc());
-
-        // test updating a episode that does not exist
-        ae.updateEpisode(episode13);
-        ae.getEpisodes(resultEp);
-        assertEquals(resultEp.get(resultEp.size()-1).getDesc(), episode11.getDesc());
-
-        // test updating multiple channels
-        episodeList.add(episode12);
-        ae.insertEpisode(episode12);
-        ae.updateEpisode(episode13);
-        ae.updateEpisode(episode10);
-        ae.getEpisodes(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-        assertEquals(resultEp.get(resultEp.size()-1).getDesc(), episode13.getDesc());
-        assertEquals(resultEp.get(resultEp.size()-2).getDesc(), episode10.getDesc());
-
-        System.out.println("Finished AccessEpisodesTest: UpdateEpisode");
+        System.out.println("Finished AccessEpisodesTest: GetEpisodes");
     }
 
     @Test
     public void testChannelEpisodeList()
     {
-        System.out.println("\nStarting AccessEpisodesTest: ChannelEpisodeList");
+        System.out.println("Starting AccessEpisodesTest: ChannelEpisodeList");
         resultEp = new EpisodeList();
         channelEpisodesList = new EpisodeList();
         channelEpisodesList.add(episode1);
@@ -271,5 +157,6 @@ public class AccessEpisodesTest
     public void tearDown()
     {
         Services.closeDataAccess();
+        System.out.println();
     }
 }

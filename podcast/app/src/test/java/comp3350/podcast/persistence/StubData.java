@@ -1,4 +1,4 @@
-package comp3350.podcast.tests.persistence;
+package comp3350.podcast.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +8,6 @@ import comp3350.podcast.objects.ChannelList;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.Playlist;
-import comp3350.podcast.persistence.AccessData;
 
 public class StubData implements AccessData {
     private String dbName;
@@ -30,7 +29,7 @@ public class StubData implements AccessData {
      *
      * @return - void
      */
-    public void open(String dbName) {
+    public void open(String dbPath) {
         Channel channel;
         Episode episode;
         Playlist playlist;
@@ -273,7 +272,7 @@ public class StubData implements AccessData {
         }
         return null;
     }
-    
+
     /**
      * Inserts an episode into the database, without a parent Channel.
      * The input/output follows a design pattern from the sample project.

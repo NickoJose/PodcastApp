@@ -1,4 +1,4 @@
-package comp3350.podcast.tests.persistence;
+package comp3350.podcast.persistence;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +12,6 @@ import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.objects.EpisodeList;
 import comp3350.podcast.objects.Playlist;
-import comp3350.podcast.persistence.AccessData;
 
 import static org.junit.Assert.*;
 
@@ -34,8 +33,6 @@ public class AccessDataTest
     private Channel channel3;
     private Channel channel4;
     private Channel channel5;
-    private Channel channel6;
-    private Channel channel7;
     private Episode episode1;
     private Episode episode2;
     private Episode episode3;
@@ -45,10 +42,6 @@ public class AccessDataTest
     private Episode episode7;
     private Episode episode8;
     private Episode episode9;
-    private Episode episode10;
-    private Episode episode11;
-    private Episode episode12;
-    private Episode episode13;
     private Date chDate1;
     private Date chDate2;
     private Date chDate3;
@@ -62,7 +55,6 @@ public class AccessDataTest
     private Date epDate7;
     private Date epDate8;
     private Date epDate9;
-    private Date epDate10;
     private Playlist playlist1;
     private Playlist playlist2;
     private Playlist playlist3;
@@ -75,6 +67,7 @@ public class AccessDataTest
     {
         accessData = new StubData();
         accessData.open("Stub");
+        System.out.println("Starting Persistence test AccessData (using stub)");
 
         chDate1 = new Date(2009, 12, 24);
         chDate2 = new Date(2016, 2, 17);
@@ -90,7 +83,6 @@ public class AccessDataTest
         epDate7 = new Date(2017, 2, 25);
         epDate8 = new Date(2015, 8, 1);
         epDate9 = new Date(2015, 5, 8);
-        epDate10 = new Date(2015, 2, 24);
 
         channel1 = new Channel("The Joe Rogan Experience", "The Joe Rogan Experience podcast is a long form conversation hosted by comedian, " +
                 "UFC color commentator, and actor Joe Rogan with friends and guests that have included comedians, actors, musicians, MMA instructors and " +
@@ -104,12 +96,6 @@ public class AccessDataTest
                 "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
                 "Jones Surfing Company", "jonesjoe@gmail.com");
         channel5 = new Channel("Seafood Mania", "Chickens only",
-                "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
-        channel6 = new Channel("Gimme dem beers", "All day baby",
-                "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
-        channel7 = new Channel("Gimme dem beers", "For the boys",
                 "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
                 "Jones Surfing Company", "jonesjoe@gmail.com");
 
@@ -144,18 +130,6 @@ public class AccessDataTest
         episode9 = new Episode("049 - Rejection - Jia Jiang", "http://feeds.soundcloud.com/stream/204471744-youarenotsosmart-049-rejection-jia-jiang.mp3",
                 "What if you could give yourself a superpower? That's what Jia Jiang wondered when he began a quest to remove the fear of rejection from his " +
                         "brain and become the risk-taking, adventurous person he always wanted to be.", 3240, channel3 ,epDate9, "David McRaney", "Social Sciences", 48);
-        episode10 = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "We talk about lobster and lobster only", 3900, channel5, epDate10, "Joe Jones",
-                "Food",13 );
-        episode11 = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "CRABBBBBBS", 3900, channel5, epDate10, "Joe Jones",
-                "Food",13 );
-        episode12 = new Episode("Gimme dem beers", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "All day baby", 3900, channel1, epDate10, "Joe Jones",
-                "Food",13 );
-        episode13 = new Episode("Gimme dem beers", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
-                "For the boys", 3900, channel1, epDate10, "Joe Jones",
-                "Food",13 );
 
         playlist1 = new Playlist("Chill");
         playlist2 = new Playlist("Relax");
@@ -197,221 +171,35 @@ public class AccessDataTest
     }
 
     @Test
-    public void testInsertChannel()
+    public void testGetChannels()
     {
-        System.out.println("\nStarting AccessDataTest: InsertChannel");
+        System.out.println("Starting AccessDataTest: GetChannels");
         resultCh = new ChannelList();
-        Channel ch = null;
 
         // test retrieving the channels from the database
         accessData.getChannelSequential(resultCh);
         assertTrue(resultCh.equals(channelList));
 
-        // test inserting a channel
-        channelList.add(channel4);
-        accessData.insertChannel(channel4);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-
-        // test inserting multiple of channels
-        channelList.add(channel6);
-        accessData.deleteChannel(channel3);
-        accessData.deleteChannel(channel4);
-        accessData.insertChannel(channel3);
-        accessData.insertChannel(channel4);
-        accessData.insertChannel(channel6);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-
-        // test inserting duplicate channel
-        accessData.insertChannel(channel4);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-
-        // test inserting a null channel
-        try {
-            accessData.insertChannel(ch);
-            accessData.getChannelSequential(resultCh);
-            fail("NPE expected");
-        } catch (NullPointerException npe) {
-        }
-
-        System.out.println("Finished AccessDataTest: InsertChannel");
+        System.out.println("Finished AccessDataTest: GetChannels");
     }
 
     @Test
-    public void testDeleteChannel()
+    public void testGetEpisodes()
     {
-        System.out.println("\nStarting AccessDataTest: DeleteChannel");
-        resultCh = new ChannelList();
-
-        channelList.add(channel4);
-
-        // test deleting a channel
-        channelList.remove(channel4);
-        accessData.insertChannel(channel4);
-        accessData.deleteChannel(channel4);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-
-        // test deleting multiple channels
-        channelList.remove(channel3);
-        channelList.remove(channel2);
-        accessData.deleteChannel(channel3);
-        accessData.deleteChannel(channel2);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-
-        // test deleting a channel that does not exist
-        accessData.deleteChannel(channel4);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-        System.out.println("Finished AccessDataTest: DeleteChannel");
-    }
-
-    @Test
-    public void testUpdateChannel()
-    {
-        System.out.println("\nStarting AccessDataTest: UpdateChannel");
-        resultCh = new ChannelList();
-
-        channelList.add(channel4);
-        accessData.insertChannel(channel4);
-
-        // test updating a channel
-        accessData.updateChannel(channel5);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-        assertEquals(resultCh.get(resultCh.size()-1).getDesc(), channel5.getDesc());
-
-        // test updating a channel that does not exist
-        accessData.updateChannel(channel7);
-        accessData.getChannelSequential(resultCh);
-        assertEquals(resultCh.get(resultCh.size()-1).getDesc(), channel5.getDesc());
-
-        // test updating multiple channels
-        channelList.add(channel6);
-        accessData.insertChannel(channel6);
-        accessData.updateChannel(channel7);
-        accessData.updateChannel(channel4);
-        accessData.getChannelSequential(resultCh);
-        assertTrue(resultCh.equals(channelList));
-        assertEquals(resultCh.get(resultCh.size()-1).getDesc(), channel7.getDesc());
-        assertEquals(resultCh.get(resultCh.size()-2).getDesc(), channel4.getDesc());
-        System.out.println("Finished AccessDataTest: UpdateChannel");
-    }
-
-    @Test
-    public void testInsertEpisode()
-    {
-        System.out.println("\nStarting AccessDataTest: InsertEpisode");
+        System.out.println("Starting AccessDataTest: GetEpisodes");
         resultEp = new EpisodeList();
-        Episode ep = null;
 
         // test retrieving the episodes from the database
         accessData.getEpisodesSequential(resultEp);
         assertTrue(resultEp.equals(episodeList));
 
-        // test inserting a episodes
-        episodeList.add(episode10);
-        accessData.insertEpisode(episode10);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test inserting multiple of episodes
-        episodeList.add(episode11);
-        accessData.deleteEpisode(episode3);
-        accessData.deleteEpisode(episode4);
-        accessData.insertEpisode(episode3);
-        accessData.insertEpisode(episode4);
-        accessData.insertEpisode(episode11);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test inserting duplicate episode
-        accessData.insertEpisode(episode10);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test inserting a null episode
-        try {
-            accessData.insertEpisode(ep);
-            accessData.getEpisodesSequential(resultEp);
-            fail("NPE expected");
-        } catch (NullPointerException npe) {
-        }
-
-        System.out.println("Finished AccessDataTest: InsertEpisode");
-    }
-
-    @Test
-    public void testDeleteEpisode()
-    {
-        System.out.println("\nStarting AccessDataTest: DeleteEpisode");
-        resultEp = new EpisodeList();
-
-        episodeList.add(episode10);
-
-        // test deleting a episode
-        episodeList.remove(episode10);
-        accessData.insertEpisode(episode10);
-        accessData.deleteEpisode(episode10);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test deleting multiple episodes
-        episodeList.remove(episode1);
-        episodeList.remove(episode2);
-        accessData.deleteEpisode(episode1);
-        accessData.deleteEpisode(episode2);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        // test deleting a episode that does not exist
-        accessData.deleteEpisode(episode13);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        System.out.println("Finished AccessDataTest: DeleteEpisode");
-    }
-
-    @Test
-    public void testUpdateEpisode()
-    {
-        System.out.println("\nStarting AccessDataTest: UpdateEpisode");
-        resultEp = new EpisodeList();
-
-        episodeList.add(episode10);
-        accessData.insertEpisode(episode10);
-
-        // test updating a episode
-        accessData.updateEpisode(episode11);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-        assertEquals(resultEp.get(resultEp.size()-1).getDesc(), episode11.getDesc());
-
-        // test updating a episode that does not exist
-        accessData.updateEpisode(episode13);
-        accessData.getEpisodesSequential(resultEp);
-        assertEquals(resultEp.get(resultEp.size()-1).getDesc(), episode11.getDesc());
-
-        // test updating multiple channels
-        episodeList.add(episode12);
-        accessData.insertEpisode(episode12);
-        accessData.updateEpisode(episode13);
-        accessData.updateEpisode(episode10);
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-        assertEquals(resultEp.get(resultEp.size()-1).getDesc(), episode13.getDesc());
-        assertEquals(resultEp.get(resultEp.size()-2).getDesc(), episode10.getDesc());
-
-        System.out.println("Finished AccessDataTest: UpdateEpisode");
+        System.out.println("Finished AccessDataTest: GetEpisodes");
     }
 
     @Test
     public void testChannelEpisodeList()
     {
-        System.out.println("\nStarting AccessDataTest: ChannelEpisodeList");
+        System.out.println("Starting AccessDataTest: ChannelEpisodeList");
         resultEp = new EpisodeList();
         channelEpisodesList = new EpisodeList();
         channelEpisodesList.add(episode1);
@@ -433,7 +221,7 @@ public class AccessDataTest
     @Test
     public void testInsertPlaylist()
     {
-        System.out.println("\nStarting AccessDataTest: InsertPlaylist");
+        System.out.println("Starting AccessDataTest: InsertPlaylist");
         resultPl = new ArrayList<>();
         Playlist pl = null;
 
@@ -473,7 +261,7 @@ public class AccessDataTest
     @Test
     public void testDeletePlaylist()
     {
-        System.out.println("\nStarting AccessDataTest: DeletePlaylist");
+        System.out.println("Starting AccessDataTest: DeletePlaylist");
         resultPl = new ArrayList<>();
 
         playlistList.add(playlist3);
@@ -503,7 +291,7 @@ public class AccessDataTest
     @Test
     public void testInsertPlaylistChannel()
     {
-        System.out.println("\nStarting AccessDataTest: InsertPlaylistChannel");
+        System.out.println("Starting AccessDataTest: InsertPlaylistChannel");
         resultCh = new ChannelList();
 
         // test inserting a channel into a playlist
@@ -529,7 +317,7 @@ public class AccessDataTest
     @Test
     public void testInsertPlaylistEpisode()
     {
-        System.out.println("\nStarting AccessDataTest: InsertPlaylistEpisode");
+        System.out.println("Starting AccessDataTest: InsertPlaylistEpisode");
         resultEp = new EpisodeList();
 
         // test inserting an episode into a playlist
@@ -555,7 +343,7 @@ public class AccessDataTest
     @Test
     public void testDeletePlaylistChannel()
     {
-        System.out.println("\nStarting AccessDataTest: DeletePlaylistChannel");
+        System.out.println("Starting AccessDataTest: DeletePlaylistChannel");
         resultCh = new ChannelList();
 
         playlistChannelList.add(channelList.get(0));
@@ -578,7 +366,7 @@ public class AccessDataTest
     @Test
     public void testDeletePlaylistEpisode()
     {
-        System.out.println("\nStarting AccessDataTest: DeletePlaylistEpisode");
+        System.out.println("Starting AccessDataTest: DeletePlaylistEpisode");
         resultEp = new EpisodeList();
 
         playlistEpisodesList.add(episodeList.get(1));
@@ -602,7 +390,7 @@ public class AccessDataTest
     @Test
     public void testPlaylistChannelList()
     {
-        System.out.println("\nStarting AccessDataTest: PlaylistChannelList");
+        System.out.println("Starting AccessDataTest: PlaylistChannelList");
         resultCh = new ChannelList();
 
         // test retrieving the channels based from a playlist
@@ -619,7 +407,7 @@ public class AccessDataTest
     @Test
     public void testPlaylistEpisodeList()
     {
-        System.out.println("\nStarting AccessDataTest: PlaylistEpisodeList");
+        System.out.println("Starting AccessDataTest: PlaylistEpisodeList");
         EpisodeList resultEp = new EpisodeList();
 
         // test retrieving the episodes based from a playlist
@@ -636,7 +424,7 @@ public class AccessDataTest
     @Test
     public void testInsertSub()
     {
-        System.out.println("\nStarting AccessDataTest: InsertSub");
+        System.out.println("Starting AccessDataTest: InsertSub");
         resultCh = new ChannelList();
 
         // test retrieving the subscriptions from the database
@@ -660,7 +448,7 @@ public class AccessDataTest
     @Test
     public void testDeleteSub()
     {
-        System.out.println("\nStarting AccessDataTest: DeleteSub");
+        System.out.println("Starting AccessDataTest: DeleteSub");
         resultCh = new ChannelList();
 
         subs.add(channel4);
@@ -701,6 +489,8 @@ public class AccessDataTest
     @After
     public void tearDown()
     {
-        System.out.println("Finished Persistence test DataAccess (using stub)");
+        System.out.println("Finished Persistence test AccessData (using stub)");
+        accessData.close();
+        System.out.println();
     }
 }

@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,14 +24,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import comp3350.podcast.R;
 import comp3350.podcast.application.Main;
 import comp3350.podcast.business.AccessChannels;
 import comp3350.podcast.business.AccessEpisodes;
+import comp3350.podcast.business.AccessPlaylists;
 import comp3350.podcast.business.AccessSubscriptions;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Episode;
+import comp3350.podcast.objects.Playlist;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> recIds;
     private ArrayList<Episode> recList;
     private AccessEpisodes accessEpisodes;
+    private List<Playlist> playlists;
 
     private AccessChannels accessChannels;
+    private AccessPlaylists accessPlaylists;
     private AccessSubscriptions accessSubs;
     private ArrayList<Channel> chList;
 
@@ -60,13 +66,16 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.context = getContext();
 
         recIds = new ArrayList<>();
+        playlists = new ArrayList<>();
         recList = new ArrayList<>();
         accessEpisodes = new AccessEpisodes();
 
         chList = new ArrayList<>();
         accessChannels = new AccessChannels();
+        accessPlaylists = new AccessPlaylists();
         accessSubs = new AccessSubscriptions();
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         String result = accessEpisodes.getEpisodes(recList);
 
@@ -85,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
             displayAllChannels();
+        }
+
+
+        result = accessPlaylists.getPlaylists(playlists);
+        if (result == null) {
+            populatePlaylist();
+        } else {
+            Toast.makeText(this, "Database loading failed.", Toast.LENGTH_LONG).show();
         }
 
         Button newPlaylistBtn = findViewById(R.id.newPlaylist);
@@ -139,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     View.OnClickListener playlistHandler = new View.OnClickListener() {
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
         }
     };
@@ -169,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void createNewPlaylistBtn(String label) {
         View view;
-        Button btn;
+        PlaylistBtn btn;
 
         LinearLayout ll = findViewById(R.id.playlistsLayout);
         view = LayoutInflater.from(this).inflate(R.layout.playlist_link, ll, false);
@@ -177,14 +194,32 @@ public class MainActivity extends AppCompatActivity {
         btn = view.findViewById(R.id.playlist_link);
         btn.setText(label);
 
+
+
+        btn.setOnClickListener(handlerPlaylist);
         ll.addView(view);
     }
 
-    /**
-     * Makes a new playlist. Prompts user to name it
-     *
-     * @return - void
-     */
+    View.OnClickListener handlerPlaylist = new View.OnClickListener() {
+        public void onClick(View v) {
+            if (v instanceof PlaylistBtn) {
+                PlaylistBtn a = (PlaylistBtn)v;
+                //Toast.makeText(getApplicationContext(), "You clicked " + a.getText(), Toast.LENGTH_LONG).show();
+                Intent episodeIntent = new Intent(MainActivity.this, PlaylistActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("playlist", a.getText().toString());
+                episodeIntent.putExtras(b);
+                startActivity(episodeIntent);
+            }
+        }
+    };
+
+
+            /**
+             * Makes a new playlist. Prompts user to name it
+             *
+             * @return - void
+             */
     private void makePlaylist() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter playlist name");
@@ -197,7 +232,33 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                createNewPlaylistBtn(input.getText().toString());
+                String inputName = input.getText().toString();
+                boolean match = false;
+
+                String result = accessPlaylists.getPlaylists(playlists);
+                if (result == null) {
+
+                    for (Playlist a : playlists) {
+                        if (a.getName().equalsIgnoreCase(inputName)) {
+                            match = true;
+                            break;
+                        }
+                    }
+                    if (!match) {
+                        createNewPlaylistBtn(inputName);
+                        Playlist newPlaylist = new Playlist(inputName);
+                        accessPlaylists.insertPlaylist(newPlaylist);
+
+                        Intent episodeIntent = new Intent(MainActivity.this, PlaylistActivity.class);
+                        Bundle b = new Bundle();
+                        b.putSerializable("playlist", inputName);
+                        episodeIntent.putExtras(b);
+                        startActivity(episodeIntent);
+                    } else
+                        Toast.makeText(getApplicationContext(), "That playlist already exists", Toast.LENGTH_LONG).show();
+                    //add playlist to db
+                }
+                else Toast.makeText(getApplicationContext(), "Database loading failed.", Toast.LENGTH_LONG).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -220,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(MainActivity.this, ViewEpisodeActivity.class);
                     Bundle b = new Bundle();
@@ -231,6 +292,18 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         CardList.createEpisodeCardList(handler1, findViewById(R.id.recLayout), this, R.layout.card, recList, recIds);
+    }
+
+    /**
+     * Populates playlist with users playlist's. Sets onClick handlers for playlist items.
+     *
+     * @return - void
+     */
+    private void populatePlaylist(){
+        for (Playlist a : playlists)
+        {
+            createNewPlaylistBtn(a.getName());
+        }
     }
 
     /**

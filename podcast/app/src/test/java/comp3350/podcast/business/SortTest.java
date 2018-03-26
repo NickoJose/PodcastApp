@@ -1,4 +1,4 @@
-package comp3350.podcast.tests.business;
+package comp3350.podcast.business;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-import comp3350.podcast.business.Sort;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.ChannelList;
 import comp3350.podcast.objects.Date;

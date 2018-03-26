@@ -1,4 +1,4 @@
-package comp3350.podcast.tests.business;
+package comp3350.podcast.business;
 
 import org.junit.After;
 import org.junit.Before;
@@ -8,13 +8,10 @@ import java.util.ArrayList;
 
 import comp3350.podcast.application.Main;
 import comp3350.podcast.application.Services;
-import comp3350.podcast.business.AccessChannels;
-import comp3350.podcast.business.AccessEpisodes;
-import comp3350.podcast.business.AccessPlaylists;
 import comp3350.podcast.objects.ChannelList;
 import comp3350.podcast.objects.EpisodeList;
 import comp3350.podcast.objects.Playlist;
-import comp3350.podcast.tests.persistence.StubData;
+import comp3350.podcast.persistence.StubData;
 
 
 import static org.junit.Assert.*;
@@ -76,7 +73,7 @@ public class AccessPlaylistsTest
     @Test
     public void testInsertPlaylist()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: InsertPlaylist");
+        System.out.println("Starting AccessPlaylistsTest: InsertPlaylist");
         resultPl = new ArrayList<>();
         Playlist pl = null;
 
@@ -116,7 +113,7 @@ public class AccessPlaylistsTest
     @Test
     public void testDeletePlaylist()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: DeletePlaylist");
+        System.out.println("Starting AccessPlaylistsTest: DeletePlaylist");
         resultPl = new ArrayList<>();
 
         playlistList.add(playlist3);
@@ -146,7 +143,7 @@ public class AccessPlaylistsTest
     @Test
     public void testInsertPlaylistChannel()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: InsertPlaylistChannel");
+        System.out.println("Starting AccessPlaylistsTest: InsertPlaylistChannel");
         resultCh = new ChannelList();
 
         // test inserting a channel into a playlist
@@ -172,7 +169,7 @@ public class AccessPlaylistsTest
     @Test
     public void testInsertPlaylistEpisode()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: InsertPlaylistEpisode");
+        System.out.println("Starting AccessPlaylistsTest: InsertPlaylistEpisode");
         resultEp = new EpisodeList();
 
         // test inserting an episode into a playlist
@@ -198,7 +195,7 @@ public class AccessPlaylistsTest
     @Test
     public void testDeletePlaylistChannel()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: DeletePlaylistChannel");
+        System.out.println("Starting AccessPlaylistsTest: DeletePlaylistChannel");
         resultCh = new ChannelList();
 
         playlistChannelList.add(channelList.get(0));
@@ -221,7 +218,7 @@ public class AccessPlaylistsTest
     @Test
     public void testDeletePlaylistEpisode()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: DeletePlaylistEpisode");
+        System.out.println("Starting AccessPlaylistsTest: DeletePlaylistEpisode");
         resultEp = new EpisodeList();
 
         playlistEpisodesList.add(episodeList.get(1));
@@ -245,7 +242,7 @@ public class AccessPlaylistsTest
     @Test
     public void testPlaylistChannelList()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: PlaylistChannelList");
+        System.out.println("Starting AccessPlaylistsTest: PlaylistChannelList");
         resultCh = new ChannelList();
 
         // test retrieving the channels based from a playlist
@@ -262,7 +259,7 @@ public class AccessPlaylistsTest
     @Test
     public void testPlaylistEpisodeList()
     {
-        System.out.println("\nStarting AccessPlaylistsTest: PlaylistEpisodeList");
+        System.out.println("Starting AccessPlaylistsTest: PlaylistEpisodeList");
         EpisodeList resultEp = new EpisodeList();
 
         // test retrieving the episodes based from a playlist
@@ -299,5 +296,6 @@ public class AccessPlaylistsTest
     public void tearDown()
     {
         Services.closeDataAccess();
+        System.out.println();
     }
 }

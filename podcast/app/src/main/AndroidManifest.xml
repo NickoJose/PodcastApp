@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".representation.MainActivity">
+        <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".representation.ViewEpisodeActivity" />
-        <activity android:name=".representation.ViewChannelActivity" />
+        <activity android:name=".presentation.ViewEpisodeActivity" />
+        <activity android:name=".presentation.ViewChannelActivity" />
         <activity
-            android:name=".representation.PlayContentActivity"
+            android:name=".presentation.PlayContentActivity"
             android:label="@string/title_activity_play_content"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainAcrivity">
@@ -32,9 +32,11 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".representation.SearchableActivity"
+            android:name=".presentation.SearchableActivity"
             android:label="@string/title_activity_searchable"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".presentation.PlaylistActivity" />
+        <activity android:name=".presentation.AddToPlaylistActivity"></activity>
     </application>
 
 </manifest>
