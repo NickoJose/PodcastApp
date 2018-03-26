@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class PlaylistActivity extends AppCompatActivity {
     private List<Episode> recList;
     private ArrayList<Integer> recIds;
     private List<Playlist> playlists;
+    private Playlist playlist;
     private AccessPlaylists accessPlaylists;
     private String playlistName;
 
@@ -42,7 +44,20 @@ public class PlaylistActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Database loading failed.", Toast.LENGTH_LONG).show();
         }
+
+        Button newPlaylistBtn = findViewById(R.id.delButton);
+        newPlaylistBtn.setOnClickListener(deleteHandler);
     }
+
+    View.OnClickListener deleteHandler = new View.OnClickListener() {
+        public void onClick(View v) {
+            accessPlaylists.deletePlaylist(playlist);
+            finish();
+            Intent episodeIntent = new Intent(PlaylistActivity.this, MainActivity.class);
+            episodeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(episodeIntent);
+        }
+    };
 
     public void populatePlaylist() {
         boolean match = false;
@@ -50,6 +65,7 @@ public class PlaylistActivity extends AppCompatActivity {
             if (a.getName().equalsIgnoreCase(playlistName)) {
                 match = true;
                 recList = a.getEpisodes();
+                playlist = a;
                 break;
             }
         }

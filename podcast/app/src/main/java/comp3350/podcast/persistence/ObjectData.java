@@ -423,7 +423,7 @@ public class ObjectData implements AccessData
                 playlist = new Playlist(myName);
 
                 cmdString = "SELECT * from EPISODELIST WHERE Name = '"+playlist.getName()+"'";
-                rsTemp = stTemp.executeQuery(cmdString);//zzz
+                rsTemp = stTemp.executeQuery(cmdString);
                while (rsTemp.next()) {
                    myName = rsTemp.getString("Title");
                    playlist.addEpisode(getEpisodeInfo(myName));

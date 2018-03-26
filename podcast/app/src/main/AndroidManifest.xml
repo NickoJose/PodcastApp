@@ -35,7 +35,8 @@
             android:name=".presentation.SearchableActivity"
             android:label="@string/title_activity_searchable"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".presentation.PlaylistActivity"></activity>
+        <activity android:name=".presentation.PlaylistActivity" />
+        <activity android:name=".presentation.AddToPlaylistActivity"></activity>
     </application>
 
 </manifest>

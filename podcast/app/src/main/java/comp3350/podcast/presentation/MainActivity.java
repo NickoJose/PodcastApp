@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         accessPlaylists = new AccessPlaylists();
         accessSubs = new AccessSubscriptions();
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         String result = accessEpisodes.getEpisodes(recList);
 
@@ -233,19 +235,30 @@ public class MainActivity extends AppCompatActivity {
                 String inputName = input.getText().toString();
                 boolean match = false;
 
-                for (Playlist a : playlists) {
-                    if (a.getName().equalsIgnoreCase(inputName)) {
-                        match = true;
-                        break;
+                String result = accessPlaylists.getPlaylists(playlists);
+                if (result == null) {
+
+                    for (Playlist a : playlists) {
+                        if (a.getName().equalsIgnoreCase(inputName)) {
+                            match = true;
+                            break;
+                        }
                     }
+                    if (!match) {
+                        createNewPlaylistBtn(inputName);
+                        Playlist newPlaylist = new Playlist(inputName);
+                        accessPlaylists.insertPlaylist(newPlaylist);
+
+                        Intent episodeIntent = new Intent(MainActivity.this, PlaylistActivity.class);
+                        Bundle b = new Bundle();
+                        b.putSerializable("playlist", inputName);
+                        episodeIntent.putExtras(b);
+                        startActivity(episodeIntent);
+                    } else
+                        Toast.makeText(getApplicationContext(), "That playlist already exists", Toast.LENGTH_LONG).show();
+                    //add playlist to db
                 }
-                if (!match) {
-                    createNewPlaylistBtn(inputName);
-                    Playlist newPlaylist = new Playlist(inputName);
-                    //accessPlaylists.insertPlaylist(newPlaylist);
-                }
-                else  Toast.makeText(getApplicationContext(), "That playlist already exists", Toast.LENGTH_LONG).show();
-                //add playlist to db
+                else Toast.makeText(getApplicationContext(), "Database loading failed.", Toast.LENGTH_LONG).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
