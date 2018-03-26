@@ -6,14 +6,18 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import comp3350.podcast.R;
+import comp3350.podcast.business.AccessSubscriptions;
 import comp3350.podcast.objects.Channel;
+import comp3350.podcast.objects.ChannelList;
 
 class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.ChannelViewHolder> {
     private ArrayList<Channel> channels;
@@ -48,6 +52,7 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
         holder.episodeCountView.setText("" + ch.getNumEps());
         holder.authorView.setText(ch.getAuthor());
         holder.urlView.setText(ch.getUrl());
+        holder.channel = ch;
 
         holder.channelLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +62,14 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
                 b.putSerializable("channel",ch);
                 channelIntent.putExtras(b);
                 parent.startActivity(channelIntent);
+            }
+        });
+
+        holder.channelLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                holder.showPopupMenu(v);
+                return true;
             }
         });
 
@@ -74,6 +87,7 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
         public final TextView episodeCountView;
         public final TextView authorView;
         public final TextView urlView;
+        public Channel channel = null;
 
         public ChannelViewHolder(final ConstraintLayout channelLayout) {
             super(channelLayout);
@@ -88,6 +102,54 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
         @Override
         public String toString() {
             return super.toString() + " '" + titleView.getText() + "'";
+        }
+
+
+        public void showPopupMenu(View v){
+            PopupMenu popupMenu = new PopupMenu(parent.getApplicationContext(), v);
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    switch (item.getItemId()){
+                        case(R.id.subscribeToggleMenuItem):
+                            toggleSubscription();
+                            return true;
+                        default: return false;
+                    }
+                }
+            });
+
+            popupMenu.inflate(R.menu.channel_popup_menu);
+
+            MenuItem item = (MenuItem) popupMenu.getMenu().findItem(R.id.subscribeToggleMenuItem);
+
+            AccessSubscriptions as = new AccessSubscriptions();
+
+            ChannelList list = new ChannelList();
+            as.getSubs(list);
+
+            if(list.contains(channel)){
+                item.setTitle("Unsubscribe");
+            } else {
+                item.setTitle("Subscribe");
+            }
+
+            popupMenu.show();
+        }
+
+        private void toggleSubscription(){
+            AccessSubscriptions as = new AccessSubscriptions();
+
+            ChannelList list = new ChannelList();
+            as.getSubs(list);
+
+            if(list.contains(channel)){
+                as.deleteSub(channel);
+            } else {
+                as.insertSub(channel);
+            }
         }
     }
 }
