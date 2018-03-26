@@ -15,10 +15,10 @@
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guide"
         app:layout_constraintEnd_toStartOf="@+id/centre"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/centre"
@@ -81,17 +81,34 @@
                 android:orientation="vertical" />
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
-<!--
-    <Button
-        android:id="@+id/backToHome"
+
+    <ToggleButton
+        android:id="@+id/subscribedTggl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/menu_back_to_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
--->
+        android:text="ToggleButton"
+        android:textOff="Subscribe"
+        android:textOn="Unsubscribe"
+        app:layout_constraintBottom_toTopOf="@+id/body"
+        app:layout_constraintEnd_toEndOf="@+id/channel_info"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/channel_info"
+        app:layout_constraintTop_toBottomOf="@+id/channel_info"
+        app:layout_constraintVertical_bias="1.0" />
+    <!--
+        <Button
+            android:id="@+id/backToHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/menu_back_to_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    -->
 </android.support.constraint.ConstraintLayout>
