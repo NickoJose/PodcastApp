@@ -8,3 +8,6 @@ February 7, 2018 - Made home page use domain specific objects to build content f
 March 7, 2018 - Implemented search activity. - 4 hours.
 March 8, 2018 - Add search algorithm to business class and started writing tests. - 3 hours.
 March 10, 2018 - Abstracted comparisons between channel and episode objects, improved search results. - 3 hours.
+March 24, 2018 - Setup handlers for playlists on main activity. - 3hours.
+March 25, 2018 - Add sql querry to populate playlists, Add creation of persistant playlists. - 3 hours.
+March 26, 2018 - Add removale of playlists, Add ability to add episodes to playlists. - 3 hours.

@@ -28,7 +28,6 @@ public class AddToPlaylistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_to_playlist);
 
         episodeName = (String) getIntent().getSerializableExtra("playlist");
-        Toast.makeText(this, episodeName, Toast.LENGTH_LONG).show();
 
         playlists = new ArrayList<>();
         accessPlaylists = new AccessPlaylists();

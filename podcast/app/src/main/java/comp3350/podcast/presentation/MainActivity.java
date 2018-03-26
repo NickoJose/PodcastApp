@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     View.OnClickListener playlistHandler = new View.OnClickListener() {
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
         }
     };
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(MainActivity.this, ViewEpisodeActivity.class);
                     Bundle b = new Bundle();
