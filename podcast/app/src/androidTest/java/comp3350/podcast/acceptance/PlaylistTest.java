@@ -10,7 +10,13 @@ import com.robotium.solo.Solo;
 import junit.framework.Assert;
 
 import comp3350.podcast.R;
+import comp3350.podcast.application.Main;
+import comp3350.podcast.application.Services;
 import comp3350.podcast.presentation.MainActivity;
+import comp3350.podcast.presentation.ViewEpisodeActivity;
+
+
+import static comp3350.podcast.application.Main.dbName;
 
 public class PlaylistTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
@@ -24,10 +30,12 @@ public class PlaylistTest extends ActivityInstrumentationTestCase2<MainActivity>
 	public void setUp() throws Exception
 	{
 		solo = new Solo(getInstrumentation(), getActivity());
-		
+
 		// Disable this for full acceptance test
-		// System.out.println("Injecting stub database.");
-		// Services.createDataAccess(new DataAccessStub(Main.dbName));
+		 //System.out.println("Injecting stub database.");
+		 //Services.createDataAccess(new DataAccessStub(Main.dbName));
+		//Services.closeDataAccess();
+		//Services.createDataAccess(new StubData(dbName));
 	}
 	
 	@Override
@@ -41,32 +49,61 @@ public class PlaylistTest extends ActivityInstrumentationTestCase2<MainActivity>
 	public void testMakePlaylist() {
 		solo.waitForActivity("MainActivity");
 
+		//If there was some interruption that prevented deletion last time
+		if(solo.searchText("Favourites"))
+		{
+			solo.clickOnButton("Favourites");
+			solo.clickOnButton("Delete Playlist");
+		}
 
 		solo.clickOnButton("Create New Playlist");
 		solo.waitForDialogToOpen();
 		solo.clearEditText(0);
-		solo.enterText(0, "Sports");
+		solo.enterText(0, "Favourites");
 		solo.clickOnButton("Create");
-		Assert.assertTrue(solo.searchText("Sports"));
+		solo.assertCurrentActivity("Expected PlaylistActivity","PlaylistActivity");
+		solo.goBackToActivity("MainActivity");
 
-		solo.clickOnButton("Create New Playlist");
-		solo.waitForDialogToOpen();
-		solo.clearEditText(0);
-		solo.enterText(0, "Comedy");
-		solo.clickOnButton("Create");
-		Assert.assertTrue(solo.searchText("Comedy"));
+		solo.assertCurrentActivity("Expected MainActivity","MainActivity");
+		Assert.assertTrue(solo.searchText("Favourites"));
 
-		solo.clickOnButton("Create New Playlist");
-		solo.waitForDialogToOpen();
-		solo.clearEditText(0);
-		solo.enterText(0, "Inspiration");
-		solo.clickOnButton("Create");
-		Assert.assertTrue(solo.searchText("Inspiration"));
+		solo.clickOnButton("All \nEpisodes");
+		solo.clickInRecyclerView(0,0);
+		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
+		solo.clickOnButton("Add to playlist");
+		solo.assertCurrentActivity("Expected AddToPlaylistActivity","AddToPlaylistActivity");
+		solo.clickOnButton("Favourites");
 
-		LinearLayout ll = (LinearLayout) solo.getView(R.id.playlistsLayout);
-		Assert.assertEquals(3,ll.getChildCount());
-		//TODO test that the playlist buttons go to the right place when implemented
-		//View view = ll.getChildAt(0);
+		solo.goBackToActivity("ViewEpisodeActivity");
+		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
 
+		solo.sleep(500);
+
+		solo.goBackToActivity("MainActivity");
+		solo.assertCurrentActivity("Expected MainActivity","MainActivity");
+
+		solo.clickOnButton("All \nEpisodes");
+		solo.clickInRecyclerView(1,0);
+		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
+		solo.clickOnButton("Add to playlist");
+		solo.assertCurrentActivity("Expected AddToPlaylistActivity","AddToPlaylistActivity");
+		solo.clickOnButton("Favourites");
+
+		solo.goBackToActivity("ViewEpisodeActivity");
+		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
+
+		solo.sleep(500);
+
+		solo.goBackToActivity("MainActivity");
+		solo.assertCurrentActivity("Expected MainActivity","MainActivity");
+
+		solo.sleep(500);
+
+		solo.clickOnButton("Favourites");
+
+		LinearLayout pl = (LinearLayout) solo.getView(R.id.resultLayout);
+		Assert.assertTrue(pl.getChildCount() >= 2);
+
+		solo.clickOnButton("Delete Playlist");
 	}
 }
