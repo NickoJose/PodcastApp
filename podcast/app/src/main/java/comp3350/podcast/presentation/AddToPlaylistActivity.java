@@ -1,6 +1,5 @@
 package comp3350.podcast.presentation;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,20 +18,17 @@ import comp3350.podcast.objects.Playlist;
 
 public class AddToPlaylistActivity extends AppCompatActivity {
 
-    String playlistName;
-    Episode episode;
-    Playlist playlist;
+    String episodeName;
     private List<Playlist> playlists;
     private AccessPlaylists accessPlaylists;
-    private List<Episode> recList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_playlist);
 
-        playlistName = (String) getIntent().getSerializableExtra("playlist");
-        Toast.makeText(this, playlistName, Toast.LENGTH_LONG).show();
+        episodeName = (String) getIntent().getSerializableExtra("playlist");
+        Toast.makeText(this, episodeName, Toast.LENGTH_LONG).show();
 
         playlists = new ArrayList<>();
         accessPlaylists = new AccessPlaylists();
@@ -48,48 +44,15 @@ public class AddToPlaylistActivity extends AppCompatActivity {
             Toast.makeText(this, "Database loading failed.", Toast.LENGTH_LONG).show();
         }
 
-
-        /*
-
-
-
-        boolean match = false;
-
-        String result = accessPlaylists.getPlaylists(playlists);
-        if (result == null) {
-
-
-
-            for (Playlist a : playlists) {
-                if (a.getName().equalsIgnoreCase(playlistName)) {
-                    match = true;
-                    recList = a.getEpisodes();
-                    playlist = a;
-                    break;
-                }
-            }
-
-            if (match) {
-                match = false;
-                for (Episode a : recList) {
-                    if (a.getName().equalsIgnoreCase(playlistName)) {
-                        match = true;
-                        recList = a.getEpisodes();
-                        playlist = a;
-                        break;
-                    }
-                }
-
-                if (match) accessPlaylists.insertPlaylistEpisode(episode, playlist);
-
-            }
-
-
-        }
-
-        */
     }
 
+    /**
+     * Adds a playlist button to the activity
+     *
+     * @param label - label of the button
+     * @param pl - playlist this button holds
+     * @return - void.
+     */
     private void createNewPlaylistBtn(String label, Playlist pl) {
         View view;
         PlaylistBtn btn;
@@ -117,7 +80,7 @@ public class AddToPlaylistActivity extends AppCompatActivity {
                 accessEpisodes.getEpisodes(epList);
                 for (Episode b : epList)
                 {
-                    if (b.getTitle().equals(playlistName))
+                    if (b.getTitle().equals(episodeName))
                     {
                         accessPlaylists.insertPlaylistEpisode(b, a.getPlaylist());
                         Toast.makeText(getApplicationContext(), "Added to playlist", Toast.LENGTH_LONG).show();

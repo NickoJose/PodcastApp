@@ -59,6 +59,11 @@ public class PlaylistActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Populates the activity with playlist contents
+     *
+     * @return - void.
+     */
     public void populatePlaylist() {
         boolean match = false;
         for (Playlist a : playlists) {
