@@ -65,40 +65,4 @@ public class AccessEpisodes
         Sort.episode((ArrayList<Episode>)channel, type);
         return null;
     }
-
-    /**
-     * Inserts an episode into the current playlist.
-     * The input/output follows a design pattern from the sample project.
-     *
-     * @param currentEpisode - Episode to be inserted into the playlist
-     * @return - null. This pattern was taken from sample project
-     */
-    public String insertEpisode(Episode currentEpisode)
-    {
-        return accessData.insertEpisode(currentEpisode);
-    }
-
-    /**
-     * Removes an episode from the current playlist.
-     * The input/output follows a design pattern from the sample project.
-     *
-     * @param currentEpisode - Episode to be removed from the playlist
-     * @return - null. This pattern was taken from sample project
-     */
-    public String deleteEpisode(Episode currentEpisode)
-    {
-        return accessData.deleteEpisode(currentEpisode);
-    }
-
-    /**
-     * Updates an episode in the playlist
-     * The input/output follows a design pattern from the sample project.
-     *
-     * @param currentEpisode - Updated version of an episode, to update the playlist with.
-     * @return - null. This pattern was taken from sample project
-     */
-    public String updateEpisode(Episode currentEpisode)
-    {
-        return accessData.updateEpisode(currentEpisode);
-    }
 }

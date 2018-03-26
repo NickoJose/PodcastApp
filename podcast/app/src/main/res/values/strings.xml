@@ -6,6 +6,8 @@
     <string name="new_playlist">New Playlist</string>
     <string name="create_new_playlist">Create New Playlist</string>
     <string name="your_playlists">Your Playlists</string>
+    <string name="Delete">Delete Playlist</string>
+    <string name="add_to_playlist">Add to playlist</string>
 
     <!-- Menu text -->
     <string name="menu_search">Search</string>

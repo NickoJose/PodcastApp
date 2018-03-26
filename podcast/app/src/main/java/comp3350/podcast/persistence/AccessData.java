@@ -15,21 +15,9 @@ public interface AccessData
 
     String getChannelSequential(List<Channel> channelResult);
 
-    String insertChannel(Channel currentChannel);
-
-    String deleteChannel(Channel currentChannel);
-
-    String updateChannel(Channel currentChannel);
-
     String getEpisodesSequential(List<Episode> episodeResult);
 
     String getChannelEpisodeSequential(List<Episode> episodeResult, Channel currentChannel);
-
-    String insertEpisode(Episode currentEpisode);
-
-    String deleteEpisode(Episode currentEpisode);
-
-    String updateEpisode(Episode currentEpisode);
 
     String getPlaylistSequential(List<Playlist> playlistResult);
 

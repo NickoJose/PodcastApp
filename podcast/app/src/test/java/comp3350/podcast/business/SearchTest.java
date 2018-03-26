@@ -1,4 +1,4 @@
-package comp3350.podcast.tests.business;
+package comp3350.podcast.business;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import comp3350.podcast.business.Search;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Date;
 import comp3350.podcast.objects.Episode;

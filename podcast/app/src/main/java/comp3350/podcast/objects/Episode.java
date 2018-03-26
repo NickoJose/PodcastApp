@@ -29,8 +29,6 @@ public class Episode extends DescribedObject implements Serializable {
         this.category = category;
         this.epNum = epNum;
         this.timeStamp = 0;
-
-        this.publishDate = new Date();
     }
 
 //================================ GETTERS ==========================================//

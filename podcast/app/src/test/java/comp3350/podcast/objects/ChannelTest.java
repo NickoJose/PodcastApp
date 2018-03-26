@@ -1,12 +1,9 @@
-package comp3350.podcast.tests.objects;
+package comp3350.podcast.objects;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
-import comp3350.podcast.objects.Channel;
-import comp3350.podcast.objects.Date;
 
 public class ChannelTest
 {

@@ -3,8 +3,12 @@ package comp3350.podcast.presentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import comp3350.podcast.objects.*;
@@ -71,6 +75,23 @@ public class ViewEpisodeActivity extends AppCompatActivity {
 //        Button homeBtn = (Button)findViewById(R.id.backToHome);
 //        homeBtn.setOnClickListener(homeBtnHandler);
 
+        Button addToBtn = findViewById(R.id.addToPlayL);
+        addToBtn.setOnClickListener(addtoBtnHandler);
+
+    }
+
+    View.OnClickListener addtoBtnHandler;
+
+    {
+        addtoBtnHandler = new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent episodeIntent = new Intent(ViewEpisodeActivity.this, AddToPlaylistActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("playlist", title);
+                episodeIntent.putExtras(b);
+                startActivity(episodeIntent);
+            }
+        };
     }
 //
 //    View.OnClickListener homeBtnHandler = new View.OnClickListener()

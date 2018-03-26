@@ -88,6 +88,13 @@
             app:layout_constraintTop_toTopOf="parent" />
     -->
     <Button
+        android:id="@+id/addToPlayL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#ddeaff"
+        android:text="@string/add_to_playlist" />
+    <Button
         android:id="@+id/play"
         android:layout_width="0dp"
         android:layout_height="0dp"
