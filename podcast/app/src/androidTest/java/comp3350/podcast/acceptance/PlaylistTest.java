@@ -1,22 +1,11 @@
 package comp3350.podcast.acceptance;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-
 import com.robotium.solo.Solo;
-
 import junit.framework.Assert;
-
 import comp3350.podcast.R;
-import comp3350.podcast.application.Main;
-import comp3350.podcast.application.Services;
 import comp3350.podcast.presentation.MainActivity;
-import comp3350.podcast.presentation.ViewEpisodeActivity;
-
-
-import static comp3350.podcast.application.Main.dbName;
 
 public class PlaylistTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
@@ -32,10 +21,8 @@ public class PlaylistTest extends ActivityInstrumentationTestCase2<MainActivity>
 		solo = new Solo(getInstrumentation(), getActivity());
 
 		// Disable this for full acceptance test
-		 //System.out.println("Injecting stub database.");
-		 //Services.createDataAccess(new DataAccessStub(Main.dbName));
-		//Services.closeDataAccess();
-		//Services.createDataAccess(new StubData(dbName));
+        // System.out.println("Injecting stub database.");
+        // Services.createDataAccess(new DataAccessStub(Main.dbName));
 	}
 	
 	@Override
