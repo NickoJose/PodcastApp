@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".representation.ViewEpisodeActivity" />
-        <activity android:name=".representation.ViewChannelActivity" />
+        <activity android:name=".presentation.ViewEpisodeActivity" />
+        <activity android:name=".presentation.ViewChannelActivity" />
         <activity
-            android:name=".representation.PlayContentActivity"
+            android:name=".presentation.PlayContentActivity"
             android:label="@string/title_activity_play_content"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainAcrivity">
@@ -32,7 +32,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".representation.SearchableActivity"
+            android:name=".presentation.SearchableActivity"
             android:label="@string/title_activity_searchable"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

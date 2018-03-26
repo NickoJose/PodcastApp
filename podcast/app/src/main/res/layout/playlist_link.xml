@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<comp3350.podcast.presentation.PlaylistLayoutBtn
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="8dp">
 
-        <Button
+        <comp3350.podcast.presentation.PlaylistBtn
             android:id="@+id/playlist_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -13,4 +13,4 @@
             android:background="#ddeaff"
             android:text="@string/new_playlist" />
 
-</comp3350.podcast.presentation.PlaylistLayoutBtn>
+</android.support.constraint.ConstraintLayout>

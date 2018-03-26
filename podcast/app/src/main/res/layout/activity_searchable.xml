@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comp3350.podcast.representation.SearchableActivity">
+    tools:context="comp3350.podcast.presentation.SearchableActivity">
 
     <ScrollView
         android:layout_width="match_parent"
