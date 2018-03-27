@@ -93,4 +93,18 @@ public class PlaylistTest extends ActivityInstrumentationTestCase2<MainActivity>
 
 		solo.clickOnButton("Delete Playlist");
 	}
+
+	public void testNamelessPlaylist()
+	{
+
+		solo.clickOnButton("Create New Playlist");
+		solo.waitForDialogToOpen();
+		solo.clearEditText(0);
+		solo.enterText(0, "");
+		solo.clickOnButton("Create");
+
+		solo.waitForDialogToOpen();
+		Assert.assertTrue( solo.searchText("Enter playlist name") );
+
+	}
 }
