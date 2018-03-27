@@ -85,7 +85,7 @@ public class ObjectData implements AccessData
     {
         channelResult.clear();
         Channel channel;
-        String myTitle, myDesc, myUrl, myAuthor, myCategory, myOwner, myOwnerEmail;
+        String myTitle, myDesc, myUrl, myAuthor, myCategory, myOwner, myOwnerEmail, img;
         Date myPublishDate = new Date();
         String date;
         String[] tokens;
@@ -106,6 +106,7 @@ public class ObjectData implements AccessData
                 myCategory = rs2.getString("Category");
                 myOwner = rs2.getString("Owner");
                 myOwnerEmail = rs2.getString("OwnerEmail");
+                img = rs2.getString("Image");
 
                 tokens = date.split(" ");
                 if (tokens.length == 3)
@@ -113,7 +114,7 @@ public class ObjectData implements AccessData
                     myPublishDate = new Date(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
                 }
 
-                channel = new Channel(myTitle, myDesc, myUrl, myPublishDate, myAuthor, myCategory, myOwner, myOwnerEmail);
+                channel = new Channel(myTitle, myDesc, myUrl, myPublishDate, myAuthor, myCategory, myOwner, myOwnerEmail, img);
                 channelResult.add(channel);
             }
             rs2.close();
@@ -137,7 +138,7 @@ public class ObjectData implements AccessData
     {
         episodeResult.clear();
         Episode episode;
-        String myTitle, myUrl, myDesc, myAuthor, myCategory;
+        String myTitle, myUrl, myDesc, myAuthor, myCategory, img;
         int myLength, myEpNum;
         Channel myCh;
         Date myPublishDate = new Date();
@@ -162,6 +163,7 @@ public class ObjectData implements AccessData
                 myAuthor = rs5.getString("Author");
                 myCategory = rs5.getString("Category");
                 myEpNum = rs5.getInt("EpNum");
+                img = rs5.getString("Image");
 
                 tokens = date.split(" ");
                 if (tokens.length == 3)
@@ -171,7 +173,7 @@ public class ObjectData implements AccessData
 
                 myCh = getChannelInfo(chTitle);
 
-                episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum);
+                episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum, img);
                 episodeResult.add(episode);
             }
             rs5.close();
@@ -349,7 +351,7 @@ public class ObjectData implements AccessData
         episodeResult.clear();
         String channelTitle = currentChannel.getTitle();
         Episode episode;
-        String myTitle, myUrl, myDesc, myAuthor, myCategory;
+        String myTitle, myUrl, myDesc, myAuthor, myCategory, img;
         int myLength, myEpNum;
         Channel myCh;
         Channel ch;
@@ -378,6 +380,7 @@ public class ObjectData implements AccessData
                     myAuthor = rs5.getString("Author");
                     myCategory = rs5.getString("Category");
                     myEpNum = rs5.getInt("EpNum");
+                    img = rs5.getString("Image");
 
                     tokens = date.split(" ");
                     if (tokens.length == 3)
@@ -387,7 +390,7 @@ public class ObjectData implements AccessData
 
                     myCh = getChannelInfo(chTitle);
 
-                    episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum);
+                    episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum, img);
                     episodeResult.add(episode);
                 }
                 rs5.close();
