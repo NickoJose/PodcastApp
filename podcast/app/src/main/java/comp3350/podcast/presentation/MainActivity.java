@@ -235,6 +235,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String inputName = input.getText().toString();
+                if (inputName.equals(""))
+                {
+                    makePlaylist();
+                    return;
+                }
                 boolean match = false;
 
                 String result = accessPlaylists.getPlaylists(playlists);
