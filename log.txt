@@ -62,4 +62,5 @@ February 12, 2018 - Create subscription view and episode list view. Thier implem
 March 10, 2018 - Restarted subscriptions, channel, and episode list view, starting again from a clean master due to the strange behaviour caused by my last branch. - 3 hours
 March 11, 2018 - Made some progress in implementing a list view that uses a RecyclerView. - 3 hours
 March 13, 2018 - Completely finished implementing a list view for the subscriptions, channels, and episodes. When the items are clicked they launch ViewChannel, or ViewEpisode activities. Also cleaned up some of the GUI to make it look a little cleaner. Removed the hardcoded return buttons because they were creating tons of activities that were never being closed. We can expect the user to use their back buttons (the ones that are baked into the OS) and those do close the activities properly and won't cause a huge list of page returns. - 10 hours
-
+March 23, 2018 - Worked on playlist gui for a while. - 3 hours
+March 26, 2018 - Added subscribe buttons to the channel view. Added pop up menus to the channel lists, and menu items to allow for channel subscription management. - 4 hours

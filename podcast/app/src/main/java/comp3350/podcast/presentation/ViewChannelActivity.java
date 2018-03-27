@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
 import java.io.IOException;
@@ -17,6 +20,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import comp3350.podcast.business.AccessEpisodes;
+import comp3350.podcast.business.AccessSubscriptions;
 import comp3350.podcast.objects.*;
 import comp3350.podcast.R;
 import comp3350.podcast.objects.Episode;
@@ -46,6 +50,31 @@ public class ViewChannelActivity extends AppCompatActivity {
         int imgID = getResources().getIdentifier(channel.getImg(),"drawable",getPackageName());
         imgView.setImageResource(imgID);
 
+        setupSubscribeButton();
+    }
+
+    private void setupSubscribeButton() {
+        ToggleButton subBtn = (ToggleButton) findViewById(R.id.subscribedTggl);
+        AccessSubscriptions accessSubs = new AccessSubscriptions();
+
+        ChannelList subs = new ChannelList();
+        accessSubs.getSubs(subs);
+
+        subBtn.setChecked(subs.contains(channel));
+
+        subBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                AccessSubscriptions accessSubs = new AccessSubscriptions();
+
+                if(isChecked){
+                    accessSubs.insertSub(channel);
+
+                } else {
+                    accessSubs.deleteSub(channel);
+                }
+            }
+        });
     }
 
     /**
