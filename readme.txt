@@ -7,17 +7,21 @@ Business package – Found under comp3350/podcast/business. It contains the inte
 Objects package – Found under comp3350/podcast/objects. It contains all the domain-specific objects such as episodes and channels.
 Persistence package – Found under comp3350/podcast/persistence. It contains the real database (HSQLDB) and a common interface for the real and stub databases
 Presentation package – Found under comp3350/podcast/presentation. It contains all GUIs activities currently used on the emulator.
-Script package - Found under app/assets/db/Podcast.script and under database/Podcast.script (before app). It contains a script for the database.
+Script package - Found under app/assets/db/Podcast.script (app) and under database/Podcast.script (local) before app. It contains a script for the database. A copy of the untouched database is found under app/database/Podcast.script
 
-Unit tests are found under java/comp3350/podcast (test)
-AllTests – Found under comp3350/podcast (test)/tests. It a test suite that runs all of the unit tests
-Business test package – Found under comp3350/podcast (test)/tests/business. It contains unit tests for the sort, search and access classes.
-Objects test package – Found under comp3350/podcast (test)/tests/objects. It contains unit tests for the objects implemented.
-Persistence test package - Found under comp3350/podcast (test)/tests/persistence. It contains the stub database and unit test for the common database interface.
+Unit tests are found under java/comp3350/podcast(test)
+Business test package – Found under comp3350/podcast(test)/business. It contains unit tests for the sort, search and access classes.
+Objects test package – Found under comp3350/podcast(test)/objects. It contains unit tests for the objects implemented.
+Persistence test package - Found under comp3350/podcast(test)/persistence. It contains the stub database and unit test for the common database interface.
+Integration test package - Found under comp3350/podcast(test)/integration. It contains integration tests across the seam and for the external resource.
+RunUnitTests.java – Found under comp3350/podcast(test). It a test suite that runs all of the unit tests
+RunIntegrationTests - Found under comp3350/podcast(test). It a test suite that runs all of the integration tests
 
 The log file can found under the name log.txt.
 
-To run all the unit tests, select AllTests.java -> run.
+To run all the unit tests, select RunUnitTests.java -> run.
+To run all the integration tests, select RunIntegrationTests.java -> run.
+
 To run the project, download the zip file -> file (android studio) -> new -> import project -> select SoftEngProject-master -> select podcast -> select build.gradle.
 
 Please note that while android studio labels most methods in the Access classes as "never used", this turned out to not be the case once
