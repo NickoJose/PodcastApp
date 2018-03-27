@@ -1,11 +1,15 @@
 package comp3350.podcast.presentation;
 
 import android.content.Intent;
+import android.widget.ImageView;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import comp3350.podcast.objects.*;
@@ -60,6 +64,10 @@ public class ViewEpisodeActivity extends AppCompatActivity {
         chName = ep.getChannelTitle();
         ch = ep.getChannel();
 
+        //Just us the back button that is part of the base android UI (little triangle)
+//        Button channelButton = findViewById(R.id.back_to_channel);
+//        channelButton.setOnClickListener(backToChannel);
+
         Button playButton = findViewById(R.id.play);
         playButton.setOnClickListener(play);
 
@@ -69,7 +77,49 @@ public class ViewEpisodeActivity extends AppCompatActivity {
         int imgID = getResources().getIdentifier(ep.getImg(),"drawable",getPackageName());
         imgView.setImageResource(imgID);
 
+//        Button homeBtn = (Button)findViewById(R.id.backToHome);
+//        homeBtn.setOnClickListener(homeBtnHandler);
+
+        Button addToBtn = findViewById(R.id.addToPlayL);
+        addToBtn.setOnClickListener(addtoBtnHandler);
+
     }
+
+    View.OnClickListener addtoBtnHandler;
+
+    {
+        addtoBtnHandler = new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent episodeIntent = new Intent(ViewEpisodeActivity.this, AddToPlaylistActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("playlist", title);
+                episodeIntent.putExtras(b);
+                startActivity(episodeIntent);
+            }
+        };
+    }
+//
+//    View.OnClickListener homeBtnHandler = new View.OnClickListener()
+//    {
+//        @Override
+//        public void onClick(View v)
+//        {
+//            Intent intent = new Intent(ViewEpisodeActivity.this,MainActivity.class);
+//            startActivity(intent);
+//        }
+//    };
+//
+//    View.OnClickListener backToChannel = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent channelIntent = new Intent(ViewEpisodeActivity.this,ViewChannelActivity.class);
+//            Bundle b = new Bundle();
+//            b.putSerializable("channel",ch);
+//            channelIntent.putExtras(b);
+//            startActivity(channelIntent);
+//        }
+//    };
+
     /**
      * Updates text on the episode view, according to the latest object state.
      *
