@@ -15,7 +15,7 @@ Objects test package – Found under comp3350/podcast(test)/objects. It contains
 Persistence test package - Found under comp3350/podcast(test)/persistence. It contains the stub database and unit test for the common database interface.
 Integration test package - Found under comp3350/podcast(test)/integration. It contains integration tests across the seam and for the external resource.
 RunUnitTests.java – Found under comp3350/podcast(test). It a test suite that runs all of the unit tests
-RunIntegrationTests - Found under comp3350/podcast(test). It a test suite that runs all of the integration tests
+RunIntegrationTests.java - Found under comp3350/podcast(test). It a test suite that runs all of the integration tests
 
 The log file can found under the name log.txt.
 
