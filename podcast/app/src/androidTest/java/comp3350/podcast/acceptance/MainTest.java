@@ -77,4 +77,30 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		solo.clickOnButton("Play"); //needed until merged with updated autoplay
 
 	}
+
+	public void testRecommended()
+	{
+		solo.waitForActivity("MainActivity");
+
+		solo.hideSoftKeyboard();
+
+		//make sure keyboard isn't hiding the scrolling action
+		solo.sleep(1500);
+
+		//not necessary for Robotium to find an episode but showcases scrolling
+		View sv = (View)solo.getView(R.id.horizontalScrollView);
+		solo.scrollViewToSide(sv,solo.RIGHT);
+
+		LinearLayout reclist = (LinearLayout)solo.getView(R.id.recLayout);
+		View ep = (View)reclist.getChildAt(2);
+		solo.clickOnView(ep);
+		solo.assertCurrentActivity("Expected ViewEpisodeActivity","ViewEpisodeActivity");
+
+		solo.clickOnButton("Play");
+		solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
+
+		solo.clickOnButton("Play");
+		solo.sleep(3000);
+		solo.clickOnButton("Pause");
+	}
 }
