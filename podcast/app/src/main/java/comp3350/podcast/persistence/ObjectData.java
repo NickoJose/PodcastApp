@@ -15,9 +15,9 @@ import comp3350.podcast.objects.Playlist;
 
 public class ObjectData implements AccessData
 {
-    private Statement st1, st2, st3, stTemp;
+    private Statement st1, st2, st3;
     private Connection c1;
-    private ResultSet rs2, rs3, rs4, rs5, rsTemp;
+    private ResultSet rs2, rs3, rs4, rs5;
 
     private String dbName;
     private String dbType;
@@ -26,7 +26,7 @@ public class ObjectData implements AccessData
     private int updateCount;
     private String result;
 
-    public ObjectData(String dbname) { this.dbName = dbName; }
+    public ObjectData(String dbname) { this.dbName = dbname; }
 
     /**
      * Opens a connection to the database via this object
@@ -45,7 +45,6 @@ public class ObjectData implements AccessData
             st1 = c1.createStatement();
             st2 = c1.createStatement();
             st3 = c1.createStatement();
-            stTemp = c1.createStatement();
         }
         catch (Exception e)
         {
@@ -85,7 +84,7 @@ public class ObjectData implements AccessData
     public String getChannelSequential(List<Channel> channelResult)
     {
         Channel channel;
-        String myTitle, myDesc, myUrl, myAuthor, myCategory, myOwner, myOwnerEmail;
+        String myTitle, myDesc, myUrl, myAuthor, myCategory, myOwner, myOwnerEmail, img;
         Date myPublishDate = new Date();
         String date;
         String[] tokens;
@@ -106,14 +105,17 @@ public class ObjectData implements AccessData
                 myCategory = rs2.getString("Category");
                 myOwner = rs2.getString("Owner");
                 myOwnerEmail = rs2.getString("OwnerEmail");
+                img = rs2.getString("Image");
 
                 tokens = date.split(" ");
                 if (tokens.length == 3)
                 {
-                    myPublishDate = new Date(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+                    myPublishDate.year = Integer.parseInt(tokens[0]);
+                    myPublishDate.month = Integer.parseInt(tokens[1]);
+                    myPublishDate.day = Integer.parseInt(tokens[2]);
                 }
 
-                channel = new Channel(myTitle, myDesc, myUrl, myPublishDate, myAuthor, myCategory, myOwner, myOwnerEmail);
+                channel = new Channel(myTitle, myDesc, myUrl, myPublishDate, myAuthor, myCategory, myOwner, myOwnerEmail,img);
                 channelResult.add(channel);
             }
             rs2.close();
@@ -127,6 +129,115 @@ public class ObjectData implements AccessData
     }
 
     /**
+     * Inserts a new channel into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be inserted into database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String insertChannel(Channel currentChannel)
+    {
+        String values;
+        String date;
+        Channel ch;
+        result = null;
+
+        if(currentChannel == null){
+            throw new NullPointerException("Channel must not be Null");
+        }
+
+        ch = getChannelInfo(currentChannel.getTitle());
+        if (ch == null) // does not exist in the database
+        {
+            try
+            {
+                date = currentChannel.getPublishDate().year + " " + currentChannel.getPublishDate().month + " " + currentChannel.getPublishDate().day;
+                values = "'" + currentChannel.getTitle()
+                        +"', '" + currentChannel.getDesc()
+                        +"', '" + currentChannel.getUrl()
+                        +"', '" + date
+                        +"', '" + currentChannel.getAuthor()
+                        +"', '" + currentChannel.getCategory()
+                        +"', '" + currentChannel.getOwner()
+                        +"', '" + currentChannel.getOwnerEmail()
+                        +"'";
+
+                cmdString = "Insert into Channels " +" Values(" +values +")";
+                updateCount = st1.executeUpdate(cmdString);
+                updateCount = st1.executeUpdate(cmdString);
+                result = checkWarning(st1, updateCount);
+            }
+            catch (Exception e)
+            {
+                result = processSQLError(e);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Removes a channel into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be removed from database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String deleteChannel(Channel currentChannel)
+    {
+        String values;
+
+        result = null;
+        try
+        {
+            values = currentChannel.getTitle();
+            cmdString = "Delete from Channels where Title='" +values +"'";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        }
+        catch (Exception e)
+        {
+            result = processSQLError(e);
+        }
+        return result;
+
+    }
+
+    /**
+     * Updates a channel's entry in the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel to be updated
+     * @return - null. This pattern was taken from sample project
+     */
+    public String updateChannel(Channel currentChannel)
+    {
+        String values;
+        String where;
+
+        result = null;
+        try
+        {
+            values = "Desc='" + currentChannel.getDesc()
+                    +"', PublishDate='" + currentChannel.getPublishDate()
+                    +"', Author='" + currentChannel.getAuthor()
+                    +"', Category='" + currentChannel.getCategory()
+                    +"', Owner='" + currentChannel.getOwner()
+                    +"', OwnerEmail'" + currentChannel.getOwnerEmail()
+                    +"'";
+            where = "where Title='" + currentChannel.getTitle() +"'";
+            cmdString = "Update Channels " +" Set " +values +" " +where;
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        }
+        catch (Exception e)
+        {
+            result = processSQLError(e);
+        }
+        return result;
+    }
+
+    /**
      * Puts an ordered list of all the episodes into a given List<Episode> object
      * The input/output follows a design pattern from the sample project.
      *
@@ -136,7 +247,7 @@ public class ObjectData implements AccessData
     public String getEpisodesSequential(List<Episode> episodeResult)
     {
         Episode episode;
-        String myTitle, myUrl, myDesc, myAuthor, myCategory;
+        String myTitle, myUrl, myDesc, myAuthor, myCategory, img;
         int myLength, myEpNum;
         Channel myCh;
         Date myPublishDate = new Date();
@@ -161,16 +272,26 @@ public class ObjectData implements AccessData
                 myAuthor = rs5.getString("Author");
                 myCategory = rs5.getString("Category");
                 myEpNum = rs5.getInt("EpNum");
+                img = rs5.getString("Image");
+
+
 
                 tokens = date.split(" ");
                 if (tokens.length == 3)
                 {
-                    myPublishDate = new Date(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+                    myPublishDate.year = Integer.parseInt(tokens[0]);
+                    myPublishDate.month = Integer.parseInt(tokens[1]);
+                    myPublishDate.day = Integer.parseInt(tokens[2]);
                 }
 
                 myCh = getChannelInfo(chTitle);
 
-                episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum);
+                //Use channel's image if this episode doesn't have a specific thumbnail
+                if(img == null || img == ""){
+                    img = myCh.getImg();
+                }
+
+                episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum,img);
                 episodeResult.add(episode);
             }
             rs5.close();
@@ -347,7 +468,7 @@ public class ObjectData implements AccessData
     {
         String channelTitle = currentChannel.getTitle();
         Episode episode;
-        String myTitle, myUrl, myDesc, myAuthor, myCategory;
+        String myTitle, myUrl, myDesc, myAuthor, myCategory, img;
         int myLength, myEpNum;
         Channel myCh;
         Channel ch;
@@ -376,16 +497,25 @@ public class ObjectData implements AccessData
                     myAuthor = rs5.getString("Author");
                     myCategory = rs5.getString("Category");
                     myEpNum = rs5.getInt("EpNum");
+                    img = rs5.getString("Image");
 
                     tokens = date.split(" ");
                     if (tokens.length == 3)
                     {
-                        myPublishDate = new Date(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+                        myPublishDate.year = Integer.parseInt(tokens[0]);
+                        myPublishDate.month = Integer.parseInt(tokens[1]);
+                        myPublishDate.day = Integer.parseInt(tokens[2]);
                     }
 
                     myCh = getChannelInfo(chTitle);
+                    //Use channel's image if this episode doesn't have a specific thumbnail
+                    if(img == null || img == ""){
+                        img = myCh.getImg();
 
-                    episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum);
+
+                    }
+
+                    episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum,img);
                     episodeResult.add(episode);
                 }
                 rs5.close();
@@ -396,6 +526,119 @@ public class ObjectData implements AccessData
             }
         }
 
+        return result;
+    }
+
+    /**
+     * Inserts an episode into the database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - episode to be inserted into database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String insertEpisode(Episode currentEpisode)
+    {
+        String values;
+        String date;
+        String ch;
+        Episode ep;
+
+        if(currentEpisode == null){
+            throw new NullPointerException("Episode must not be Null");
+        }
+
+        result = null;
+        ep = getEpisodeInfo(currentEpisode.getTitle());
+        if (ep == null) // does not exist in the database
+        {
+            try
+            {
+                date = currentEpisode.getPublishDate().year + " " + currentEpisode.getPublishDate().month + " " + currentEpisode.getPublishDate().day;
+                ch = currentEpisode.getTitle();
+                values = "'" + currentEpisode.getTitle()
+                        +"', '" + currentEpisode.getUrl()
+                        +"', '" + currentEpisode.getDesc()
+                        +"', " + currentEpisode.getLength()
+                        +", '" + ch
+                        +"', '" + date
+                        +"', '" + currentEpisode.getAuthor()
+                        +"', '" + currentEpisode.getCategory()
+                        +"', " + currentEpisode.getEpNum()
+                        +"', " + currentEpisode.getImg()
+                        +"";
+                cmdString = "Insert into Episodes " +" Values(" +values +")";
+                updateCount = st1.executeUpdate(cmdString);
+                result = checkWarning(st1, updateCount);
+            }
+            catch (Exception e)
+            {
+                result = processSQLError(e);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Deletes an episode from the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - episode to be removed from the database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String deleteEpisode(Episode currentEpisode)
+    {
+        String values;
+
+        result = null;
+        try
+        {
+            values = "" + currentEpisode.getTitle();
+            cmdString = "Delete from Episodes where Title='" +values +"'";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        }
+        catch (Exception e)
+        {
+            result = processSQLError(e);
+        }
+        return result;
+    }
+
+    /**
+     * Updates an episode in the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - Episode to be updated
+     * @return - null. This pattern was taken from sample project
+     */
+    public String updateEpisode(Episode currentEpisode)
+    {
+        String values;
+        String where;
+
+        result = null;
+        try
+        {
+            values = "Url='" + currentEpisode.getUrl()
+                    +"', Desc='" + currentEpisode.getDesc()
+                    +"', Length='" + currentEpisode.getLength()
+                    +"', Ch='" + currentEpisode.getChannel()
+                    +"', PublishDate='" + currentEpisode.getPublishDate()
+                    +"', Author='" + currentEpisode.getAuthor()
+                    +"', Category='" + currentEpisode.getCategory()
+                    +"', Epnum='" + currentEpisode.getEpNum()
+                    +"', Image='" + currentEpisode.getImg()
+                    +"'";
+            where = "where Title='" +currentEpisode.getTitle() +"'";
+            cmdString = "Update Episodes " +" Set " +values +" " +where;
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        }
+        catch (Exception e)
+        {
+            result = processSQLError(e);
+        }
         return result;
     }
 
@@ -421,14 +664,6 @@ public class ObjectData implements AccessData
             {
                 myName = rs4.getString("Name");
                 playlist = new Playlist(myName);
-
-                cmdString = "SELECT * from EPISODELIST WHERE Name = '"+playlist.getName()+"'";
-                rsTemp = stTemp.executeQuery(cmdString);
-               while (rsTemp.next()) {
-                   myName = rsTemp.getString("Title");
-                   playlist.addEpisode(getEpisodeInfo(myName));
-                }
-
                 playlistResult.add(playlist);
             }
         }
@@ -560,16 +795,7 @@ public class ObjectData implements AccessData
         try
         {
             values = "" + currentPlaylist.getName();
-
-            cmdString = "Delete from Channellist where Name='" + values +"'";
-            updateCount = st2.executeUpdate(cmdString);
-            result = checkWarning(st2, updateCount);
-
-            cmdString = "Delete from Episodelist where Name='" + values +"'";
-            updateCount = st2.executeUpdate(cmdString);
-            result = checkWarning(st2, updateCount);
-
-            cmdString = "Delete from Playlists where Name='" + values +"'";
+            cmdString = "Delete from Playlists where Name='" +values +"'";
             updateCount = st2.executeUpdate(cmdString);
             result = checkWarning(st2, updateCount);
         }

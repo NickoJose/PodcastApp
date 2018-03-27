@@ -9,6 +9,12 @@ import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.Episode;
 import comp3350.podcast.persistence.AccessData;
 
+/* Note to marker:
+* Android Studio marks most methods in the Access classes as "never used".
+* However, when removing them, we encounter some reference errors where the values
+* are actually used. While they could probably be removed with some work, we leave them in for safety.
+*/
+
 public class AccessEpisodes
 {
     private AccessData accessData;
@@ -64,5 +70,41 @@ public class AccessEpisodes
     {
         Sort.episode((ArrayList<Episode>)channel, type);
         return null;
+    }
+
+    /**
+     * Inserts an episode into the current playlist.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - Episode to be inserted into the playlist
+     * @return - null. This pattern was taken from sample project
+     */
+    public String insertEpisode(Episode currentEpisode)
+    {
+        return accessData.insertEpisode(currentEpisode);
+    }
+
+    /**
+     * Removes an episode from the current playlist.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - Episode to be removed from the playlist
+     * @return - null. This pattern was taken from sample project
+     */
+    public String deleteEpisode(Episode currentEpisode)
+    {
+        return accessData.deleteEpisode(currentEpisode);
+    }
+
+    /**
+     * Updates an episode in the playlist
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentEpisode - Updated version of an episode, to update the playlist with.
+     * @return - null. This pattern was taken from sample project
+     */
+    public String updateEpisode(Episode currentEpisode)
+    {
+        return accessData.updateEpisode(currentEpisode);
     }
 }
