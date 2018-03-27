@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.ChannelList;
@@ -69,6 +70,11 @@ public class AccessDataTest
         accessData.open("Stub");
         System.out.println("Starting Persistence test AccessData (using stub)");
 
+        initializeExpectedResult();
+    }
+
+    private void initializeExpectedResult()
+    {
         chDate1 = new Date(2009, 12, 24);
         chDate2 = new Date(2016, 2, 17);
         chDate3 = new Date(2012, 4, 22);
@@ -167,44 +173,48 @@ public class AccessDataTest
         playlistList.add(playlist1);
         playlistList.add(playlist2);
 
-        subs.add(channel1);
+        subs.add(channel2);
+    }
+
+    public static void accessDataTest(AccessData accessData)
+    {
+        AccessDataTest accessDataTest = new AccessDataTest();
+        accessDataTest.accessData = accessData;
+        accessDataTest.initializeExpectedResult();
+        accessDataTest.testChannelPersistence();
+        accessDataTest.testEpisodesPersistence();
+        accessDataTest.testPlaylistPersistence();
+        accessDataTest.testSubPersistence();
     }
 
     @Test
-    public void testGetChannels()
+    public void testChannelPersistence()
     {
-        System.out.println("Starting AccessDataTest: GetChannels");
+        System.out.println("Starting AccessDataTest: ChannelPersistence");
+
         resultCh = new ChannelList();
 
         // test retrieving the channels from the database
         accessData.getChannelSequential(resultCh);
         assertTrue(resultCh.equals(channelList));
 
-        System.out.println("Finished AccessDataTest: GetChannels");
+        System.out.println("Finished AccessDataTest: ChannelPersistence");
     }
 
     @Test
-    public void testGetEpisodes()
+    public void testEpisodesPersistence()
     {
-        System.out.println("Starting AccessDataTest: GetEpisodes");
-        resultEp = new EpisodeList();
+        System.out.println("Starting AccessDataTest: EpisodesPersistence");
 
-        // test retrieving the episodes from the database
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        System.out.println("Finished AccessDataTest: GetEpisodes");
-    }
-
-    @Test
-    public void testChannelEpisodeList()
-    {
-        System.out.println("Starting AccessDataTest: ChannelEpisodeList");
         resultEp = new EpisodeList();
         channelEpisodesList = new EpisodeList();
         channelEpisodesList.add(episode1);
         channelEpisodesList.add(episode2);
         channelEpisodesList.add(episode3);
+
+        // test retrieving the episodes from the database
+        accessData.getEpisodesSequential(resultEp);
+        assertTrue(resultEp.equals(episodeList));
 
         // test retrieving the episodes based from a channel
         accessData.getChannelEpisodeSequential(resultEp, channelList.get(0));
@@ -215,14 +225,16 @@ public class AccessDataTest
         channelEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(channelEpisodesList));
 
-        System.out.println("Finished AccessDataTest: ChannelEpisodeList");
+        System.out.println("Finished AccessDataTest: EpisodesPersistence");
     }
 
     @Test
-    public void testInsertPlaylist()
+    public void testPlaylistPersistence()
     {
-        System.out.println("Starting AccessDataTest: InsertPlaylist");
+        System.out.println("Starting AccessDataTest: PlaylistPersistence");
         resultPl = new ArrayList<>();
+        resultCh = new ChannelList();
+        resultEp = new EpisodeList();
         Playlist pl = null;
 
         // test retrieving the playlists from the database
@@ -235,7 +247,15 @@ public class AccessDataTest
         accessData.getPlaylistSequential(resultPl);
         assertTrue(comparePlaylistLists(resultPl, playlistList));
 
+        // test deleting a playlist
+        playlistList.remove(playlist3);
+        accessData.insertPlaylist(playlist3);
+        accessData.deletePlaylist(playlist3);
+        accessData.getPlaylistSequential(resultPl);
+        assertTrue(comparePlaylistLists(resultPl, playlistList));
+
         // test inserting multiple playlists
+        playlistList.add(playlist3);
         playlistList.add(playlist4);
         accessData.deletePlaylist(playlist3);
         accessData.insertPlaylist(playlist3);
@@ -243,9 +263,22 @@ public class AccessDataTest
         accessData.getPlaylistSequential(resultPl);
         assertTrue(comparePlaylistLists(resultPl, playlistList));
 
+        // test deleting multiple playlists
+        playlistList.remove(playlist3);
+        playlistList.remove(playlist4);
+        accessData.deletePlaylist(playlist3);
+        accessData.deletePlaylist(playlist4);
+        accessData.getPlaylistSequential(resultPl);
+        assertTrue(comparePlaylistLists(resultPl, playlistList));
+
         // test inserting duplicate playlist
         accessData.insertPlaylist(playlist1);
         accessData.getPlaylistSequential(resultPl);
+
+        // test deleting a playlist that does not exist
+        accessData.deletePlaylist(playlist3);
+        accessData.getPlaylistSequential(resultPl);
+        assertTrue(comparePlaylistLists(resultPl, playlistList));
 
         // test inserting a null playlist
         try {
@@ -255,44 +288,9 @@ public class AccessDataTest
         } catch (NullPointerException npe) {
         }
 
-        System.out.println("Finished AccessDataTest: InsertPlaylist");
-    }
-
-    @Test
-    public void testDeletePlaylist()
-    {
-        System.out.println("Starting AccessDataTest: DeletePlaylist");
-        resultPl = new ArrayList<>();
-
-        playlistList.add(playlist3);
-
-        // test deleting a channel
-        playlistList.remove(playlist3);
-        accessData.insertPlaylist(playlist3);
-        accessData.deletePlaylist(playlist3);
-        accessData.getPlaylistSequential(resultPl);
-        assertTrue(comparePlaylistLists(resultPl, playlistList));
-
-        // test deleting multiple channels
-        playlistList.remove(playlist1);
-        playlistList.remove(playlist2);
-        accessData.deletePlaylist(playlist1);
-        accessData.deletePlaylist(playlist2);
-        accessData.getPlaylistSequential(resultPl);
-        assertTrue(comparePlaylistLists(resultPl, playlistList));
-
-        // test deleting a channel that does not exist
-        accessData.deletePlaylist(playlist1);
-        accessData.getPlaylistSequential(resultPl);
-        assertTrue(comparePlaylistLists(resultPl, playlistList));
-        System.out.println("Finished AccessDataTest: DeletePlaylist");
-    }
-
-    @Test
-    public void testInsertPlaylistChannel()
-    {
-        System.out.println("Starting AccessDataTest: InsertPlaylistChannel");
-        resultCh = new ChannelList();
+        // test retrieving the channels based from a playlist
+        accessData.getPlaylistChannelSequential(resultCh, playlist1);
+        assertTrue(resultCh.equals(playlistChannelList));
 
         // test inserting a channel into a playlist
         playlistChannelList.add(channelList.get(0));
@@ -304,49 +302,6 @@ public class AccessDataTest
         accessData.insertPlaylistChannel(channelList.get(0), playlist1);
         accessData.getPlaylistChannelSequential(resultCh, playlist1);
         assertTrue(playlistChannelList.equals(resultCh));
-
-        // test inserting channel into a non existent playlist
-        accessData.insertPlaylistChannel(channelList.get(0), playlist3);
-        accessData.getPlaylistChannelSequential(resultCh, playlist3);
-        playlistChannelList = new ChannelList();
-        assertTrue(playlistChannelList.equals(resultCh));
-
-        System.out.println("Finished AccessDataTest: InsertPlaylistChannel");
-    }
-
-    @Test
-    public void testInsertPlaylistEpisode()
-    {
-        System.out.println("Starting AccessDataTest: InsertPlaylistEpisode");
-        resultEp = new EpisodeList();
-
-        // test inserting an episode into a playlist
-        playlistEpisodesList.add(episodeList.get(1));
-        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
-        assertTrue(playlistEpisodesList.equals(resultEp));
-
-        // test inserting duplicate episode into a playlist
-        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
-        assertTrue(playlistEpisodesList.equals(resultEp));
-
-        // test inserting episode into a non existent playlist
-        accessData.insertPlaylistEpisode(episodeList.get(3), playlist4);
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
-        playlistEpisodesList = new EpisodeList();
-        assertTrue(resultEp.equals(playlistEpisodesList));
-
-        System.out.println("Finished AccessDataTest: InsertPlaylistEpisode");
-    }
-
-    @Test
-    public void testDeletePlaylistChannel()
-    {
-        System.out.println("Starting AccessDataTest: DeletePlaylistChannel");
-        resultCh = new ChannelList();
-
-        playlistChannelList.add(channelList.get(0));
 
         // test deleting a channel into a playlist
         playlistChannelList.remove(channelList.get(0));
@@ -360,16 +315,27 @@ public class AccessDataTest
         accessData.getPlaylistChannelSequential(resultCh, playlist3);
         playlistChannelList = new ChannelList();
         assertTrue(playlistChannelList.equals(resultCh));
-        System.out.println("Finished AccessDataTest: DeletePlaylistChannel");
-    }
 
-    @Test
-    public void testDeletePlaylistEpisode()
-    {
-        System.out.println("Starting AccessDataTest: DeletePlaylistEpisode");
-        resultEp = new EpisodeList();
+        // test inserting channel into a non existent playlist
+        accessData.insertPlaylistChannel(channelList.get(0), playlist3);
+        accessData.getPlaylistChannelSequential(resultCh, playlist3);
+        playlistChannelList = new ChannelList();
+        assertTrue(playlistChannelList.equals(resultCh));
 
+        // test retrieving the episodes based from a playlist
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
+        assertTrue(resultEp.equals(playlistEpisodesList));
+
+        // test inserting an episode into a playlist
         playlistEpisodesList.add(episodeList.get(1));
+        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
+        assertTrue(playlistEpisodesList.equals(resultEp));
+
+        // test inserting duplicate episode into a playlist
+        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
+        assertTrue(playlistEpisodesList.equals(resultEp));
 
         // test deleting an episode from a playlist
         playlistEpisodesList.remove(episodeList.get(1));
@@ -384,47 +350,29 @@ public class AccessDataTest
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
 
-        System.out.println("Finished AccessDataTest: DeletePlaylistEpisode");
-    }
+        // test inserting episode into a non existent playlist
+        accessData.insertPlaylistEpisode(episodeList.get(3), playlist4);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
+        playlistEpisodesList = new EpisodeList();
+        assertTrue(resultEp.equals(playlistEpisodesList));
 
-    @Test
-    public void testPlaylistChannelList()
-    {
-        System.out.println("Starting AccessDataTest: PlaylistChannelList");
-        resultCh = new ChannelList();
-
-        // test retrieving the channels based from a playlist
-        accessData.getPlaylistChannelSequential(resultCh, playlist1);
-        assertTrue(resultCh.equals(playlistChannelList));
-
-        // test retrieving the episodes based from a playlist that does not exist
+        // test retrieving the channels based from a playlist that does not exist
         accessData.getPlaylistChannelSequential(resultCh, playlist4);
         playlistChannelList = new ChannelList();
         assertTrue(resultCh.equals(playlistChannelList));
-        System.out.println("Finished AccessDataTest: PlaylistChannelList");
-    }
-
-    @Test
-    public void testPlaylistEpisodeList()
-    {
-        System.out.println("Starting AccessDataTest: PlaylistEpisodeList");
-        EpisodeList resultEp = new EpisodeList();
-
-        // test retrieving the episodes based from a playlist
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
-        assertTrue(resultEp.equals(playlistEpisodesList));
 
         // test retrieving the episodes based from a playlist that does not exist
         accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
-        System.out.println("Finished AccessDataTest: PlaylistEpisodeList");
+
+        System.out.println("Finished AccessDataTest: PlaylistPersistence");
     }
 
     @Test
-    public void testInsertSub()
+    public void testSubPersistence()
     {
-        System.out.println("Starting AccessDataTest: InsertSub");
+        System.out.println("Starting AccessDataTest: SubPersistence");
         resultCh = new ChannelList();
 
         // test retrieving the subscriptions from the database
@@ -432,31 +380,20 @@ public class AccessDataTest
         assertTrue(resultCh.equals(subs));
 
         // test inserting a subscription
-        subs.add(channel4);
-        accessData.insertSub(channel4);
+        subs.add(channel3);
+        accessData.insertSub(channel3);
+        accessData.getSubSequential(resultCh);
+        assertTrue(resultCh.equals(subs));
+
+        // test deleting a subscription
+        subs.remove(channel3);
+        accessData.insertSub(channel3);
+        accessData.deleteSub(channel3);
         accessData.getSubSequential(resultCh);
         assertTrue(resultCh.equals(subs));
 
         // test inserting duplicate subscription
-        accessData.insertSub(channel4);
-        accessData.getSubSequential(resultCh);
-        assertTrue(resultCh.equals(subs));
-
-        System.out.println("Finished AccessDataTest: InsertSub");
-    }
-
-    @Test
-    public void testDeleteSub()
-    {
-        System.out.println("Starting AccessDataTest: DeleteSub");
-        resultCh = new ChannelList();
-
-        subs.add(channel4);
-
-        // test deleting a subscription
-        subs.remove(channel4);
-        accessData.insertSub(channel4);
-        accessData.deleteSub(channel4);
+        accessData.insertSub(channel2);
         accessData.getSubSequential(resultCh);
         assertTrue(resultCh.equals(subs));
 
@@ -464,26 +401,23 @@ public class AccessDataTest
         accessData.deleteSub(channel4);
         accessData.getSubSequential(resultCh);
         assertTrue(resultCh.equals(subs));
-        System.out.println("Finished AccessDataTest: DeleteSub");
+
+        System.out.println("Finished AccessDataTest: SubPersistence");
     }
 
-    private boolean comparePlaylistLists(ArrayList<Playlist> origPlaylist, ArrayList<Playlist> otherPlaylist)
+    private boolean comparePlaylistLists(ArrayList<Playlist> obj, ArrayList<Playlist> actual)
     {
-        Boolean result = false;
-        if (origPlaylist.size() == otherPlaylist.size())
-        {
-            result = true;
-            for ( int i = 0; i < origPlaylist.size(); i++ )
-            {
-                if ( !origPlaylist.get(i).equals(otherPlaylist.get(i)) )
-                {
-                    result = false;
-                    return result;
-                }
-            }
-        }
+        if (obj.size() == actual.size()) {
+            Iterator iter = actual.iterator();
 
-        return result;
+            while (iter.hasNext()) {
+                if (!obj.contains((Playlist) iter.next()))
+                    return false;
+            }
+        } else
+            return false;
+
+        return true;
     }
 
     @After
