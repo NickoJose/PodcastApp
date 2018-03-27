@@ -1,5 +1,6 @@
 package comp3350.podcast.presentation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +61,8 @@ public class ViewChannelActivity extends AppCompatActivity {
                 } else {
                     accessSubs.deleteSub(channel);
                 }
+
+
             }
         });
     }
