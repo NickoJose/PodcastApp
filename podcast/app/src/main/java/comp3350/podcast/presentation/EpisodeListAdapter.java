@@ -1,6 +1,7 @@
 package comp3350.podcast.presentation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,10 +43,14 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
         // - replace the contents of the view with that element
 
         final Episode ep = episodes.get(position);
+        Context context = holder.titleView.getContext();
 
         holder.titleView.setText(ep.getTitle());
         holder.descriptionView.setText(ep.getDesc());
         holder.episodeNumberView.setText("# " + ep.getEpNum());
+
+        int imgID = context.getResources().getIdentifier(ep.getImg(),"drawable",context.getPackageName());
+        holder.imgView.setImageResource(imgID);
 
         String secStr = "00";
         String minStr = "00";
@@ -88,6 +94,7 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
         public final TextView descriptionView;
         public final TextView episodeNumberView;
         public final TextView lengthView;
+        public final ImageView imgView;
 
         public EpisodeViewHolder(ConstraintLayout episodeLayout) {
             super(episodeLayout);
@@ -96,6 +103,7 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
             lengthView = (TextView) episodeLayout.findViewById(R.id.episodeLength);
             descriptionView = (TextView) episodeLayout.findViewById(R.id.description);
             episodeNumberView = (TextView) episodeLayout.findViewById(R.id.episodeNumber);
+            imgView = (ImageView) episodeLayout.findViewById(R.id.episodeImage);
         }
 
         @Override
