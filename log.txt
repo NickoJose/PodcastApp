@@ -55,6 +55,8 @@ March 7, 2018 - Added database script (incomplete). 1 hour
 March 10, 2018 - Added more functions (playlists methods) to the real database. Modified playlists to store them in the real database. Completed the database script. 3 hours
 March 11, 2018 - Added unit tests for access classes. Removed unusable methods (getsequential). Added exceptions for insert, get, update methods and functions such as equals() for playlist. 4 hours
 March 12, 2018 - Added subscriptions table to the database script. Added subscription interface. Modified the databases to include methods for the subscriptions. Added unit tests for persistence interface and subscription. 3 hours
+March 23, 2018 - Created integration testing for AccessChannels and AccessEpisodes. Modified the structure of tests to include integration testing and test suites. Fixed printing console log consistency between tests - 5 hours
+March 26/27, 2018 - Created integration testing for AccessPlaylists and AccessSubscriptions. Created integration testing for persistence layer. Updated persistence test to allow injecting of the real database. Fixed a couple of database bugs. 5 hours
 
 Log Entry - Russell Thiessen
 January 8, 2018 - Setup repository and Discord (chat server) - 1 hour
