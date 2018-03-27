@@ -35,7 +35,8 @@ public class SubscriptionTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.finishOpenedActivities();
 	}
 
-	public void testSubscription()
+	
+	public void testSubscriptionFromChannelPage()
 	{
 		solo.waitForActivity("MainActivity");
 
@@ -64,6 +65,31 @@ public class SubscriptionTest extends ActivityInstrumentationTestCase2<MainActiv
 
 		solo.goBackToActivity("MainActivity");
 		solo.assertCurrentActivity("Expected MainActivity","MainActivity");
+
+		solo.clickOnButton("Subscribed \nChannels");
+		Assert.assertTrue( !(solo.searchText("The Joe Rogan Experience")) );
+	}
+
+	public void testSubscriptionFromMain()
+	{
+		solo.waitForActivity("MainActivity");
+
+		solo.clickOnButton("Subscribed \nChannels");
+		Assert.assertTrue(solo.searchText("NBA Hang Time"));
+
+		solo.clickOnButton("All \nChannels");
+		Assert.assertTrue(solo.searchText("The Joe Rogan Experience"));
+
+		solo.clickLongInRecycleView(1,0);
+		solo.searchText("Subscribe");
+		solo.clickOnText("Subscribe");
+
+		solo.clickOnButton("Subscribed \nChannels");
+		Assert.assertTrue(solo.searchText("The Joe Rogan Experience"));
+
+		solo.clickLongInRecycleView(1,0);
+		solo.searchText("Unsubscribe");
+		solo.clickOnText("Unsubscribe");
 
 		solo.clickOnButton("Subscribed \nChannels");
 		Assert.assertTrue( !(solo.searchText("The Joe Rogan Experience")) );
