@@ -55,7 +55,9 @@ public class SearchTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
 		solo.clickOnButton("Play");
 		solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
-		solo.clickOnButton("Play"); //needed until merged with updated autoplay
+
+		solo.sleep(3000);
+		solo.clickOnButton("Pause");
 	}
 
 	public void testBadSearch()

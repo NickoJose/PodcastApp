@@ -74,7 +74,6 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
 		solo.clickOnButton("Play");
 		solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
-		solo.clickOnButton("Play");
 		solo.sleep(3000);
 		solo.clickOnButton("Pause");
 
@@ -91,7 +90,6 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
         solo.clickOnButton("Play");
         solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
-        solo.clickOnButton("Play");
         solo.sleep(3000);
         solo.clickOnButton("Pause");
 
@@ -120,7 +118,6 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		solo.clickOnButton("Play");
 		solo.assertCurrentActivity("Expected PlayContentActivity","PlayContentActivity");
 
-		solo.clickOnButton("Play");
 		solo.sleep(3000);
 		solo.clickOnButton("Pause");
 	}
