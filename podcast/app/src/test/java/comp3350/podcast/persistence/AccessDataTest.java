@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.ChannelList;
@@ -69,6 +70,11 @@ public class AccessDataTest
         accessData.open("Stub");
         System.out.println("Starting Persistence test AccessData (using stub)");
 
+        initializeExpectedResult();
+    }
+
+    private void initializeExpectedResult()
+    {
         chDate1 = new Date(2009, 12, 24);
         chDate2 = new Date(2016, 2, 17);
         chDate3 = new Date(2012, 4, 22);
@@ -86,50 +92,50 @@ public class AccessDataTest
 
         channel1 = new Channel("The Joe Rogan Experience", "The Joe Rogan Experience podcast is a long form conversation hosted by comedian, " +
                 "UFC color commentator, and actor Joe Rogan with friends and guests that have included comedians, actors, musicians, MMA instructors and " +
-                "commentators, authors, artists, and porn stars.", "http://joerogan.net/podcasts/", chDate1, "Joe Rogan", "Comedy", "Brian Redban", "BOOKDEATHSQUAD@GMAIL.COM");
+                "commentators, authors, artists, and porn stars.", "http://joerogan.net/podcasts/", chDate1, "Joe Rogan", "Comedy", "Brian Redban", "BOOKDEATHSQUAD@GMAIL.COM", "");
         channel2 = new Channel("NBA Hang Time", "Veteran NBA writer Sekou Smith and former player Greg Anthony analyze the latest NBA news, " +
-                "storylines, and more with guests from around the NBA world.", "http://www.nba.com/podcast#/", chDate2, "Sekou Smith", "Sports", "NBA Digital", "@NBA");
+                "storylines, and more with guests from around the NBA world.", "http://www.nba.com/podcast#/", chDate2, "Sekou Smith", "Sports", "NBA Digital", "@NBA", "");
         channel3 = new Channel("You Are Not So Smart", "You Are Not So Smart is a celebration of self delusion that explores topics related to " +
                 "cognitive biases, heuristics, and logical fallacies. David McRaney interviews scientists about their research into how the mind works, " +
-                "and then he eats a cookie", "https://youarenotsosmart.com/", chDate3, "David McRaney", "Social Sciences", "David McRaney", "davidmcraney@gmail.com");
+                "and then he eats a cookie", "https://youarenotsosmart.com/", chDate3, "David McRaney", "Social Sciences", "David McRaney", "davidmcraney@gmail.com", "");
         channel4 = new Channel("Seafood Mania", "In Seafood Mania, all we talk about is seafood and only seafood.",
                 "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
+                "Jones Surfing Company", "jonesjoe@gmail.com", "");
         channel5 = new Channel("Seafood Mania", "Chickens only",
                 "https://seafoodmania.com/", chDate4, "Joe Jones", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
+                "Jones Surfing Company", "jonesjoe@gmail.com", "");
 
         episode1 = new Episode("JRE MMA Show #10 with Tyron Woodley", "http://traffic.libsyn.com/joeroganexp/mmashow010.mp3?dest-id=19997",
-                "Joe Rogan sits down with UFC Welterweight Champion Tyron Woodley", 6120, channel1, epDate1, "Joe Rogan", "Sports", 10);
+                "Joe Rogan sits down with UFC Welterweight Champion Tyron Woodley", 6120, channel1, epDate1, "Joe Rogan", "Sports", 10, "");
         episode2 = new Episode("#990 - Jamie Foxx", "http://traffic.libsyn.com/joeroganexp/p990.mp3?dest-id=19997",
                 "Jamie Foxx is an Academy Award winning actor, singer, and comedian. He can currently be seen hosting \"Beat Shazam\" on Fox and " +
-                        "in the movie \"Baby Driver\" in theaters now.", 4080, channel1, epDate2, "Joe Rogan", "Comedy", 990);
+                        "in the movie \"Baby Driver\" in theaters now.", 4080, channel1, epDate2, "Joe Rogan", "Comedy", 990, "");
         episode3 = new Episode("#890 - Fight Breakdown", "http://traffic.libsyn.com/joeroganexp/p890.mp3?dest-id=19997",
-                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 13740, channel1 , epDate3, "Joe Rogan", "Sports", 890);
+                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 13740, channel1 , epDate3, "Joe Rogan", "Sports", 890, "");
         episode4 = new Episode("State of the Philadelphia 76ers", "http://media.adknit.com/a/f/13/nba-hangtime/xpe2c8.1-1.mp3",
                 "Sixers insider Jessica Camerato of NBC Sports Philadelphia joins us to dig deep into the state of the 76ers. We talk about Joel Embiid, " +
                         "Ben Simmons, chemistry, playoff hopes, Jahlil Okafor trade, and much more. Then John Schuhmann calls in with his weekly trivia question.",
-                2220, channel2, epDate4, "Sekou Smith", "Sports", 82);
+                2220, channel2, epDate4, "Sekou Smith", "Sports", 82, "");
         episode5 = new Episode("2017 NBA Draft: Instant Analysis", "http://media.adknit.com/a/f/13/nba-hangtime/rl1o6s.1-1.mp3",
-                "Lang Whitaker, John Schuhmann, Scott-Howard Cooper and Trey Kerby recap Thursday's draft.", 3600, channel2, epDate5, "Sekou Smith", "Sports", 61);
+                "Lang Whitaker, John Schuhmann, Scott-Howard Cooper and Trey Kerby recap Thursday's draft.", 3600, channel2, epDate5, "Sekou Smith", "Sports", 61, "");
         episode6 = new Episode("More or Less? Predicting Win Totals For All 30 Nba Teams", "http://media.adknit.com/a/f/13/nba-hangtime/htwxqy.1-1.mp3",
                 "Which NBA teams will be better this season? Which will be worse? Sekou Smith and Lang Whitaker predict how many games each team will win " +
                         "during the 2016-17 NBA season.", 2640, channel2, epDate6,
-                "Sekou Smith", "Sports", 15);
+                "Sekou Smith", "Sports", 15, "");
         episode7 = new Episode("096 - Progress", "http://feeds.soundcloud.com/stream/309444172-youarenotsosmart-096-progress.mp3",
                 "Do we have the power to change the outcome of history? Is progress inevitable? Is it natural? Are we headed somewhere definite, or is " +
                         "change just chaos that seems organized in hindsight? In this episode we explore these questions with University of Chicago historian " +
                         "Ada Palmer", 3900, channel3, epDate7, "David McRaney",
-                "Social Sciences", 96);
+                "Social Sciences", 96, "");
         episode8 = new Episode("055 - Weird People - Steven J. Heine", "http://feeds.soundcloud.com/stream/217283672-youarenotsosmart-055-weird-people-steven-j-heine.mp3",
                 "JIs psychology too WEIRD? That's what this episode's guest, psychologist Steven J. Heine suggested when he and his colleagues published a " +
                         "paper suggesting that psychology wasn't the study of the human mind, but the study of one kind of human mind, the sort generated by the " +
                         "kinds of brains that happen to be conveniently located near the places where research is usually conducted - North American college " +
                         "undergraduates.", 2880, channel3, epDate8, "David McRaney",
-                "Social Sciences", 55);
+                "Social Sciences", 55, "");
         episode9 = new Episode("049 - Rejection - Jia Jiang", "http://feeds.soundcloud.com/stream/204471744-youarenotsosmart-049-rejection-jia-jiang.mp3",
                 "What if you could give yourself a superpower? That's what Jia Jiang wondered when he began a quest to remove the fear of rejection from his " +
-                        "brain and become the risk-taking, adventurous person he always wanted to be.", 3240, channel3 ,epDate9, "David McRaney", "Social Sciences", 48);
+                        "brain and become the risk-taking, adventurous person he always wanted to be.", 3240, channel3 ,epDate9, "David McRaney", "Social Sciences", 48, "");
 
         playlist1 = new Playlist("Chill");
         playlist2 = new Playlist("Relax");
@@ -167,44 +173,48 @@ public class AccessDataTest
         playlistList.add(playlist1);
         playlistList.add(playlist2);
 
-        subs.add(channel1);
+        subs.add(channel2);
+    }
+
+    public static void accessDataTest(AccessData accessData)
+    {
+        AccessDataTest accessDataTest = new AccessDataTest();
+        accessDataTest.accessData = accessData;
+        accessDataTest.initializeExpectedResult();
+        accessDataTest.testChannelPersistence();
+        accessDataTest.testEpisodesPersistence();
+        accessDataTest.testPlaylistPersistence();
+        accessDataTest.testSubPersistence();
     }
 
     @Test
-    public void testGetChannels()
+    public void testChannelPersistence()
     {
-        System.out.println("Starting AccessDataTest: GetChannels");
+        System.out.println("Starting AccessDataTest: ChannelPersistence");
+
         resultCh = new ChannelList();
 
         // test retrieving the channels from the database
         accessData.getChannelSequential(resultCh);
         assertTrue(resultCh.equals(channelList));
 
-        System.out.println("Finished AccessDataTest: GetChannels");
+        System.out.println("Finished AccessDataTest: ChannelPersistence");
     }
 
     @Test
-    public void testGetEpisodes()
+    public void testEpisodesPersistence()
     {
-        System.out.println("Starting AccessDataTest: GetEpisodes");
-        resultEp = new EpisodeList();
+        System.out.println("Starting AccessDataTest: EpisodesPersistence");
 
-        // test retrieving the episodes from the database
-        accessData.getEpisodesSequential(resultEp);
-        assertTrue(resultEp.equals(episodeList));
-
-        System.out.println("Finished AccessDataTest: GetEpisodes");
-    }
-
-    @Test
-    public void testChannelEpisodeList()
-    {
-        System.out.println("Starting AccessDataTest: ChannelEpisodeList");
         resultEp = new EpisodeList();
         channelEpisodesList = new EpisodeList();
         channelEpisodesList.add(episode1);
         channelEpisodesList.add(episode2);
         channelEpisodesList.add(episode3);
+
+        // test retrieving the episodes from the database
+        accessData.getEpisodesSequential(resultEp);
+        assertTrue(resultEp.equals(episodeList));
 
         // test retrieving the episodes based from a channel
         accessData.getChannelEpisodeSequential(resultEp, channelList.get(0));
@@ -215,14 +225,16 @@ public class AccessDataTest
         channelEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(channelEpisodesList));
 
-        System.out.println("Finished AccessDataTest: ChannelEpisodeList");
+        System.out.println("Finished AccessDataTest: EpisodesPersistence");
     }
 
     @Test
-    public void testInsertPlaylist()
+    public void testPlaylistPersistence()
     {
-        System.out.println("Starting AccessDataTest: InsertPlaylist");
+        System.out.println("Starting AccessDataTest: PlaylistPersistence");
         resultPl = new ArrayList<>();
+        resultCh = new ChannelList();
+        resultEp = new EpisodeList();
         Playlist pl = null;
 
         // test retrieving the playlists from the database
@@ -235,7 +247,15 @@ public class AccessDataTest
         accessData.getPlaylistSequential(resultPl);
         assertTrue(comparePlaylistLists(resultPl, playlistList));
 
+        // test deleting a playlist
+        playlistList.remove(playlist3);
+        accessData.insertPlaylist(playlist3);
+        accessData.deletePlaylist(playlist3);
+        accessData.getPlaylistSequential(resultPl);
+        assertTrue(comparePlaylistLists(resultPl, playlistList));
+
         // test inserting multiple playlists
+        playlistList.add(playlist3);
         playlistList.add(playlist4);
         accessData.deletePlaylist(playlist3);
         accessData.insertPlaylist(playlist3);
@@ -243,9 +263,22 @@ public class AccessDataTest
         accessData.getPlaylistSequential(resultPl);
         assertTrue(comparePlaylistLists(resultPl, playlistList));
 
+        // test deleting multiple playlists
+        playlistList.remove(playlist3);
+        playlistList.remove(playlist4);
+        accessData.deletePlaylist(playlist3);
+        accessData.deletePlaylist(playlist4);
+        accessData.getPlaylistSequential(resultPl);
+        assertTrue(comparePlaylistLists(resultPl, playlistList));
+
         // test inserting duplicate playlist
         accessData.insertPlaylist(playlist1);
         accessData.getPlaylistSequential(resultPl);
+
+        // test deleting a playlist that does not exist
+        accessData.deletePlaylist(playlist3);
+        accessData.getPlaylistSequential(resultPl);
+        assertTrue(comparePlaylistLists(resultPl, playlistList));
 
         // test inserting a null playlist
         try {
@@ -255,44 +288,9 @@ public class AccessDataTest
         } catch (NullPointerException npe) {
         }
 
-        System.out.println("Finished AccessDataTest: InsertPlaylist");
-    }
-
-    @Test
-    public void testDeletePlaylist()
-    {
-        System.out.println("Starting AccessDataTest: DeletePlaylist");
-        resultPl = new ArrayList<>();
-
-        playlistList.add(playlist3);
-
-        // test deleting a channel
-        playlistList.remove(playlist3);
-        accessData.insertPlaylist(playlist3);
-        accessData.deletePlaylist(playlist3);
-        accessData.getPlaylistSequential(resultPl);
-        assertTrue(comparePlaylistLists(resultPl, playlistList));
-
-        // test deleting multiple channels
-        playlistList.remove(playlist1);
-        playlistList.remove(playlist2);
-        accessData.deletePlaylist(playlist1);
-        accessData.deletePlaylist(playlist2);
-        accessData.getPlaylistSequential(resultPl);
-        assertTrue(comparePlaylistLists(resultPl, playlistList));
-
-        // test deleting a channel that does not exist
-        accessData.deletePlaylist(playlist1);
-        accessData.getPlaylistSequential(resultPl);
-        assertTrue(comparePlaylistLists(resultPl, playlistList));
-        System.out.println("Finished AccessDataTest: DeletePlaylist");
-    }
-
-    @Test
-    public void testInsertPlaylistChannel()
-    {
-        System.out.println("Starting AccessDataTest: InsertPlaylistChannel");
-        resultCh = new ChannelList();
+        // test retrieving the channels based from a playlist
+        accessData.getPlaylistChannelSequential(resultCh, playlist1);
+        assertTrue(resultCh.equals(playlistChannelList));
 
         // test inserting a channel into a playlist
         playlistChannelList.add(channelList.get(0));
@@ -304,49 +302,6 @@ public class AccessDataTest
         accessData.insertPlaylistChannel(channelList.get(0), playlist1);
         accessData.getPlaylistChannelSequential(resultCh, playlist1);
         assertTrue(playlistChannelList.equals(resultCh));
-
-        // test inserting channel into a non existent playlist
-        accessData.insertPlaylistChannel(channelList.get(0), playlist3);
-        accessData.getPlaylistChannelSequential(resultCh, playlist3);
-        playlistChannelList = new ChannelList();
-        assertTrue(playlistChannelList.equals(resultCh));
-
-        System.out.println("Finished AccessDataTest: InsertPlaylistChannel");
-    }
-
-    @Test
-    public void testInsertPlaylistEpisode()
-    {
-        System.out.println("Starting AccessDataTest: InsertPlaylistEpisode");
-        resultEp = new EpisodeList();
-
-        // test inserting an episode into a playlist
-        playlistEpisodesList.add(episodeList.get(1));
-        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
-        assertTrue(playlistEpisodesList.equals(resultEp));
-
-        // test inserting duplicate episode into a playlist
-        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
-        assertTrue(playlistEpisodesList.equals(resultEp));
-
-        // test inserting episode into a non existent playlist
-        accessData.insertPlaylistEpisode(episodeList.get(3), playlist4);
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
-        playlistEpisodesList = new EpisodeList();
-        assertTrue(resultEp.equals(playlistEpisodesList));
-
-        System.out.println("Finished AccessDataTest: InsertPlaylistEpisode");
-    }
-
-    @Test
-    public void testDeletePlaylistChannel()
-    {
-        System.out.println("Starting AccessDataTest: DeletePlaylistChannel");
-        resultCh = new ChannelList();
-
-        playlistChannelList.add(channelList.get(0));
 
         // test deleting a channel into a playlist
         playlistChannelList.remove(channelList.get(0));
@@ -360,16 +315,27 @@ public class AccessDataTest
         accessData.getPlaylistChannelSequential(resultCh, playlist3);
         playlistChannelList = new ChannelList();
         assertTrue(playlistChannelList.equals(resultCh));
-        System.out.println("Finished AccessDataTest: DeletePlaylistChannel");
-    }
 
-    @Test
-    public void testDeletePlaylistEpisode()
-    {
-        System.out.println("Starting AccessDataTest: DeletePlaylistEpisode");
-        resultEp = new EpisodeList();
+        // test inserting channel into a non existent playlist
+        accessData.insertPlaylistChannel(channelList.get(0), playlist3);
+        accessData.getPlaylistChannelSequential(resultCh, playlist3);
+        playlistChannelList = new ChannelList();
+        assertTrue(playlistChannelList.equals(resultCh));
 
+        // test retrieving the episodes based from a playlist
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
+        assertTrue(resultEp.equals(playlistEpisodesList));
+
+        // test inserting an episode into a playlist
         playlistEpisodesList.add(episodeList.get(1));
+        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
+        assertTrue(playlistEpisodesList.equals(resultEp));
+
+        // test inserting duplicate episode into a playlist
+        accessData.insertPlaylistEpisode(episodeList.get(1), playlist1);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
+        assertTrue(playlistEpisodesList.equals(resultEp));
 
         // test deleting an episode from a playlist
         playlistEpisodesList.remove(episodeList.get(1));
@@ -384,47 +350,29 @@ public class AccessDataTest
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
 
-        System.out.println("Finished AccessDataTest: DeletePlaylistEpisode");
-    }
+        // test inserting episode into a non existent playlist
+        accessData.insertPlaylistEpisode(episodeList.get(3), playlist4);
+        accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
+        playlistEpisodesList = new EpisodeList();
+        assertTrue(resultEp.equals(playlistEpisodesList));
 
-    @Test
-    public void testPlaylistChannelList()
-    {
-        System.out.println("Starting AccessDataTest: PlaylistChannelList");
-        resultCh = new ChannelList();
-
-        // test retrieving the channels based from a playlist
-        accessData.getPlaylistChannelSequential(resultCh, playlist1);
-        assertTrue(resultCh.equals(playlistChannelList));
-
-        // test retrieving the episodes based from a playlist that does not exist
+        // test retrieving the channels based from a playlist that does not exist
         accessData.getPlaylistChannelSequential(resultCh, playlist4);
         playlistChannelList = new ChannelList();
         assertTrue(resultCh.equals(playlistChannelList));
-        System.out.println("Finished AccessDataTest: PlaylistChannelList");
-    }
-
-    @Test
-    public void testPlaylistEpisodeList()
-    {
-        System.out.println("Starting AccessDataTest: PlaylistEpisodeList");
-        EpisodeList resultEp = new EpisodeList();
-
-        // test retrieving the episodes based from a playlist
-        accessData.getPlaylistEpisodeSequential(resultEp, playlist1);
-        assertTrue(resultEp.equals(playlistEpisodesList));
 
         // test retrieving the episodes based from a playlist that does not exist
         accessData.getPlaylistEpisodeSequential(resultEp, playlist4);
         playlistEpisodesList = new EpisodeList();
         assertTrue(resultEp.equals(playlistEpisodesList));
-        System.out.println("Finished AccessDataTest: PlaylistEpisodeList");
+
+        System.out.println("Finished AccessDataTest: PlaylistPersistence");
     }
 
     @Test
-    public void testInsertSub()
+    public void testSubPersistence()
     {
-        System.out.println("Starting AccessDataTest: InsertSub");
+        System.out.println("Starting AccessDataTest: SubPersistence");
         resultCh = new ChannelList();
 
         // test retrieving the subscriptions from the database
@@ -432,31 +380,20 @@ public class AccessDataTest
         assertTrue(resultCh.equals(subs));
 
         // test inserting a subscription
-        subs.add(channel4);
-        accessData.insertSub(channel4);
+        subs.add(channel3);
+        accessData.insertSub(channel3);
+        accessData.getSubSequential(resultCh);
+        assertTrue(resultCh.equals(subs));
+
+        // test deleting a subscription
+        subs.remove(channel3);
+        accessData.insertSub(channel3);
+        accessData.deleteSub(channel3);
         accessData.getSubSequential(resultCh);
         assertTrue(resultCh.equals(subs));
 
         // test inserting duplicate subscription
-        accessData.insertSub(channel4);
-        accessData.getSubSequential(resultCh);
-        assertTrue(resultCh.equals(subs));
-
-        System.out.println("Finished AccessDataTest: InsertSub");
-    }
-
-    @Test
-    public void testDeleteSub()
-    {
-        System.out.println("Starting AccessDataTest: DeleteSub");
-        resultCh = new ChannelList();
-
-        subs.add(channel4);
-
-        // test deleting a subscription
-        subs.remove(channel4);
-        accessData.insertSub(channel4);
-        accessData.deleteSub(channel4);
+        accessData.insertSub(channel2);
         accessData.getSubSequential(resultCh);
         assertTrue(resultCh.equals(subs));
 
@@ -464,26 +401,23 @@ public class AccessDataTest
         accessData.deleteSub(channel4);
         accessData.getSubSequential(resultCh);
         assertTrue(resultCh.equals(subs));
-        System.out.println("Finished AccessDataTest: DeleteSub");
+
+        System.out.println("Finished AccessDataTest: SubPersistence");
     }
 
-    private boolean comparePlaylistLists(ArrayList<Playlist> origPlaylist, ArrayList<Playlist> otherPlaylist)
+    private boolean comparePlaylistLists(ArrayList<Playlist> obj, ArrayList<Playlist> actual)
     {
-        Boolean result = false;
-        if (origPlaylist.size() == otherPlaylist.size())
-        {
-            result = true;
-            for ( int i = 0; i < origPlaylist.size(); i++ )
-            {
-                if ( !origPlaylist.get(i).equals(otherPlaylist.get(i)) )
-                {
-                    result = false;
-                    return result;
-                }
-            }
-        }
+        if (obj.size() == actual.size()) {
+            Iterator iter = actual.iterator();
 
-        return result;
+            while (iter.hasNext()) {
+                if (!obj.contains((Playlist) iter.next()))
+                    return false;
+            }
+        } else
+            return false;
+
+        return true;
     }
 
     @After

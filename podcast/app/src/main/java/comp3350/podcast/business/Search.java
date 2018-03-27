@@ -19,7 +19,8 @@ public class Search {
         LinkedList<WeightedEpNode> weightedList = new LinkedList<>();
         int l;
         int minL = key.length();
-        
+
+        // not the best way to sort
         for(Episode a : in)
         {
             l = matchHeuristic(a.getTitle(), key);
@@ -37,6 +38,8 @@ public class Search {
      * Creates a heuristic for the similarity between two strings using the length of
      * the longest common subsequence and substring
      *
+     * @param a - First string
+     * @param b - Second string
      * @return - int of the heuristic
      */
     public int matchHeuristic (String a, String b) {
@@ -100,7 +103,7 @@ class WeightedEpNode extends Episode implements Comparable<Object>
     {
         super(episode.getTitle(), episode.getUrl(), episode.getDesc(),
         episode.getLength(), episode.getChannel(), episode.getPublishDate(),
-            episode.getAuthor(), episode.getCategory(), episode.getEpNum());
+            episode.getAuthor(), episode.getCategory(), episode.getEpNum(),episode.getImg());
 
         this.episode = episode;
         this.weight = weight;

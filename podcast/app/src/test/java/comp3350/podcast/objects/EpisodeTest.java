@@ -19,10 +19,10 @@ public class EpisodeTest
         date = new Date(2015, 2, 24);
         channel = new Channel("Seafood Mania", "In Seafood Mania, all we talk about is seafood and only seafood.",
                 "https://seafoodmania.com/", date, "Joe Jones", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
+                "Jones Surfing Company", "jonesjoe@gmail.com", "");
         episode = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
                 "We talk about lobster and lobster only", 3900, channel, date, "Joe Jones",
-                "Food",13 );
+                "Food",13, "");
     }
 
     @Test
@@ -60,10 +60,10 @@ public class EpisodeTest
 
         Episode newEpisode = new Episode("Seafood Mania - Lobstah Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=19997",
                 "We talk about lobster and lobster only", 3900, channel, date, "Joe Jones",
-                "Food", 13);
+                "Food", 13, "");
         Episode anotherEpisode = new Episode("Seafood Mania - Crabs Madness", "http://traffic.libsyn.com/seafoodmania/p890.mp3?dest-id=11111",
                 "We talk about lobster and lobster only", 3900, channel, date, "Joe Jones",
-                "Food", 13);
+                "Food", 13, "");
 
         System.out.println("\nStarting EpisodeTest : compare by type");
         assertEquals(0, episode.compareTo("Seafood Mania - Lobstah Madness"));

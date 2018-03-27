@@ -8,6 +8,12 @@ import comp3350.podcast.application.Services;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.persistence.AccessData;
 
+/* Note to marker:
+* Android Studio marks most methods in the Access classes as "never used".
+* However, when removing them, we encounter some reference errors where the values
+* are actually used. While they could probably be removed with some work, we leave them in for safety.
+*/
+
 public class AccessChannels
 {
     private AccessData accessData;

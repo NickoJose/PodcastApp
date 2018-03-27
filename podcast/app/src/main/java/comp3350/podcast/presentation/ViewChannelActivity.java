@@ -5,17 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
+import comp3350.podcast.R;
 import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.business.AccessSubscriptions;
-import comp3350.podcast.objects.*;
-import comp3350.podcast.R;
+import comp3350.podcast.objects.Channel;
+import comp3350.podcast.objects.ChannelList;
 import comp3350.podcast.objects.Episode;
 
 public class ViewChannelActivity extends AppCompatActivity {
@@ -31,14 +30,10 @@ public class ViewChannelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_channel);
 
         accessEpisodes = new AccessEpisodes();
-        channel = (Channel)getIntent().getSerializableExtra("channel");
+        channel = (Channel) getIntent().getSerializableExtra("channel");
         eps = new ArrayList<>();
         epIds = new ArrayList<>();
-        accessEpisodes.getChannelEpisodes(eps,channel);
-
-//        Button homeBtn = (Button)findViewById(R.id.backToHome);
-//        homeBtn.setOnClickListener(homeBtnHandler);
-
+        accessEpisodes.getChannelEpisodes(eps, channel);
 
         updateText();
         populateList();
@@ -59,7 +54,7 @@ public class ViewChannelActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 AccessSubscriptions accessSubs = new AccessSubscriptions();
 
-                if(isChecked){
+                if (isChecked) {
                     accessSubs.insertSub(channel);
 
                 } else {
@@ -69,32 +64,17 @@ public class ViewChannelActivity extends AppCompatActivity {
         });
     }
 
-//    View.OnClickListener homeBtnHandler = new View.OnClickListener()
-//    {
-//        @Override
-//        public void onClick(View v)
-//        {
-//            Intent intent = new Intent(ViewChannelActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        }
-//    };
     /**
      * Populates episode ListView on GUI
      *
      * @return - void
      */
-    public void populateList()
-    {
+    public void populateList() {
 
-        LinearLayout list = (LinearLayout) findViewById(R.id.episode_list);
-
-        View.OnClickListener handler1 = new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        View.OnClickListener handler1 = new View.OnClickListener() {
+            public void onClick(View v) {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(ViewChannelActivity.this, ViewEpisodeActivity.class);
                     Bundle b = new Bundle();
@@ -104,7 +84,7 @@ public class ViewChannelActivity extends AppCompatActivity {
                 }
             }
         };
-        CardList.createEpisodeCardList(handler1,findViewById(R.id.episode_list),this,R.layout.card_search,eps,epIds);
+        CardList.createEpisodeCardList(handler1, findViewById(R.id.episode_list), this, R.layout.card_search, eps, epIds);
     }
 
     /**
@@ -112,16 +92,15 @@ public class ViewChannelActivity extends AppCompatActivity {
      *
      * @return - void
      */
-    public void updateText()
-    {
+    public void updateText() {
         TextView newText = (TextView) findViewById(R.id.channel_info);
 
-        newText.setText("Title:\t"+channel.getTitle()+"\n"
-                +"Author:\t"+channel.getAuthor()+"\n"
-                +"Category:\t"+channel.getCategory()+"\n"
-                +"Publish Date:\t"+channel.getPublishDate().toString()+"\n\n"
-                +channel.getDesc()+"\n\n"
-                +"Url:\t"+channel.getUrl());
+        newText.setText("Title:\t" + channel.getTitle() + "\n"
+                + "Author:\t" + channel.getAuthor() + "\n"
+                + "Category:\t" + channel.getCategory() + "\n"
+                + "Publish Date:\t" + channel.getPublishDate().toString() + "\n\n"
+                + channel.getDesc() + "\n\n"
+                + "Url:\t" + channel.getUrl());
 
 
     }

@@ -1,6 +1,7 @@
 package comp3350.podcast.presentation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -20,66 +22,6 @@ import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.ChannelList;
 
 class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.ChannelViewHolder> {
-    private ArrayList<Channel> channels;
-    private Activity parent;
-
-    public ChannelListAdapter(ArrayList<Channel> channels, Activity parent) {
-        this.channels = channels;
-        this.parent = parent;
-    }
-
-    @Override
-    public ChannelListAdapter.ChannelViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // create a new view
-        ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.channel_card, parent, false);
-
-        ChannelViewHolder vh = new ChannelViewHolder(constraintLayout);
-        return vh;
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(final ChannelViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-
-        final Channel ch = channels.get(position);
-
-        holder.titleView.setText(ch.getTitle());
-        holder.descriptionView.setText(ch.getDesc());
-        holder.episodeCountView.setText("" + ch.getNumEps());
-        holder.authorView.setText(ch.getAuthor());
-        holder.urlView.setText(ch.getUrl());
-        holder.channel = ch;
-
-        holder.channelLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent channelIntent = new Intent(parent.getApplicationContext(),ViewChannelActivity.class);
-                Bundle b = new Bundle();
-                b.putSerializable("channel",ch);
-                channelIntent.putExtras(b);
-                parent.startActivity(channelIntent);
-            }
-        });
-
-        holder.channelLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                holder.showPopupMenu(v);
-                return true;
-            }
-        });
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return channels.size();
-    }
-
     public class ChannelViewHolder extends RecyclerView.ViewHolder {
         public final ConstraintLayout channelLayout;
         public final TextView titleView;
@@ -88,6 +30,7 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
         public final TextView authorView;
         public final TextView urlView;
         public Channel channel = null;
+        public final ImageView imgView;
 
         public ChannelViewHolder(final ConstraintLayout channelLayout) {
             super(channelLayout);
@@ -97,6 +40,7 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
             episodeCountView = (TextView) channelLayout.findViewById(R.id.episodeCount);
             authorView = (TextView) channelLayout.findViewById(R.id.author);
             urlView = (TextView) channelLayout.findViewById(R.id.url);
+            imgView = (ImageView) channelLayout.findViewById(R.id.imageView2);
         }
 
         @Override
@@ -105,18 +49,22 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
         }
 
 
-        public void showPopupMenu(View v){
+        public void showPopupMenu(View v) {
             PopupMenu popupMenu = new PopupMenu(parent.getApplicationContext(), v);
 
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
 
-                    switch (item.getItemId()){
-                        case(R.id.subscribeToggleMenuItem):
+                    switch (item.getItemId()) {
+                        case (R.id.subscribeToggleMenuItem):
                             toggleSubscription();
+                            if(parent instanceof MainActivity){
+                                ((MainActivity)parent).updateSublist();
+                            }
                             return true;
-                        default: return false;
+                        default:
+                            return false;
                     }
                 }
             });
@@ -130,7 +78,7 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
             ChannelList list = new ChannelList();
             as.getSubs(list);
 
-            if(list.contains(channel)){
+            if (list.contains(channel)) {
                 item.setTitle("Unsubscribe");
             } else {
                 item.setTitle("Subscribe");
@@ -139,17 +87,87 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
             popupMenu.show();
         }
 
-        private void toggleSubscription(){
+        private void toggleSubscription() {
             AccessSubscriptions as = new AccessSubscriptions();
 
             ChannelList list = new ChannelList();
             as.getSubs(list);
 
-            if(list.contains(channel)){
+            if (list.contains(channel)) {
                 as.deleteSub(channel);
             } else {
                 as.insertSub(channel);
             }
         }
+    }
+
+    private ArrayList<Channel> channels;
+    private Activity parent;
+
+    public ChannelListAdapter(ArrayList<Channel> channels, Activity parent) {
+        this.channels = channels;
+        this.parent = parent;
+    }
+
+    @Override
+    public ChannelListAdapter.ChannelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // create a new view
+        ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.channel_card, parent, false);
+
+        ChannelViewHolder vh = new ChannelViewHolder(constraintLayout);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(final ChannelViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+
+        final Channel ch = channels.get(position);
+        Context context = holder.imgView.getContext();
+
+        holder.titleView.setText(ch.getTitle());
+        holder.descriptionView.setText(ch.getDesc());
+        holder.episodeCountView.setText("" + ch.getNumEps());
+        holder.authorView.setText(ch.getAuthor());
+        holder.urlView.setText(ch.getUrl());
+        int imgID = context.getResources().getIdentifier(ch.getImg(), "drawable", context.getPackageName());
+        holder.imgView.setImageResource(imgID);
+
+        holder.channel = ch;
+
+
+        holder.channelLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent channelIntent = new Intent(parent.getApplicationContext(), ViewChannelActivity.class);
+
+                holder.channelLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent channelIntent = new Intent(parent.getApplicationContext(), ViewChannelActivity.class);
+                        Bundle b = new Bundle();
+                        b.putSerializable("channel", ch);
+                        channelIntent.putExtras(b);
+                        parent.startActivity(channelIntent);
+                    }
+                });
+
+                holder.channelLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        holder.showPopupMenu(v);
+                        return true;
+                    }
+                });
+
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return channels.size();
     }
 }

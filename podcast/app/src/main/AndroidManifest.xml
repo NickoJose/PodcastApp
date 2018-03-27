@@ -22,21 +22,10 @@
             android:name=".presentation.PlayContentActivity"
             android:label="@string/title_activity_play_content"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainAcrivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
         <activity
             android:name=".presentation.SearchableActivity"
             android:label="@string/title_activity_searchable"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".presentation.PlaylistActivity" />
-        <activity android:name=".presentation.AddToPlaylistActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
