@@ -35,7 +35,7 @@ public class SubscriptionTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.finishOpenedActivities();
 	}
 
-	
+
 	public void testSubscriptionFromChannelPage()
 	{
 		solo.waitForActivity("MainActivity");

@@ -13,6 +13,7 @@ public class AcceptanceTests
         suite.addTestSuite(MainTest.class);
         suite.addTestSuite(SearchTest.class);
         suite.addTestSuite(PlaylistTest.class);
+        suite.addTestSuite(SubscriptionTest.class);
         return suite;
     }
 }
