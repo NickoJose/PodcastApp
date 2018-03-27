@@ -126,7 +126,7 @@ public class StubData implements AccessData {
         playlists.get(1).addEpisode(episodes.get(4));
         playlists.get(1).addEpisode(episodes.get(5));
 
-        subs.add(channels.get(0));
+        subs.add(channels.get(1));
 
         System.out.println("Opened " +dbType +" database " +dbName);
     }
