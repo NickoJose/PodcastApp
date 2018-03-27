@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -52,7 +53,6 @@ public class PlayContentActivity extends AppCompatActivity {
                     seekbar.setProgress(0);
                 }
 
-
                 updateScreen();
             }
         });
@@ -80,7 +80,9 @@ public class PlayContentActivity extends AppCompatActivity {
 
         });
 
-
+        ImageView imgView = (ImageView)findViewById(R.id.imageView3);
+        int imgID = getResources().getIdentifier(ep.getImg(),"drawable",getPackageName());
+        imgView.setImageResource(imgID);
         handler.post(handlerTimer);
     }
 

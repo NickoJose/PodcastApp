@@ -19,13 +19,11 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
     private ArrayList<Episode> episodes;
     private Activity parent;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
     public EpisodeListAdapter(ArrayList<Episode> episodes, Activity parent) {
         this.episodes = episodes;
         this.parent = parent;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public EpisodeViewHolder onCreateViewHolder(ViewGroup parent,
                                                 int viewType) {
@@ -37,7 +35,6 @@ class EpisodeListAdapter extends RecyclerView.Adapter<EpisodeListAdapter.Episode
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(EpisodeViewHolder holder, int position) {
         // - get element from your dataset at this position

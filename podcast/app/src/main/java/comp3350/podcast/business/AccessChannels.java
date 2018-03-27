@@ -8,6 +8,12 @@ import comp3350.podcast.application.Services;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.persistence.AccessData;
 
+/* Note to marker:
+* Android Studio marks most methods in the Access classes as "never used".
+* However, when removing them, we encounter some reference errors where the values
+* are actually used. While they could probably be removed with some work, we leave them in for safety.
+*/
+
 public class AccessChannels
 {
     private AccessData accessData;
@@ -49,5 +55,41 @@ public class AccessChannels
     {
         Sort.channel((ArrayList<Channel>)channels, type);
         return null;
+    }
+
+    /**
+     * Inserts channel into database.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - the channel we are inserting
+     * @return - null. This pattern was taken from sample project
+     */
+    public String insertChannel(Channel currentChannel)
+    {
+        return accessData.insertChannel(currentChannel);
+    }
+
+    /**
+     * Deletes a given channel from the database
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - the channel being removed from the database
+     * @return - null. This pattern was taken from sample project
+     */
+    public String deleteChannel(Channel currentChannel)
+    {
+        return accessData.deleteChannel(currentChannel);
+    }
+
+    /**
+     * Updates a channel in the database with a new version. Must have same title and URL to identify channel being updated.
+     * The input/output follows a design pattern from the sample project.
+     *
+     * @param currentChannel - channel being updated
+     * @return - null. This pattern was taken from sample project
+     */
+    public String updateChannel(Channel currentChannel)
+    {
+        return accessData.updateChannel(currentChannel);
     }
 }

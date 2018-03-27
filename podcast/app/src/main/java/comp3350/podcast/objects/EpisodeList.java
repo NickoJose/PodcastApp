@@ -1,8 +1,6 @@
 package comp3350.podcast.objects;
-import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class EpisodeList extends ArrayList<Episode> {
 

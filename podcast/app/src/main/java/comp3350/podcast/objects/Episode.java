@@ -14,10 +14,11 @@ public class Episode extends DescribedObject implements Serializable {
     private String author;
     private String category; // AKA genre
     private int epNum; //episode number
+    private String img;
 
     public Episode(String title, String url, String desc,
                    int length, Channel ch,Date publishDate,
-                   String author, String category,int epNum)
+                   String author, String category,int epNum, String img)
     {
         this.title = title;
         this.url = url;
@@ -29,6 +30,7 @@ public class Episode extends DescribedObject implements Serializable {
         this.category = category;
         this.epNum = epNum;
         this.timeStamp = 0;
+        this.img = img;
     }
 
 //================================ GETTERS ==========================================//
@@ -43,24 +45,10 @@ public String getAuthor(){return author;}
 public String getCategory(){return category;}
 public int getEpNum(){return epNum;}
 public int getTimeStamp(){return timeStamp;}
+public String getImg(){return img;}
 
 
 //================================ SETTERS ==========================================//
-    
-    /**
-     * Manually set a reference to the channel this episode was posted under
-     * 
-     * @param ch  - Channel reference being paired to episode
-     * @return Returns true on success.
-     */
-    public boolean setChannel(Channel ch) {
-        boolean result = false;
-        if (ch != null) {
-            this.ch = ch;
-            result = true;
-        }
-        return result;
-    }
 
    /**
      * Sets the time stamp as a percentage of completion
@@ -78,7 +66,7 @@ public int getTimeStamp(){return timeStamp;}
     /**
      * Sets the time stamp as the number of seconds this episode as been playing for
      *
-     * @param t - Percent complete that episode is
+     * @param i - Percent complete that episode is
      * @return void
      */
     public void setTimeStampInt(int i){
