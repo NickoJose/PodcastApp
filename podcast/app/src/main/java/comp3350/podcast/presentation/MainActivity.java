@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static Context context = null;
 
+    private boolean displayingSubs = false;
+
     public static Context getContext() {
         return context;
     }
@@ -235,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
      * @return - void
      */
     private void displayAllChannels() {
+        displayingSubs = false;
         accessChannels.getChannels(chList);
         recyclerView.setAdapter(new ChannelListAdapter(chList, this));
     }
@@ -245,6 +248,8 @@ public class MainActivity extends AppCompatActivity {
      * @return - void
      */
     private void displaySubscribedChannels() {
+        displayingSubs = true;
+
         String result = accessSubs.getSubs(chList);
         if (result == null)
             recyclerView.setAdapter(new ChannelListAdapter(chList, this));
@@ -258,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
      * @return - void
      */
     private void displayAllEpisodes() {
+        displayingSubs = false;
         ArrayList<Episode> eps = new ArrayList<>();
         accessEpisodes.getEpisodes(eps);
 
@@ -327,5 +333,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateSublist();
+    }
 
+    public void updateSublist() {
+        if (displayingSubs) {
+            recyclerView.removeAllViews();
+            displaySubscribedChannels();
+        }
+    }
 }
