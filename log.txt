@@ -1,4 +1,4 @@
-Team Meetings
+﻿Team Meetings
 January 23, 2018 - Decided on which big user story to focus on first. Divided the big user story into developer tasks.
 January 25, 2018 - Continuation of dividing story into developer tasks. Assigned the developer tasks to the members of the group.
 January 30, 2018 - Clarification of the goals and due dates of each developer tasks. Conversation about the methods a class should have.
@@ -19,6 +19,10 @@ February 7, 2018 - Made home page use domain specific objects to build content f
 March 7, 2018 - Implemented search activity. - 4 hours.
 March 8, 2018 - Add search algorithm to business class and started writing tests. - 3 hours.
 March 10, 2018 - Abstracted comparisons between channel and episode objects, improved search results. - 3 hours.
+March 24, 2018 - Setup handlers for playlists on main activity. - 3hours.
+March 25, 2018 - Add sql querry to populate playlists, Add creation of persistant playlists. - 3 hours.
+March 26, 2018 - Add removale of playlists, Add ability to add episodes to playlists. - 3 hours.
+March 27, 2018 - Merged GUIPlaylist again. - 4 hours.
 
 Log Entry - Mike Reimer
 February 4-10 2018 - Early/Mid work on playContent user story.
