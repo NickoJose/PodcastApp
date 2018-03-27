@@ -16,7 +16,7 @@ public class PlayContentActivity extends AppCompatActivity {
 
     SeekBar seekbar;
     Episode ep;
-    boolean isPaused = true;
+    boolean isPaused = false;
     Handler handler = new Handler();
     private Runnable handlerTimer = new Runnable(){
         @Override
