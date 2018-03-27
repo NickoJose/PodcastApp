@@ -91,7 +91,7 @@ public class SubscriptionTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.searchText("Unsubscribe");
 		solo.clickOnText("Unsubscribe");
 
-		solo.clickOnButton("Subscribed \nChannels");
+		//solo.clickOnButton("Subscribed \nChannels");
 		Assert.assertTrue( !(solo.searchText("The Joe Rogan Experience")) );
 	}
 }
