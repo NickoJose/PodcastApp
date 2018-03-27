@@ -59,7 +59,7 @@ public class AccessSubscriptionsTest
 
 
         subs = new ChannelList();
-        subs.add(channel1);
+        subs.add(channel2);
     }
 
     @Test
