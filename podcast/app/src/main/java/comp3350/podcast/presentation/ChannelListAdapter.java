@@ -59,8 +59,8 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
                     switch (item.getItemId()) {
                         case (R.id.subscribeToggleMenuItem):
                             toggleSubscription();
-                            if(parent instanceof MainActivity){
-                                ((MainActivity)parent).updateSublist();
+                            if (parent instanceof MainActivity) {
+                                ((MainActivity) parent).updateSublist();
                             }
                             return true;
                         default:
@@ -143,25 +143,20 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
             public void onClick(View v) {
                 Intent channelIntent = new Intent(parent.getApplicationContext(), ViewChannelActivity.class);
 
-                holder.channelLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent channelIntent = new Intent(parent.getApplicationContext(), ViewChannelActivity.class);
-                        Bundle b = new Bundle();
-                        b.putSerializable("channel", ch);
-                        channelIntent.putExtras(b);
-                        parent.startActivity(channelIntent);
-                    }
-                });
+                Bundle b = new Bundle();
+                b.putSerializable("channel", ch);
+                channelIntent.putExtras(b);
+                parent.startActivity(channelIntent);
 
-                holder.channelLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        holder.showPopupMenu(v);
-                        return true;
-                    }
-                });
 
+            }
+        });
+
+        holder.channelLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                holder.showPopupMenu(v);
+                return true;
             }
         });
     }
