@@ -15,9 +15,9 @@ import comp3350.podcast.objects.Playlist;
 
 public class ObjectData implements AccessData
 {
-    private Statement st1, st2, st3, stTemp;
+    private Statement st1, st2, st3;
     private Connection c1;
-    private ResultSet rs2, rs3, rs4, rs5, rsTemp;
+    private ResultSet rs2, rs3, rs4, rs5;
 
     private String dbName;
     private String dbType;
@@ -45,7 +45,6 @@ public class ObjectData implements AccessData
             st1 = c1.createStatement();
             st2 = c1.createStatement();
             st3 = c1.createStatement();
-            stTemp = c1.createStatement();
         }
         catch (Exception e)
         {
@@ -84,8 +83,9 @@ public class ObjectData implements AccessData
      */
     public String getChannelSequential(List<Channel> channelResult)
     {
+        channelResult.clear();
         Channel channel;
-        String myTitle, myDesc, myUrl, myAuthor, myCategory, myOwner, myOwnerEmail;
+        String myTitle, myDesc, myUrl, myAuthor, myCategory, myOwner, myOwnerEmail, img;
         Date myPublishDate = new Date();
         String date;
         String[] tokens;
@@ -106,6 +106,7 @@ public class ObjectData implements AccessData
                 myCategory = rs2.getString("Category");
                 myOwner = rs2.getString("Owner");
                 myOwnerEmail = rs2.getString("OwnerEmail");
+                img = rs2.getString("Image");
 
                 tokens = date.split(" ");
                 if (tokens.length == 3)
@@ -113,7 +114,7 @@ public class ObjectData implements AccessData
                     myPublishDate = new Date(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
                 }
 
-                channel = new Channel(myTitle, myDesc, myUrl, myPublishDate, myAuthor, myCategory, myOwner, myOwnerEmail);
+                channel = new Channel(myTitle, myDesc, myUrl, myPublishDate, myAuthor, myCategory, myOwner, myOwnerEmail, img);
                 channelResult.add(channel);
             }
             rs2.close();
@@ -135,8 +136,9 @@ public class ObjectData implements AccessData
      */
     public String getEpisodesSequential(List<Episode> episodeResult)
     {
+        episodeResult.clear();
         Episode episode;
-        String myTitle, myUrl, myDesc, myAuthor, myCategory;
+        String myTitle, myUrl, myDesc, myAuthor, myCategory, img;
         int myLength, myEpNum;
         Channel myCh;
         Date myPublishDate = new Date();
@@ -161,6 +163,7 @@ public class ObjectData implements AccessData
                 myAuthor = rs5.getString("Author");
                 myCategory = rs5.getString("Category");
                 myEpNum = rs5.getInt("EpNum");
+                img = rs5.getString("Image");
 
                 tokens = date.split(" ");
                 if (tokens.length == 3)
@@ -170,7 +173,7 @@ public class ObjectData implements AccessData
 
                 myCh = getChannelInfo(chTitle);
 
-                episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum);
+                episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum, img);
                 episodeResult.add(episode);
             }
             rs5.close();
@@ -345,9 +348,10 @@ public class ObjectData implements AccessData
      */
     public String getChannelEpisodeSequential(List<Episode> episodeResult, Channel currentChannel)
     {
+        episodeResult.clear();
         String channelTitle = currentChannel.getTitle();
         Episode episode;
-        String myTitle, myUrl, myDesc, myAuthor, myCategory;
+        String myTitle, myUrl, myDesc, myAuthor, myCategory, img;
         int myLength, myEpNum;
         Channel myCh;
         Channel ch;
@@ -376,6 +380,7 @@ public class ObjectData implements AccessData
                     myAuthor = rs5.getString("Author");
                     myCategory = rs5.getString("Category");
                     myEpNum = rs5.getInt("EpNum");
+                    img = rs5.getString("Image");
 
                     tokens = date.split(" ");
                     if (tokens.length == 3)
@@ -385,7 +390,7 @@ public class ObjectData implements AccessData
 
                     myCh = getChannelInfo(chTitle);
 
-                    episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum);
+                    episode = new Episode(myTitle, myUrl, myDesc, myLength, myCh, myPublishDate, myAuthor, myCategory, myEpNum, img);
                     episodeResult.add(episode);
                 }
                 rs5.close();
@@ -408,6 +413,7 @@ public class ObjectData implements AccessData
      */
     public String getPlaylistSequential(List<Playlist> playlistResult)
     {
+        playlistResult.clear();
         Playlist playlist;
         String myName;
 
@@ -421,14 +427,6 @@ public class ObjectData implements AccessData
             {
                 myName = rs4.getString("Name");
                 playlist = new Playlist(myName);
-
-                cmdString = "SELECT * from EPISODELIST WHERE Name = '"+playlist.getName()+"'";
-                rsTemp = stTemp.executeQuery(cmdString);
-               while (rsTemp.next()) {
-                   myName = rsTemp.getString("Title");
-                   playlist.addEpisode(getEpisodeInfo(myName));
-                }
-
                 playlistResult.add(playlist);
             }
         }
@@ -450,6 +448,7 @@ public class ObjectData implements AccessData
      */
     public String getPlaylistChannelSequential(List<Channel> channelResult, Playlist currentPlaylist)
     {
+        channelResult.clear();
         Channel myCh;
         String playlistName = currentPlaylist.getName();
         String chTitle;
@@ -485,6 +484,7 @@ public class ObjectData implements AccessData
      */
     public String getPlaylistEpisodeSequential(List<Episode> episodeResult, Playlist currentPlaylist)
     {
+        episodeResult.clear();
         Episode myEp;
         String playlistName = currentPlaylist.getName();
         String epTitle;
@@ -593,8 +593,7 @@ public class ObjectData implements AccessData
         boolean success = false;
         boolean found;
 
-        found = getPlaylistChannelInfo(currentChannel.getTitle(), currentPlaylist);
-        if (!found) // does not exist in the database
+        if (!getPlaylistChannelInfo(currentChannel.getTitle(), currentPlaylist) && getPlaylistInfo(currentPlaylist.getName()) != null) // does not exist in the database
         {
             try
             {
@@ -628,8 +627,7 @@ public class ObjectData implements AccessData
         boolean success = false;
         boolean found;
 
-        found = getPlaylistEpisodeInfo(currentEpisode.getTitle(), currentPlaylist);
-        if (!found) // does not exist in the database
+        if (!getPlaylistEpisodeInfo(currentEpisode.getTitle(), currentPlaylist) && getPlaylistInfo(currentPlaylist.getName()) != null) // does not exist in the database
         {
             try
             {
@@ -715,6 +713,7 @@ public class ObjectData implements AccessData
      */
     public String getSubSequential(List<Channel> channelResult)
     {
+        channelResult.clear();
         Channel myCh;
         String chTitle;
 

@@ -19,10 +19,7 @@ public class CardViewPC extends CardView{
     public void setWhoDis(String whoDis){
         this.whoDis = whoDis;
     }
-    public String getWhoDis()
-    {
-        return whoDis;
-    }
+
     public void setEp(Episode episode) { this.obj = episode; }
     public void setCh(Channel channel) { this.obj = channel; }
     public Episode getEp()
@@ -33,19 +30,5 @@ public class CardViewPC extends CardView{
     {
         return (Channel)obj;
     }
-
-    public DescribedObject getObj()
-    {
-        if(obj instanceof Episode)
-        {
-            return getEp();
-        }
-        else
-        {
-            return getCh();
-        }
-    }
-
-
 
 }

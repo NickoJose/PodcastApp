@@ -18,7 +18,7 @@ public class ChannelTest
         date = new Date(2015, 3,12);
         channel = new Channel("Seafood Mania", "In Seafood Mania, all we talk about is seafood and only seafood.",
                 "https://seafoodmania.com/", date, "Joe Jones", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
+                "Jones Surfing Company", "jonesjoe@gmail.com", "");
     }
 
     @Test
@@ -46,10 +46,10 @@ public class ChannelTest
         Date dateBefore = new Date(2006, 5, 3);
         Channel newChannel = new Channel("Seafood Mania", "Food, food.",
                 "https://seafoodmania.com/", date, "Mack Mack", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
+                "Jones Surfing Company", "jonesjoe@gmail.com", "");
         Channel anotherChannel = new Channel("Seafood Mania", "I got none",
                 "https://loophole.com/", date, "Joe Jones", "Food",
-                "Jones Surfing Company", "jonesjoe@gmail.com");
+                "Jones Surfing Company", "jonesjoe@gmail.com", "");
 
         System.out.println("\nStarting ChannelTest : compare by type");
 

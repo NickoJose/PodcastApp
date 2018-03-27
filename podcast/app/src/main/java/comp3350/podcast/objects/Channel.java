@@ -8,6 +8,7 @@ public class Channel extends DescribedObject implements Serializable{
     private String title;
     private String desc;
     private String url;
+    private String img;
     private Episode lastPlayed;
     private int numEps;
     private Date publishDate;
@@ -19,7 +20,7 @@ public class Channel extends DescribedObject implements Serializable{
 
     public Channel(String title , String desc, String url,
                    Date publishDate, String author, String category,
-                   String owner, String ownerEmail)
+                   String owner, String ownerEmail, String img)
     {
         this.title = title;
         this.desc = desc;
@@ -32,6 +33,7 @@ public class Channel extends DescribedObject implements Serializable{
         this.numEps = 0;
         this.lastPlayed = null;
         this.lastUpdate = new Date();
+        this.img = img;
     }
 
     //================================ GETTERS ==========================================//
@@ -43,9 +45,9 @@ public class Channel extends DescribedObject implements Serializable{
     public String getCategory(){return category;}
     public String getOwner(){return owner;}
     public String getOwnerEmail(){return ownerEmail;}
-    public Episode getLastPlayed(){return lastPlayed;}
     public int getNumEps(){return numEps;}
     public Date getLastUpdate(){return lastUpdate;}
+    public String getImg(){return img;}
 
     
     /**

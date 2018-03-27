@@ -1,13 +1,19 @@
 package comp3350.podcast.presentation;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import comp3350.podcast.business.AccessEpisodes;
@@ -33,23 +39,15 @@ public class ViewChannelActivity extends AppCompatActivity {
         epIds = new ArrayList<>();
         accessEpisodes.getChannelEpisodes(eps,channel);
 
-//        Button homeBtn = (Button)findViewById(R.id.backToHome);
-//        homeBtn.setOnClickListener(homeBtnHandler);
-
-
         updateText();
         populateList();
+
+        ImageView imgView = (ImageView)findViewById(R.id.viewChannel_imageView);
+        int imgID = getResources().getIdentifier(channel.getImg(),"drawable",getPackageName());
+        imgView.setImageResource(imgID);
+
     }
 
-//    View.OnClickListener homeBtnHandler = new View.OnClickListener()
-//    {
-//        @Override
-//        public void onClick(View v)
-//        {
-//            Intent intent = new Intent(ViewChannelActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        }
-//    };
     /**
      * Populates episode ListView on GUI
      *
@@ -58,15 +56,12 @@ public class ViewChannelActivity extends AppCompatActivity {
     public void populateList()
     {
 
-        LinearLayout list = (LinearLayout) findViewById(R.id.episode_list);
-
         View.OnClickListener handler1 = new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(ViewChannelActivity.this, ViewEpisodeActivity.class);
                     Bundle b = new Bundle();
