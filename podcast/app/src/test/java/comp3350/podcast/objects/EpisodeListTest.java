@@ -42,15 +42,15 @@ public class EpisodeListTest {
 
         ch1 = new Channel("The Joe Rogan Experience", "The Joe Rogan Experience podcast is a long form conversation hosted by comedian, " +
                 "UFC color commentator, and actor Joe Rogan with friends and guests that have included comedians, actors, musicians, MMA instructors and " +
-                "commentators, authors, artists, and porn stars.", "http://joerogan.net/podcasts/", chDate1, "Joe Rogan", "Comedy", "Brian Redban", "BOOKDEATHSQUAD@GMAIL.COM");
+                "commentators, authors, artists, and porn stars.", "http://joerogan.net/podcasts/", chDate1, "Joe Rogan", "Comedy", "Brian Redban", "BOOKDEATHSQUAD@GMAIL.COM", "");
 
         ep1 = new Episode("JRE MMA Show #10 with Tyron Woodley", "http://traffic.libsyn.com/joeroganexp/mmashow010.mp3?dest-id=19997",
-                "Joe Rogan sits down with UFC Welterweight Champion Tyron Woodley", 6120, ch1, epDate1, "Joe Rogan", "Sports", 10);
+                "Joe Rogan sits down with UFC Welterweight Champion Tyron Woodley", 6120, ch1, epDate1, "Joe Rogan", "Sports", 10, "");
         ep2 = new Episode("#990 - Jamie Foxx", "http://traffic.libsyn.com/joeroganexp/p990.mp3?dest-id=19997",
                 "Jamie Foxx is an Academy Award winning actor, singer, and comedian. He can currently be seen hosting \"Beat Shazam\" on Fox and " +
-                        "in the movie \"Baby Driver\" in theaters now.", 4080, ch1, epDate2, "Joe Rogan", "Comedy", 990);
+                        "in the movie \"Baby Driver\" in theaters now.", 4080, ch1, epDate2, "Joe Rogan", "Comedy", 990, "");
         ep3 = new Episode("#890 - Fight Breakdown", "http://traffic.libsyn.com/joeroganexp/p890.mp3?dest-id=19997",
-                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 13740, ch1 , epDate3, "Joe Rogan", "Sports", 890);
+                "Joe sits down with Eddie Bravo & Brendan Schaub to discuss upcoming fights in MMA", 13740, ch1 , epDate3, "Joe Rogan", "Sports", 890, "");
 
         list = new EpisodeList();
     }
@@ -236,9 +236,9 @@ public class EpisodeListTest {
 
         EpisodeList results;
 
-        ep1 = new Episode("ep1", "", "", 0, null, first, "", "", 0);
-        ep2 = new Episode("ep2", "", "", 0, null, second, "", "", 0);
-        ep3 = new Episode("ep3", "", "", 0, null, third, "", "", 0);
+        ep1 = new Episode("ep1", "", "", 0, null, first, "", "", 0, "");
+        ep2 = new Episode("ep2", "", "", 0, null, second, "", "", 0, "");
+        ep3 = new Episode("ep3", "", "", 0, null, third, "", "", 0, "");
 
         list.add(ep1);
         list.add(ep2);
