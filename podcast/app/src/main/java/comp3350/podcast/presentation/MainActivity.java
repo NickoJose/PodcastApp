@@ -166,9 +166,11 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener searchHandler = new View.OnClickListener() {
         public void onClick(View v) {
 
-            TextInputLayout text = findViewById(R.id.searchString);
+            //TextInputLayout text = findViewById(R.id.searchString);
+            EditText text = findViewById(R.id.searchString);
 
-            String searchString = text.getEditText().getText().toString();
+            //String searchString = text.getEditText().getText().toString();
+            String searchString = text.getText().toString();
 
             //Toast.makeText(getApplicationContext(), "You clicked search"+searchString, Toast.LENGTH_LONG).show();
 
@@ -413,6 +415,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     protected void onResume() {
