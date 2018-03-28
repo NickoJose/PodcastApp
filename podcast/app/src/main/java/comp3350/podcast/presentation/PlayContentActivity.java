@@ -86,7 +86,11 @@ public class PlayContentActivity extends AppCompatActivity {
         handler.post(handlerTimer);
     }
 
-
+    /**
+     * Updates time and progress bar displays
+     *
+     * @return - void
+     */
     private void timerAction(){
         if(!isPaused){
             ep.incTimeStamp();
@@ -98,6 +102,11 @@ public class PlayContentActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates the buttons text - either "Play" or "Pause" depending on state
+     *
+     * @return - void
+     */
     private void updateScreen(){
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(ep.getTitle());

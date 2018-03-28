@@ -24,10 +24,6 @@ public class SearchTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	public void setUp() throws Exception
 	{
 		solo = new Solo(getInstrumentation(), getActivity());
-		
-		// Disable this for full acceptance test
-		// System.out.println("Injecting stub database.");
-		// Services.createDataAccess(new DataAccessStub(Main.dbName));
 	}
 	
 	@Override
@@ -35,8 +31,6 @@ public class SearchTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	{
 		solo.finishOpenedActivities();
 	}
-
-
 
 	public void testSearch()
 	{

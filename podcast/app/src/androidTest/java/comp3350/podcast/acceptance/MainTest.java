@@ -40,10 +40,6 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	public void setUp() throws Exception
 	{
 		solo = new Solo(getInstrumentation(), getActivity());
-		
-		// Disable this for full acceptance test
-		// System.out.println("Injecting stub database.");
-		// Services.createDataAccess(new DataAccessStub(Main.dbName));
 	}
 	
 	@Override
@@ -93,8 +89,6 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
         solo.sleep(3000);
         solo.clickOnButton("Pause");
 
-
-
 	}
 
 	public void testRecommended()
@@ -106,7 +100,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		//make sure keyboard isn't hiding the scrolling action
 		solo.sleep(1500);
 
-		//not necessary for Robotium to find an episode but showcases scrolling
+		//not necessary for Robotium to find an episode but simulates what a user would do
 		View sv = (View)solo.getView(R.id.horizontalScrollView);
 		solo.scrollViewToSide(sv,solo.RIGHT);
 

@@ -48,7 +48,12 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
             return super.toString() + " '" + titleView.getText() + "'";
         }
 
-
+        /**
+         * Displays a popup menu for subscribing/unsubscribing to/from a channel
+         *
+         * @param v - the channel
+         * @return - void
+         */
         public void showPopupMenu(View v) {
             PopupMenu popupMenu = new PopupMenu(parent.getApplicationContext(), v);
 
@@ -87,6 +92,11 @@ class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.Channel
             popupMenu.show();
         }
 
+        /**
+         * Toggles a channels status as subscribed/unsubscribed
+         *
+         * @return - void
+         */
         private void toggleSubscription() {
             AccessSubscriptions as = new AccessSubscriptions();
 

@@ -64,10 +64,6 @@ public class ViewEpisodeActivity extends AppCompatActivity {
         chName = ep.getChannelTitle();
         ch = ep.getChannel();
 
-        //Just us the back button that is part of the base android UI (little triangle)
-//        Button channelButton = findViewById(R.id.back_to_channel);
-//        channelButton.setOnClickListener(backToChannel);
-
         Button playButton = findViewById(R.id.play);
         playButton.setOnClickListener(play);
 
@@ -76,9 +72,6 @@ public class ViewEpisodeActivity extends AppCompatActivity {
         ImageView imgView = (ImageView)findViewById(R.id.viewEpisode_thumbnail);
         int imgID = getResources().getIdentifier(ep.getImg(),"drawable",getPackageName());
         imgView.setImageResource(imgID);
-
-//        Button homeBtn = (Button)findViewById(R.id.backToHome);
-//        homeBtn.setOnClickListener(homeBtnHandler);
 
         Button addToBtn = findViewById(R.id.addToPlayL);
         addToBtn.setOnClickListener(addtoBtnHandler);
@@ -98,27 +91,6 @@ public class ViewEpisodeActivity extends AppCompatActivity {
             }
         };
     }
-//
-//    View.OnClickListener homeBtnHandler = new View.OnClickListener()
-//    {
-//        @Override
-//        public void onClick(View v)
-//        {
-//            Intent intent = new Intent(ViewEpisodeActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        }
-//    };
-//
-//    View.OnClickListener backToChannel = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Intent channelIntent = new Intent(ViewEpisodeActivity.this,ViewChannelActivity.class);
-//            Bundle b = new Bundle();
-//            b.putSerializable("channel",ch);
-//            channelIntent.putExtras(b);
-//            startActivity(channelIntent);
-//        }
-//    };
 
     /**
      * Updates text on the episode view, according to the latest object state.
@@ -145,13 +117,10 @@ public class ViewEpisodeActivity extends AppCompatActivity {
         newText.setText(""+desc);//crashes without concat for some reason
     }
 
-
-
     View.OnClickListener play = new View.OnClickListener() {
         ///@Override
         public void onClick(View v) {
             tryPlay(v);
         }
     };
-
 }

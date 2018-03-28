@@ -10,7 +10,6 @@ import comp3350.podcast.objects.Channel;
 
 public class CardViewPC extends CardView{
     private String whoDis;
-    //private Episode episode;
     private DescribedObject obj;
     public CardViewPC(Context context) {super(context);}
     public CardViewPC(Context context, AttributeSet attrs) {super(context, attrs);}

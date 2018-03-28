@@ -23,10 +23,6 @@ public class SubscriptionTest extends ActivityInstrumentationTestCase2<MainActiv
 	public void setUp() throws Exception
 	{
 		solo = new Solo(getInstrumentation(), getActivity());
-		
-		// Disable this for full acceptance test
-		// System.out.println("Injecting stub database.");
-		// Services.createDataAccess(new DataAccessStub(Main.dbName));
 	}
 	
 	@Override
@@ -91,7 +87,6 @@ public class SubscriptionTest extends ActivityInstrumentationTestCase2<MainActiv
 		solo.searchText("Unsubscribe");
 		solo.clickOnText("Unsubscribe");
 
-		//solo.clickOnButton("Subscribed \nChannels");
 		Assert.assertTrue( !(solo.searchText("The Joe Rogan Experience")) );
 	}
 }

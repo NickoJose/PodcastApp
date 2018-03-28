@@ -19,8 +19,6 @@ import comp3350.podcast.business.AccessEpisodes;
 import comp3350.podcast.business.AccessSubscriptions;
 import comp3350.podcast.objects.Channel;
 import comp3350.podcast.objects.ChannelList;
-import comp3350.podcast.objects.*;
-import comp3350.podcast.R;
 import comp3350.podcast.objects.Episode;
 
 public class ViewChannelActivity extends AppCompatActivity {
@@ -57,9 +55,6 @@ public class ViewChannelActivity extends AppCompatActivity {
 
         subBtn.setChecked(subs.contains(channel));
 
-//        Button homeBtn = (Button)findViewById(R.id.backToHome);
-//        homeBtn.setOnClickListener(homeBtnHandler);
-
         subBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                               @Override
                                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -72,21 +67,9 @@ public class ViewChannelActivity extends AppCompatActivity {
                                                       accessSubs.deleteSub(channel);
                                                   }
 
-
-                                                  // updateText();
-                                                  // populateList();
                                               }
                                           });}
 
-//    View.OnClickListener homeBtnHandler = new View.OnClickListener()
-//    {
-//        @Override
-//        public void onClick(View v)
-//        {
-//            Intent intent = new Intent(ViewChannelActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        }
-//    };
     /**
      * Populates episode ListView on GUI
      *
@@ -94,16 +77,12 @@ public class ViewChannelActivity extends AppCompatActivity {
      */
     public void populateList()
     {
-
-        LinearLayout list = (LinearLayout) findViewById(R.id.episode_list);
-
         View.OnClickListener handler1 = new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 if (v instanceof CardViewPC) {
                     CardViewPC a = (CardViewPC) v;
-                    //Toast.makeText(getApplicationContext(), "You clicked title: " + a.getWhoDis(), Toast.LENGTH_LONG).show();
 
                     Intent episodeIntent = new Intent(ViewChannelActivity.this, ViewEpisodeActivity.class);
                     Bundle b = new Bundle();
@@ -131,7 +110,5 @@ public class ViewChannelActivity extends AppCompatActivity {
                 +"Publish Date:\t"+channel.getPublishDate().toString()+"\n\n"
                 +channel.getDesc()+"\n\n"
                 +"Url:\t"+channel.getUrl());
-
-
     }
 }

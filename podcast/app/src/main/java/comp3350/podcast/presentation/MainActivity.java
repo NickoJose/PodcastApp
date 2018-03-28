@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
 
     View.OnClickListener playlistHandler = new View.OnClickListener() {
         public void onClick(View v) {
-            //Toast.makeText(getApplicationContext(), "You clicked New Playlist", Toast.LENGTH_LONG).show();
             makePlaylist();
         }
     };
@@ -166,13 +165,11 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener searchHandler = new View.OnClickListener() {
         public void onClick(View v) {
 
-            //TextInputLayout text = findViewById(R.id.searchString);
             EditText text = findViewById(R.id.searchString);
 
-            //String searchString = text.getEditText().getText().toString();
             String searchString = text.getText().toString();
 
-            //Toast.makeText(getApplicationContext(), "You clicked search"+searchString, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Searching for "+searchString, Toast.LENGTH_LONG).show();
 
             Intent searchIntent = new Intent(MainActivity.this, SearchableActivity.class);
             Bundle b = new Bundle();
@@ -417,12 +414,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Ensure that the Subscription list gets updated when we return to the main screen
+     * from another activity
+     * @return - void
+     */
     @Override
     protected void onResume() {
         super.onResume();
         updateSublist();
     }
-
+    /**
+     * Update the list of subscriptions if user unsubscribes directly
+     * from the subscription list
+     * @return - void
+     */
     public void updateSublist() {
         if (displayingSubs) {
             recyclerView.removeAllViews();

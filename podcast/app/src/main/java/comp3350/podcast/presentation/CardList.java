@@ -99,19 +99,16 @@ public final class CardList {
         View view;
 
         // update titles
-
         for (index = 0; index < recList.size(); index++) {
-            // get layouts
+
             LinearLayout ll = (LinearLayout)layout;
             view = LayoutInflater.from(context).inflate(resource, ll, false);
             recIds.add(view.getId());
 
             temp = recList.get(index);
 
-            // find this cards title
             title = view.findViewById(R.id.recTitle);
 
-            // find this cards description
             desc = view.findViewById(R.id.recDsc);
 
             imgView = view.findViewById(R.id.recImageView);
@@ -133,7 +130,6 @@ public final class CardList {
                 }
             }
 
-            // set listener
             view.setOnClickListener(handler1);
             ll.addView(view);
         }
