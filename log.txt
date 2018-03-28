@@ -28,7 +28,15 @@ Log Entry - Mike Reimer
 February 4-10 2018 - Early/Mid work on playContent user story.
 February 13, 2018 - Finalized GUI, began merging. Not polished enough to be safely tested for deliverable. Remains in dedicated branch.
 February 13-14 2018 - Finalized the coding standards manufesto; went through project source to make coding consistent with standards.
+February 25 2018 - Reworked time storage to be based on the number of seconds instead of encoded floats
+March 5 2018 - Finished and Merged PlayContentGUI work into main; resolved merging errors
+March 8 2018 - Refactored sorting; sorting tests
+March 12/13 2018 - Enforced coding standards, removed dead code, unused GUI elements, and prepared project for handin
+March 25/26 2018 - Implemented thumbnails/icons for channels and episodes
+March 27 2018 - Bug fixes; autoplay on playGUI
 
+
+March 5 2018 - Merged 
 Log Entry - Jackson Barker
 January 27th, 2018	- Created and uploaded Android Studio project with Episode and Channel DSOs to repository. - 2 hours.
 January 29th, 2018	- Added more parameters to episode and channel constructors and relevant getters. - 1 hour.
